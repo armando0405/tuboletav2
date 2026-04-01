@@ -1,8 +1,8 @@
 package com.tuboleta.backend.utils.exception;
 
-import com.tasret.utils.constants.ErrorCode;
-import com.tasret.utils.constants.ErrorMessage;
-import com.tasret.utils.response.ObjectResponse;
+import com.tuboleta.backend.utils.constants.ErrorCode;
+import com.tuboleta.backend.utils.constants.ErrorMessage;
+import com.tuboleta.backend.utils.response.ObjectResponse;
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

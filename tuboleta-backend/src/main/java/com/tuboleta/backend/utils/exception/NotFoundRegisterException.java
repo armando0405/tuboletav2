@@ -1,6 +1,6 @@
 package com.tuboleta.backend.utils.exception;
 
-import com.tasret.utils.constants.ErrorMessage;
+import com.tuboleta.backend.utils.constants.ErrorMessage;
 import lombok.Getter;
 
 /**

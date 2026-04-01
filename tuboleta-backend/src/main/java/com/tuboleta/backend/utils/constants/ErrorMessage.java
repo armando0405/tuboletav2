@@ -1,4 +1,4 @@
-package com.tasret.utils.constants;
+package com.tuboleta.backend.utils.constants;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
