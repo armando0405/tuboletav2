@@ -1,0 +1,25 @@
+.v-navigation-drawer__scrim.fade-transition-leave-to {
+    display: none;
+}
+
+.v-navigation-drawer__scrim {
+    position: fixed;
+}
+
+/* -----------------------------
+   SIDEBAR ACTIVE ITEM
+------------------------------ */
+
+.v-list-item--active {
+    background: linear-gradient(90deg, #5a7df5, #6d8eff) !important;
+    color: #fff !important;
+    border-radius: 10px;
+}
+
+.v-list-item--active .v-list-item-title {
+    color: #fff !important;
+}
+
+.v-list-item--active .v-icon {
+    color: #fff !important;
+}

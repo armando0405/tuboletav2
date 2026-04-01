@@ -1,0 +1,14 @@
+# ─────────────────────────────────────────
+# PostgreSQL
+# ─────────────────────────────────────────
+POSTGRES_DB=tuboleta_db
+POSTGRES_USER=tuboleta_user
+POSTGRES_PASSWORD=tuboleta_pass
+POSTGRES_PORT=5432
+
+# ─────────────────────────────────────────
+# PgAdmin
+# ─────────────────────────────────────────
+PGADMIN_EMAIL=admin@tuboleta.com
+PGADMIN_PASSWORD=admin123
+PGADMIN_PORT=5050

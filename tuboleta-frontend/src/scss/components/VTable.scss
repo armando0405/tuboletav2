@@ -1,0 +1,33 @@
+/* fila seleccionada */
+.v-data-table tbody tr.row-selected {
+    background: linear-gradient(90deg, #eef2ff, #e0e7ff);
+    border-left: 4px solid #6366f1;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+/* hover */
+.v-data-table tbody tr:hover {
+    background: #f8fafc;
+    cursor: pointer;
+}
+
+.v-table > .v-table__wrapper > table > tbody > tr > td,
+.v-table > .v-table__wrapper > table > tbody > tr > th,
+.v-table > .v-table__wrapper > table > thead > tr > td,
+.v-table > .v-table__wrapper > table > thead > tr > th,
+.v-table > .v-table__wrapper > table > tfoot > tr > td,
+.v-table > .v-table__wrapper > table > tfoot > tr > th {
+    padding: 16px;
+    transition-duration: 0.28s !important;
+    transition-property: box-shadow, opacity, background, height;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.v-table {
+    font-size: 0.875rem;
+    transition-duration: 0.28s;
+    transition-property: box-shadow, opacity, background, height;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    max-height: 854px;
+}
