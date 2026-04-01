@@ -1,0 +1,58 @@
+services:
+
+  # ─────────────────────────────────────────
+  # BASE DE DATOS - PostgreSQL
+  # ─────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: tuboleta-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-tuboleta_db}
+      POSTGRES_USER: ${POSTGRES_USER:-tuboleta_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-tuboleta_pass}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - tuboleta-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-tuboleta_user} -d ${POSTGRES_DB:-tuboleta_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ─────────────────────────────────────────
+  # PGADMIN - Interfaz visual para PostgreSQL
+  # ─────────────────────────────────────────
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: tuboleta-pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@tuboleta.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin123}
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - tuboleta-net
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+# ─────────────────────────────────────────
+# VOLÚMENES
+# ─────────────────────────────────────────
+volumes:
+  postgres_data:
+  pgadmin_data:
+
+# ─────────────────────────────────────────
+# RED
+# ─────────────────────────────────────────
+networks:
+  tuboleta-net:
+    driver: bridge
