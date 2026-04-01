@@ -1,4 +1,4 @@
-package com.tasret.utils.exception;
+package com.tuboleta.backend.utils.exception;
 
 import com.tasret.utils.constants.ErrorCode;
 import com.tasret.utils.constants.ErrorMessage;

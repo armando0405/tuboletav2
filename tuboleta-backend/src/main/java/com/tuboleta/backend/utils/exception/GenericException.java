@@ -1,4 +1,4 @@
-package com.tasret.utils.exception;
+package com.tuboleta.backend.utils.exception;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
