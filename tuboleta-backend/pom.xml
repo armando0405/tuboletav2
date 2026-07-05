@@ -59,6 +59,13 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- Jsoup (scraping HTML, REQ-FUE-001) -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.22.2</version>
+        </dependency>
+
         <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
