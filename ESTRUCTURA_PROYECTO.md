@@ -1,248 +1,99 @@
 # Estructura del Proyecto TuBoleta v2
 
+> Refleja el estado REAL del repo. Los paquetes del backend marcados como *(objetivo)* aún no existen: son el layout a seguir al implementar (REQ-ARQ-001).
+
 ```
-tu-boleta-v2/                                    
-│                                               
-├── docker-compose.yml                          # Docker Compose para servicios
+tuboletav2/
 │
-├── tuboleta-backend/                           # Spring Boot (Java 21)
-│   ├── mvnw                                    # Maven Wrapper (Linux/Mac)
-│   ├── mvnw.cmd                                # Maven Wrapper (Windows)
-│   ├── pom.xml                                 # Configuración Maven
-│   ├── HELP.md                                 # Documentación
-│   │
+├── CLAUDE.md                                   # Guía raíz para Claude Code
+├── ESTRUCTURA_PROYECTO.md                      # Este archivo
+├── docker-compose.yml                          # Postgres 16 + pgAdmin
+├── env                                         # Plantilla de variables (copiar a .env)
+│
+├── requerimientos/                             # Fuente de verdad conceptual del proyecto
+│   ├── 00-INDICE.md                             # Tabla maestra de requerimientos
+│   ├── bitacora-cambios.md                      # Changelog de decisiones
+│   ├── _borrador.md                             # Ideas sin formalizar
+│   ├── borrador-requerimientos.md               # Histórico (congelado)
+│   ├── version-1-analisis.md                    # Análisis de la v1 (scraper original)
+│   ├── arquitectura/    (REQ-ARQ-001..005)
+│   ├── base-datos/      (REQ-BD-001..003)
+│   ├── busquedas/       (REQ-BUS-001..005)
+│   ├── deteccion/       (REQ-DET-001..005)
+│   ├── frontend-autoservicio/ (REQ-FE-001..005)
+│   ├── fuentes/         (REQ-FUE-001..002)
+│   ├── notificaciones/  (REQ-NOT-001..005)
+│   ├── usuarios/        (REQ-USU-001..002)
+│   └── artefactos/
+│       ├── esquema-bd.md                        # Mapa tabla → REQ (enlace a la migración)
+│       ├── patron-frontend.md                   # Patrón de construcción de pantallas
+│       └── diseno-frontend.md                   # Dirección visual "Dark Operations"
+│
+├── tuboleta-backend/                           # Spring Boot 4.0.5 (Java 21)
+│   ├── CLAUDE.md
+│   ├── mvnw / mvnw.cmd / pom.xml
 │   └── src/
 │       ├── main/
-│       │   ├── java/
-│       │   │   └── com/
-│       │   │       └── tuboleta/
-│       │   │           └── backend/
-│       │   │               ├── TuboletaBackendApplication.java
-│       │   │               │
-│       │   │               ├── api/             # Controladores REST
-│       │   │               │   ├── controllers/
-│       │   │               │   ├── dtos/        # Data Transfer Objects
-│       │   │               │   └── responses/
-│       │   │               │
-│       │   │               ├── domain/         # Entidades JPA
-│       │   │               │   └── entities/
-│       │   │               │
-│       │   │               ├── service/        # Lógica de negocio
-│       │   │               │   └── impl/
-│       │   │               │
-│       │   │               ├── repository/     # Acceso a datos
-│       │   │               │
-│       │   │               ├── config/         # Configuración
-│       │   │               │   ├── security/
-│       │   │               │   └── persistence/
-│       │   │               │
-│       │   │               ├── exception/      # Excepciones personalizadas
-│       │   │               │
-│       │   │               └── utils/          # Utilidades
-│       │   │
+│       │   ├── java/com/tuboleta/backend/
+│       │   │   ├── Main.java                    # @SpringBootApplication
+│       │   │   ├── utils/                       # Lo ÚNICO implementado hoy
+│       │   │   │   ├── constants/               # ErrorCode, ErrorMessage
+│       │   │   │   ├── exception/               # Excepciones + GlobalExceptionHandler
+│       │   │   │   └── response/                # ObjectResponse, ObjectListResponse
+│       │   │   ├── api/controllers/             # (objetivo) REST controllers
+│       │   │   ├── api/dtos/                    # (objetivo) records de entrada
+│       │   │   ├── service/ + service/impl/     # (objetivo) interfaces + impl
+│       │   │   ├── repository/                  # (objetivo) Spring Data JPA
+│       │   │   ├── domain/entities/             # (objetivo) entidades JPA
+│       │   │   └── config/                      # (objetivo) security, persistence
 │       │   └── resources/
-│       │       ├── application.yaml            # Configuración principal
-│       │       ├── db/                         # Scripts de base de datos
-│       │       │   └── migration/              # Flyway migrations
-│       │       ├── static/                     # Recursos estáticos
-│       │       └── templates/                  # Plantillas
-│       │
-│       └── test/
-│           └── java/
-│               └── com/
-│                   └── tuboleta/
-│                       └── backend/
-│                           └── TuboletaBackendApplicationTests.java
+│       │       ├── application.yaml             # puerto 8088, ddl-auto: validate
+│       │       └── db/migration/V1__init.sql    # Esquema completo (12 tablas, Flyway)
+│       └── test/java/com/tuboleta/backend/MainTests.java
 │
-│
-├── tuboleta-frontend/                          # Vue 3 + TypeScript + Vite
-│   ├── index.html                              # Punto de entrada HTML
-│   ├── package.json                            # Dependencias Node
-│   ├── tsconfig.json                           # Configuración TypeScript
-│   ├── tsconfig.vite-config.json               # TS para Vite Config
-│   ├── vite.config.ts                          # Configuración Vite
-│   ├── eslint.config.mjs                       # ESLint Config
-│   ├── env.d.ts                                # Type definitions
-│   ├── README.md                               # Documentación
-│   │
-│   ├── public/
-│   │   ├── _redirects                          # Redirecciones Netlify
-│   │   └── assets/
-│   │       └── images/
-│   │           ├── icon/
-│   │           ├── logos/
-│   │           └── products/
-│   │               └── users/
-│   │
-│   └── src/
-│       ├── App.vue                             # Componente raíz
-│       ├── main.ts                             # Punto de entrada
-│       │
-│       ├── components/                         # Componentes Vue
-│       │   ├── shared/
-│       │   │   └── AppSnackbarQueue.vue        # Notificaciones globales
-│       │   │
-│       │   ├── ui-components/                  # Componentes reutilizables
-│       │   │   ├── cards/
-│       │   │   │   └── FloatingCard.vue
-│       │   │   ├── loading/
-│       │   │   │   └── Loading.vue
-│       │   │   └── table/
-│       │   │       └── TableDynamic.vue
-│       │   │
-│       │   └── admin/                          # Componentes administrativos
-│       │       ├── MeasurementParameters/
-│       │       │   └── MasterTable.vue
-│       │       ├── MeasurementSourceType/
-│       │       │   └── MeasurementSourceTypeHeader.vue
-│       │       ├── NormActivityTypes/
-│       │       │   ├── NormActivityTypesHeader.vue
-│       │       │   └── NormActivityTypesBody.vue
-│       │       ├── NormSectors/
-│       │       │   ├── NormSectorsHeader.vue
-│       │       │   └── NormSectorsBody.vue
-│       │       ├── Resolutions/
-│       │       │   ├── ResolutionsHeader.vue
-│       │       │   └── ResolutionsBody.vue
-│       │       └── SubsourceTypes/
-│       │           ├── SubsourceTypes.vue
-│       │           └── SourceBySubsource.vue
-│       │
-│       ├── views/                              # Páginas/Vistas principales
-│       │   ├── auth/
-│       │   │   └── Login.vue
-│       │   ├── dashboard/
-│       │   │   └── Index.vue
-│       │   ├── admin/
-│       │   │   ├── AccountExtraInfo.vue
-│       │   │   ├── ClientExtraInfo.vue
-│       │   │   ├── DeclarationFormat.vue
-│       │   │   ├── DeclarationPeriod.vue
-│       │   │   ├── HeaderParameters.vue
-│       │   │   ├── Laboratories.vue
-│       │   │   ├── LimitTypes.vue
-│       │   │   ├── MeasurementParameters.vue
-│       │   │   ├── MeasurementSourceType.vue
-│       │   │   ├── NormActivityTypes.vue
-│       │   │   ├── NormSectors.vue
-│       │   │   ├── ParameterRates.vue
-│       │   │   └── [más vistas admin...]
-│       │   ├── autodeclaration/
-│       │   │   └── [vistas de autodeclaración]
-│       │   └── pages/
-│       │       └── Error404.vue
-│       │
-│       ├── composables/                        # Composables (Composition API)
-│       │   ├── index.ts
-│       │   ├── useNotify.ts
-│       │   └── admin/
-│       │       ├── index.ts
-│       │       ├── useMeasurementParameters.ts
-│       │       ├── useMeasurementSourceType.ts
-│       │       ├── useNormActivityTypes.ts
-│       │       ├── [más composables...]
-│       │
-│       ├── stores/                             # Pinia Stores
-│       │   ├── auth.store.ts                   # Autenticación
-│       │   └── notify.store.ts                 # Notificaciones
-│       │
-│       ├── router/                             # Vue Router
-│       │   ├── index.ts
-│       │   ├── AdminRoute.ts
-│       │   ├── AuthRoutes.ts
-│       │   ├── HomeRoutes.ts
-│       │   └── MainRoutes.ts
-│       │
-│       ├── layouts/                            # Layouts principales
-│       │   ├── blank/                          # Sin layout (login, etc)
-│       │   └── full/                           # Con navegación
-│       │
-│       ├── locales/                            # Internacionalización (i18n)
-│       │   ├── index.ts
-│       │   └── es.ts                           # Español
-│       │
-│       ├── plugins/                            # Plugins Vue
-│       │   ├── axios.ts                        # Configuración Axios
-│       │   ├── i18n.ts                         # i18n
-│       │   ├── swal.ts                         # SweetAlert2
-│       │   └── vuetify.ts                      # Vuetify UI
-│       │
-│       ├── theme/                              # Temas
-│       │   └── LightTheme.ts
-│       │
-│       ├── types/                              # TypeScript types
-│       │   ├── index.ts
-│       │   ├── IsActive.ts
-│       │   ├── swal.d.ts
-│       │   ├── component/
-│       │   ├── services/
-│       │   └── themeTypes/
-│       │
-│       ├── utils/                              # Utilidades
-│       │   ├── endpoints/                      # URLs de API
-│       │   └── services/                       # Servicios HTTP
-│       │
-│       ├── scss/                               # Estilos SCSS
-│       │   ├── style.scss
-│       │   ├── _variables.scss
-│       │   ├── _override.scss
-│       │   ├── components/
-│       │   ├── layout/
-│       │   └── pages/
-│       │
-│       └── assets/                             # Recursos
-│           └── images/
-│               ├── background/
-│               └── logos/
-│
-│
-└── contexto/                                   # Documentación y apuntes
-    └── apunte innecesario.txt
+└── tuboleta-frontend/                          # Vue 3 + TS + Vuetify 4 (esqueleto post-vaciado)
+    ├── CLAUDE.md
+    ├── package.json / vite.config.ts / tsconfig.json / eslint.config.mjs
+    └── src/
+        ├── main.ts / App.vue
+        ├── components/
+        │   ├── shared/AppSnackbarQueue.vue
+        │   └── ui-components/                   # TableDynamic, Loading, FloatingCard
+        ├── composables/                         # index.ts, useNotify.ts
+        ├── layouts/                             # blank/ y full/ (sidebar, topbar)
+        ├── plugins/                             # axios, swal, vuetify (sin i18n)
+        ├── router/                              # index, MainRoutes, AuthRoutes, HomeRoutes
+        ├── stores/                              # auth.store, notify.store
+        ├── theme/LightTheme.ts                  # BlueTheme (será reemplazado por el tema Dark Operations)
+        ├── types/                               # Responses, LoginDTO, User, component/
+        ├── utils/
+        │   ├── endpoints/                       # securityEndpoints + index
+        │   └── services/                        # securityServices
+        ├── views/
+        │   ├── auth/Login.vue
+        │   ├── dashboard/Index.vue              # shell con datos demo
+        │   └── pages/Error404.vue
+        └── scss/
 ```
 
 ---
 
-## Información Técnica
+## Información técnica
 
-### Backend - Spring Boot
-- **Framework**: Spring Boot 4.0.5
-- **Java Version**: 21
-- **Build Tool**: Maven
-- **Dependencias principales**:
-  - Spring Boot Starter Security
-  - Spring Boot Starter Data JPA
-  - Spring Boot Starter Web
-  - Spring Boot Starter Validation
-  - Flyway (Migraciones de BD)
-  - Actuator (Health checks)
+### Backend — Spring Boot
+- **Framework**: Spring Boot 4.0.5, **Java 21**, Maven (wrapper)
+- **Dependencias reales del pom**: Web, Data JPA, Validation, Actuator, Flyway (+ postgres), driver PostgreSQL, Lombok, SpringDoc OpenAPI, Test. *(Spring Security se agregará al implementar REQ-USU-002 — hoy NO está.)*
+- Arquitectura en capas y convenciones: REQ-ARQ-001..004 y `tuboleta-backend/CLAUDE.md`
 
-### Frontend - Vue 3
-- **Framework**: Vue 3
-- **Language**: TypeScript
-- **Build Tool**: Vite
-- **UI Framework**: Vuetify 4.0.4
-- **State Management**: Pinia
-- **HTTP Client**: Axios
-- **Routing**: Vue Router 5.0.4
-- **Internacionalización**: Vue i18n 11.3.0
-- **Notificaciones**: SweetAlert2
-- **Icons**: Iconify Vue
+### Frontend — Vue 3
+- Vue 3.5 + TypeScript, Vite, **Vuetify 4**, Pinia, Vue Router 5, axios, SweetAlert2, Iconify/MDI
+- **Sin vue-i18n** (proyecto monolingüe; textos en español directo)
+- Patrón de pantallas: `requerimientos/artefactos/patron-frontend.md`; dirección visual: `diseno-frontend.md`
 
-### Base de Datos
-- Controlada con Flyway migrations
-- Ubicadas en: `tuboleta-backend/src/main/resources/db/`
-
-### Deployment
-- Docker Compose para orquestar servicios
-- Frontend puede ser desplegado en Netlify (incluye `_redirects`)
+### Base de datos
+- PostgreSQL 16 dockerizado; esquema gestionado SOLO por Flyway (`ddl-auto: validate`)
+- 12 tablas — mapa de trazabilidad en `requerimientos/artefactos/esquema-bd.md`
 
 ---
 
-## Directorios Excluidos (según solicitud)
-- ❌ `node_modules/` (dependencias frontend)
-- ❌ `target/` (compilados y artifacts Maven del backend)
-- ❌ `.git/` (repositorio)
-
----
-
-**Última actualización**: 31 de marzo de 2026
+**Última actualización**: 4 de julio de 2026 (cierre de la etapa de requerimientos)

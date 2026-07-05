@@ -55,8 +55,6 @@ export default createVuetify({
         VSwitch: {
             hideDetails: 'auto',
             color: 'primary',
-            trueValue: 'S',
-            falseValue: 'N',
         },
         VFileInput: {
             ...inputDefaults,

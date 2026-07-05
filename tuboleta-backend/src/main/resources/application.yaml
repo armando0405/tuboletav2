@@ -13,7 +13,9 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      # Flyway es el único dueño del esquema (REQ-BD-003);
+      # Hibernate solo valida que las entidades coincidan.
+      ddl-auto: validate
     show-sql: true
     properties:
       hibernate:

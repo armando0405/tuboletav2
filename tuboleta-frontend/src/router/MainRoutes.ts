@@ -1,6 +1,4 @@
 import HomeRoutes from './HomeRoutes'
-import AdminRoutes from './AdminRoute'
-
 
 const MainRoutes = {
     path: '/',
@@ -16,7 +14,6 @@ const MainRoutes = {
             component: () => import('@/views/dashboard/Index.vue'),
         },
         ...HomeRoutes,
-        ...AdminRoutes,
     ],
 }
 
