@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import java.time.Instant;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -63,4 +64,16 @@ public class Notification {
      */
     @Column(name = "read_at")
     private Instant readAt;
+
+    /**
+     * Contexto en memoria (NO persistido) para tipo PROVIDER_DISABLED:
+     * la tabla notifications no referencia al proveedor deshabilitado
+     * (REQ-FUE-002), así que el nombre y la razón viajan solo mientras
+     * dura el fan-out de esta notificación hacia EmailContentBuilder.
+     */
+    @Transient
+    private String providerName;
+
+    @Transient
+    private String disabledReason;
 }

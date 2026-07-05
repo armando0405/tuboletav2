@@ -26,3 +26,10 @@ springdoc:
     path: /api-docs
   swagger-ui:
     path: /swagger
+
+notifications:
+  sendgrid:
+    # Nunca un valor real aca (REQ-NOT-005): llega por variable de entorno.
+    api-key: ${SENDGRID_API_KEY:}
+  email:
+    from: ${EMAIL_FROM:notificaciones@tuboleta-v2.local}
