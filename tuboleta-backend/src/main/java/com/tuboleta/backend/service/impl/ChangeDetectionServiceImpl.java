@@ -16,6 +16,7 @@ import com.tuboleta.backend.utils.text.TermNormalizer;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -62,8 +63,9 @@ public class ChangeDetectionServiceImpl implements ChangeDetectionService {
 
         List<DetectedChange> changes = new ArrayList<>();
         Set<String> seenExternalIds = new HashSet<>();
+        List<RawEventData> dedupedItems = deduplicateByExternalId(extraction.items());
 
-        for (RawEventData item : extraction.items()) {
+        for (RawEventData item : dedupedItems) {
             seenExternalIds.add(item.externalId());
             Event existing = byExternalId.get(item.externalId());
             if (existing == null) {
@@ -83,6 +85,25 @@ public class ChangeDetectionServiceImpl implements ChangeDetectionService {
         }
 
         return changes;
+    }
+
+    /**
+     * De-duplica {@code items} por {@code externalId}, conservando la
+     * primera ocurrencia. Un mismo externalId repetido dentro de una misma
+     * extracción (bug de la fuente) generaría dos inserts para el mismo
+     * evento y violaría la constraint única {@code uq_event_per_search_provider},
+     * abortando toda la transacción.
+     */
+    private List<RawEventData> deduplicateByExternalId(List<RawEventData> items) {
+        Map<String, RawEventData> byExternalId = new LinkedHashMap<>();
+        for (RawEventData item : items) {
+            RawEventData previous = byExternalId.putIfAbsent(item.externalId(), item);
+            if (previous != null) {
+                log.warn("externalId duplicado '{}' en la misma extracción: se ignora la ocurrencia repetida",
+                        item.externalId());
+            }
+        }
+        return new ArrayList<>(byExternalId.values());
     }
 
     /**

@@ -236,6 +236,19 @@ class ChangeDetectionServiceImplTest {
     }
 
     @Test
+    void duplicateExternalIdInSameExtraction_persistsOnlyOneNewEvent() {
+        when(eventRepository.findBySearchProviderId(10L)).thenReturn(List.of());
+        RawEventData first = new RawEventData("ext1", "Rock Fest 2026", "Movistar Arena", "Bogota", "5 Jul", "{\"a\":1}");
+        RawEventData duplicate = new RawEventData("ext1", "Rock Fest 2026", "Movistar Arena", "Bogota", "5 Jul", "{\"a\":2}");
+
+        List<DetectedChange> changes = service.detect(pair, new ExtractionResult(List.of(first, duplicate), 0));
+
+        assertThat(changes).hasSize(1);
+        assertThat(changes.get(0).type()).isEqualTo(NotificationType.NEW);
+        verify(eventRepository, times(1)).save(org.mockito.ArgumentMatchers.any());
+    }
+
+    @Test
     void knownItemWhoseTitleNoLongerContainsTerm_isProcessedAsChangedNotDiscarded() {
         Event existing = activeEvent("ext1", "Rock Fest 2026", "Movistar Arena", "5 Jul", 0);
         when(eventRepository.findBySearchProviderId(10L)).thenReturn(List.of(existing));
