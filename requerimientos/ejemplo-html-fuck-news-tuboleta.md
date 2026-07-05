@@ -1,0 +1,1351 @@
+enpoint
+https://www.tuboleta.com/es/resultados-de-busqueda?ciudades=All&categorias=All&fecha_inicio=&fecha_final=&s=fucks+news
+
+response 
+<!DOCTYPE html>
+<html lang="es" dir="ltr" prefix="og: https://ogp.me/ns#">
+
+<head>
+	<meta charset="utf-8" />
+	<script src="/modules/custom/ads_taboola/js/ads-taboola-header.js"></script>
+	<link rel="canonical" href="https://www.tuboleta.com/en/resultados-de-busqueda" />
+	<meta property="og:site_name" content="Tuboleta" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="http://www.tuboleta.com/en/resultados-de-busqueda" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:site" content="@tuboleta" />
+	<meta name="Generator" content="Drupal 10 (https://www.drupal.org)" />
+	<meta name="MobileOptimized" content="width" />
+	<meta name="HandheldFriendly" content="true" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta http-equiv="x-ua-compatible" content="ie=edge" />
+	<link rel="icon" href="/themes/custom/tu_boleta_theme/favicon.ico" type="image/vnd.microsoft.icon" />
+
+	<title>Search Results | Tuboleta</title>
+	<link rel="stylesheet" media="all" href="/modules/contrib/search_autocomplete/css/themes/basic.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/core/assets/vendor/jquery.ui/themes/base/core.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/core/assets/vendor/jquery.ui/themes/base/autocomplete.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/core/assets/vendor/jquery.ui/themes/base/menu.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/core/misc/components/progress.module.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/core/misc/components/ajax-progress.module.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/core/misc/components/autocomplete-loading.module.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/core/modules/system/css/components/align.module.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/core/modules/system/css/components/fieldgroup.module.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/core/modules/system/css/components/container-inline.module.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/core/modules/system/css/components/clearfix.module.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/core/modules/system/css/components/details.module.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/core/modules/system/css/components/hidden.module.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/core/modules/system/css/components/item-list.module.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/core/modules/system/css/components/js.module.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/core/modules/system/css/components/nowrap.module.css?thlv9z" />
+	<link rel="stylesheet" media="all"
+		href="/core/modules/system/css/components/position-container.module.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/core/modules/system/css/components/reset-appearance.module.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/core/modules/system/css/components/resize.module.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/core/modules/system/css/components/system-status-counter.css?thlv9z" />
+	<link rel="stylesheet" media="all"
+		href="/core/modules/system/css/components/system-status-report-counters.css?thlv9z" />
+	<link rel="stylesheet" media="all"
+		href="/core/modules/system/css/components/system-status-report-general-info.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/core/modules/system/css/components/tablesort.module.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/modules/contrib/adsense/css/adsense.module.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/modules/contrib/blazy/css/blazy.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/libraries/select2/dist/css/select2.min.css?thlv9z" />
+	<link rel="stylesheet" media="all"
+		href="/modules/contrib/jquery_ui/assets/vendor/jquery.ui/themes/base/core.css?thlv9z" />
+	<link rel="stylesheet" media="all"
+		href="/modules/contrib/jquery_ui/assets/vendor/jquery.ui/themes/base/datepicker.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/core/modules/views/css/views.module.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/core/assets/vendor/jquery.ui/themes/base/theme.css?thlv9z" />
+	<link rel="stylesheet" media="all"
+		href="/modules/contrib/better_exposed_filters/css/better_exposed_filters.css?thlv9z" />
+	<link rel="stylesheet" media="all"
+		href="/modules/custom/nz_layout_bootstrap_grid/css/bootstrap-five-col-grid.css?thlv9z" />
+	<link rel="stylesheet" media="all"
+		href="/modules/contrib/jquery_ui/assets/vendor/jquery.ui/themes/base/theme.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/themes/contrib/bootstrap_barrio/css/components/node.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/themes/contrib/bootstrap_barrio/css/components/form.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/themes/contrib/bootstrap_barrio/css/components/img-fluid.css?thlv9z" />
+	<link rel="stylesheet" media="all"
+		href="/themes/contrib/bootstrap_barrio/css/colors/messages/messages-light.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/themes/custom/tu_boleta_theme/css/date-picker.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/themes/custom/tu_boleta_theme/css/advanced-search.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/themes/custom/tu_boleta_theme/css/style.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/themes/custom/tu_boleta_theme/css/no-search-results.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/themes/custom/tu_boleta_theme/css/search-results-list.css?thlv9z" />
+	<link rel="stylesheet" media="all" href="/themes/custom/tu_boleta_theme/css/select2.css?thlv9z" />
+
+	<script type="application/json" data-drupal-selector="drupal-settings-json">
+		{"path":{"baseUrl":"\/","pathPrefix":"es\/","currentPath":"resultados-de-busqueda","currentPathIsAdmin":false,"isFront":false,"currentLanguage":"es","currentQuery":{"categorias":"All","ciudades":"All","fecha_final":"","fecha_inicio":"","s":"fucks news"}},"pluralDelimiter":"\u0003","suppressDeprecationErrors":true,"ajaxPageState":{"libraries":"eJxtkVtuxCAMRTdEglqpUneDnOAQRgZH2Jk2s_oySaR50B_A99hYvgYvTmFgJrDgpTvf3YzgsZgqYRa0592PImZAVSwOfxcW9G6KVEOxATMWIDMQ3DY7RO7hAr-mfqeiBRY3QCmR7cQltWogHoA60Y1iDi2PCQK6idboW5hQpGJxFMOsLc_s0Yxc0PqyLkA9rMojp4VQ0QTmQFhdCDbU4z0-xngRk8k3R7Dxqu7RLJTo7SP8ciOTuw-ERhDKOLvntlZnTNgPIHHcbRUkHPXTnncfP75zj1XfRDHZmohG19qvVoPbq-tarpBH9N3RoOFvrr7jzGdhV1BWUmkyXnFHUfSfHPR331r9GGSPGqq8lm7fahfzxJUP1bCUONvH013EXCP-iN3PYxXPQmK_Ev4BGmAUlA","theme":"tu_boleta_theme","theme_token":null},"ajaxTrustedUrl":{"\/es\/resultados-de-busqueda":true},"gtag":{"tagId":"","consentMode":false,"otherIds":[],"events":[{"name":"search","data":{"search_term":"fucks news"}}],"additionalConfigInfo":[]},"gtm":{"tagId":null,"settings":{"data_layer":"dataLayer","include_classes":false,"allowlist_classes":"","blocklist_classes":"","include_environment":false,"environment_id":"","environment_token":""},"tagIds":["GTM-PCZH98PX"]},"search_autocomplete":{"pasala_search_results":{"source":"\/es\/callback\/pasala-search-results","selector":"#views-exposed-form-pasala-search-results-page-1 input[name=s], #views-exposed-form-pasala-search-results-mobile input[name=s]","minChars":2,"maxSuggestions":10,"autoSubmit":true,"autoRedirect":true,"theme":"basic","filters":["q"],"noResult":{"group":{"group_id":"no_results"},"label":"No encontramos resultados para [search-phrase]","value":"[search-phrase]","link":""},"moreResults":{"group":{"group_id":"more_results"},"label":"Ver todos los resultados","value":"[search-phrase]","link":""}},"search_results":{"source":"\/es\/callback\/search-results","selector":"#views-exposed-form-search-results-page-1 input[name=s], #views-exposed-form-search-results-mobile input[name=s]","minChars":2,"maxSuggestions":10,"autoSubmit":true,"autoRedirect":true,"theme":"basic","filters":["q"],"noResult":{"group":{"group_id":"no_results"},"label":"No encontramos resultados para [search-phrase]","value":"[search-phrase]","link":""},"moreResults":{"group":{"group_id":"more_results"},"label":"Ver todos los resultados","value":"[search-phrase]","link":""}}},"ads_taboola":{"client_id":"\/\/cdn.taboola.com\/libtrc\/tuboleta-publisher\/loader.js"},"views":{"ajax_path":"\/es\/views\/ajax","ajaxViews":{"views_dom_id:b686dfce041d0c6327887143c9d90f31ee136fb40da204c81c568f39d94cc458":{"view_name":"search_results","view_display_id":"page_1","view_args":"","view_path":"\/resultados-de-busqueda","view_base_path":"resultados-de-busqueda","view_dom_id":"b686dfce041d0c6327887143c9d90f31ee136fb40da204c81c568f39d94cc458","pager_element":0}}},"user":{"uid":0,"permissionsHash":"4c802e546fea1d928cd34495636ee4a25f71420762a01f0810965eaeaee0b0b8"}}
+	</script>
+	<script src="/core/misc/drupalSettingsLoader.js?v=10.6.7"></script>
+	<script src="/modules/contrib/google_tag/js/gtag.js?thlv9z"></script>
+	<script src="/modules/contrib/google_tag/js/gtm.js?thlv9z"></script>
+
+</head>
+
+<body class="layout-no-sidebars page-view-search-results path-resultados-de-busqueda">
+	<a href="#main-content" class="visually-hidden-focusable">
+		Pasar al contenido principal
+	</a>
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PCZH98PX" height="0" width="0"
+			style="display:none;visibility:hidden"></iframe></noscript>
+
+	<div class="dialog-off-canvas-main-canvas" data-off-canvas-main-canvas>
+
+		<div id="page-wrapper">
+			<div id="page">
+				<header id="header" style="background-image: url('/');" class="header position-relative bg-corporative"
+					role="banner" aria-label="Cabecera de sitio">
+					<div class="gradient w-100 h-100 position-absolute pe-none"></div>
+					<nav class="navbar navbar-dark d-block p-0" id="navbar-top">
+						<div class="container pt-0 pt-lg-5">
+							<div class="d-flex header-top-options-container w-100 pt-lg-4">
+								<div class="col-auto section">
+									<div class="d-flex align-items-center">
+										<section class="d-flex region region-top-header">
+											<a href="/es" title="Inicio" rel="home" class="navbar-brand">
+												<img src="/themes/custom/tu_boleta_theme/logo.png" alt="Inicio" class="img-fluid d-inline-block align-top" />
+
+    </a>
+
+										</section>
+
+									</div>
+								</div>
+								<div class="col-auto section ps-4 ps-xxl-5 d-none d-xl-flex">
+									<section class="d-flex region region-top-header-form">
+										<nav role="navigation"
+											aria-labelledby="block-tu-boleta-theme-menucategorias-menu"
+											id="block-tu-boleta-theme-menucategorias"
+											class="block block-menu navigation menu--categorias">
+
+											<h2 class="visually-hidden" id="block-tu-boleta-theme-menucategorias-menu">
+												Menú Categorías</h2>
+
+
+
+											<ul data-region="top_header_form" class="clearfix nav">
+												<li class="nav-item text-lg-center">
+													<a href="/es/categorias/conciertos" title="Conciertos"
+														class="nav-link nav-link--es-categorias-conciertos"
+														data-drupal-link-system-path="node/1533">Conciertos</a>
+												</li>
+												<li class="nav-item text-lg-center">
+													<a href="/es/categorias/teatro"
+														class="nav-link nav-link--es-categorias-teatro"
+														data-drupal-link-system-path="node/1530">Teatro</a>
+												</li>
+												<li class="nav-item text-lg-center">
+													<a href="/es/categorias/deportes" title="Deportes"
+														class="nav-link nav-link--es-categorias-deportes"
+														data-drupal-link-system-path="node/1635">Deportes</a>
+												</li>
+												<li class="nav-item text-lg-center">
+													<a href="https://eventos.tuboleta.com/tuboleta-ventas-a-empresas"
+														class="nav-link nav-link-https--eventostuboletacom-tuboleta-ventas-a-empresas">Ventas
+														a empresas</a>
+												</li>
+												<li class="nav-item text-lg-center dropdown">
+													<a class='nav-link dropdown-toggle ' href='javascript:void(0)'
+														role='button' data-bs-toggle='dropdown' aria-expanded='false'>
+														Más
+													</a>
+													<ul
+														class='dropdown-menu dropdown-menu-header bg-primary px-1 mx-0 py-0'>
+														<li class="px-3 py-1 my-1">
+															<a href="/es/categorias/familiar"
+																class="dropdown-item nav-link bg-transparent"
+																data-drupal-link-system-path="node/3489">Familiar</a>
+														</li>
+														<li>
+															<hr class='dropdown-divider py-0 my-0'>
+														</li>
+														<li class="px-3 py-1 my-1">
+															<a href="/es/categorias/festivales"
+																class="dropdown-item nav-link bg-transparent"
+																data-drupal-link-system-path="node/4002">Festivales</a>
+														</li>
+														<li>
+															<hr class='dropdown-divider py-0 my-0'>
+														</li>
+														<li class="px-3 py-1 my-1">
+															<a href="/es/categorias/foros"
+																class="dropdown-item nav-link bg-transparent"
+																data-drupal-link-system-path="node/1524">Foros</a>
+														</li>
+														<li>
+															<hr class='dropdown-divider py-0 my-0'>
+														</li>
+														<li class="px-3 py-1 my-1">
+															<a href="/es/categorias/museos"
+																class="dropdown-item nav-link bg-transparent"
+																data-drupal-link-system-path="node/3488">Museos</a>
+														</li>
+														<li>
+															<hr class='dropdown-divider py-0 my-0'>
+														</li>
+														<li class="px-3 py-1 my-1">
+															<a href="/es/categorias/experiencias"
+																class="dropdown-item nav-link bg-transparent"
+																data-drupal-link-system-path="node/4202">Experiencias</a>
+														</li>
+														<li>
+															<hr class='dropdown-divider py-0 my-0'>
+														</li>
+														<li class="px-3 py-1 my-1">
+															<a href="https://tbpass.tuboleta.com/?utm_source=tuboletapass&amp;utm_medium=banner&amp;utm_campaign=TbPass_Banner_TuboletaPass"
+																class="dropdown-item nav-link bg-transparent">Reiniciar
+																sesión Tuboleta pass</a>
+														</li>
+														<li>
+															<hr class='dropdown-divider py-0 my-0'>
+														</li>
+													</ul>
+												</li>
+											</ul>
+
+
+
+										</nav>
+
+									</section>
+
+								</div>
+								<div class="col section top-right d-none d-xl-flex">
+									<section class="d-flex region region-top-header-menu">
+										<nav role="navigation"
+											aria-labelledby="block-tu-boleta-theme-menuheadersecond-menu"
+											id="block-tu-boleta-theme-menuheadersecond"
+											class="block block-menu navigation menu--menu-header-second">
+
+											<h2 class="visually-hidden"
+												id="block-tu-boleta-theme-menuheadersecond-menu">Menú de cabecera
+												secundario</h2>
+
+
+
+											<ul data-region="top_header_menu" class="clearfix nav">
+												<li class="nav-item text-lg-center">
+													<a href="https://tuboleta.com/es/bono-regalo"
+														class="nav-link nav-link-https--tuboletacom-es-bono-regalo">Bono
+														Regalo</a>
+												</li>
+												<li class="nav-item text-lg-center">
+													<a href="https://tuboleta.com/es/pasala"
+														class="nav-link nav-link-https--tuboletacom-es-pasala">Pásala</a>
+												</li>
+												<li class="nav-item text-lg-center">
+													<a href="https://web.tuboleta.com/images/Servicio-al-cliente/Home.html"
+														class="nav-link nav-link-https--webtuboletacom-images-servicio-al-cliente-homehtml">Contáctanos</a>
+												</li>
+											</ul>
+
+
+
+										</nav>
+
+									</section>
+
+									<section class="d-flex region region-top-header-languages">
+										<div id="block-tu-boleta-theme-tubmenulogotipoalaizquierda"
+											class="block-content-menu_logo block block-block-content block-block-content0fc2bf2c-b56f-434b-9dbd-981141c43a28 block-menu-logo">
+
+
+											<a href="https://all.checkout.tuboleta.com/account">
+												<div
+													class="field field--name-field-menu-logo-image field--type-image field--label-hidden field__item">
+													<img loading="lazy" src="/sites/default/files/styles/menu_logo/public/2023-11/userlogo_0.png?itok=r7HWLygs" width="30" height="30" alt="" class="image-style-menu-logo" />
+
+
+</div>
+											</a>
+										</div>
+
+									</section>
+
+									<section class="d-flex region region-header-form">
+										<div id="block-tu-boleta-theme-tubmenulogotipoaladerecha"
+											class="block-content-menu_logo block block-block-content block-block-contentedb3682d-14ca-44a2-aecb-35ac376195d5 block-menu-logo">
+
+
+											<a href="https://web.tuboleta.com/images/Tuboleta_Pass/home.html">
+												<div
+													class="field field--name-field-menu-logo-image field--type-image field--label-hidden field__item">
+													<img loading="lazy" src="/sites/default/files/styles/menu_logo/public/2024-07/Logo---Tuboleta-Pass.png?itok=qQSFUSUD" width="85" height="30" alt="Tuboleta Pass" class="image-style-menu-logo" />
+
+
+</div>
+											</a>
+										</div>
+
+									</section>
+
+								</div>
+								<div class="col section top-right d-flex d-xl-none">
+									<nav class="navbar navbar-expand-xl navbar-dark navbar-mobile bg-dark">
+										<button class="navbar-toggler shadow-none p-0 border-0" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                  <i class="icon icon-menu text-white fst-normal"></i>
+                </button>
+										<div class="collapse navbar-collapse px-4 py-5" id="navbarNav">
+											<div class="d-flex row-flex justify-content-between">
+												<div class="col">
+													<section class="d-flex region region-top-header">
+														<a href="/es" title="Inicio" rel="home" class="navbar-brand">
+															<img src="/themes/custom/tu_boleta_theme/logo.png" alt="Inicio" class="img-fluid d-inline-block align-top" />
+
+    </a>
+
+													</section>
+
+												</div>
+												<div class="col d-flex justify-content-end align-items-center">
+													<button type="button" class="btn-close btn-close-white" aria-label="Close" type="button"
+                              data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                              aria-controls="navbarToggleExternalContent" aria-expanded="false"
+                              aria-label="Toggle navigation"></button>
+												</div>
+											</div>
+											<div class="d-flex">
+												<div class="col-12 border-bottom pt-5 mt-5 pb-3">
+													<section class="d-flex region region-top-header-languages">
+														<div id="block-tu-boleta-theme-tubmenulogotipoalaizquierda"
+															class="block-content-menu_logo block block-block-content block-block-content0fc2bf2c-b56f-434b-9dbd-981141c43a28 block-menu-logo">
+
+
+															<a href="https://all.checkout.tuboleta.com/account">
+																<div
+																	class="field field--name-field-menu-logo-image field--type-image field--label-hidden field__item">
+																	<img loading="lazy" src="/sites/default/files/styles/menu_logo/public/2023-11/userlogo_0.png?itok=r7HWLygs" width="30" height="30" alt="" class="image-style-menu-logo" />
+
+
+</div>
+															</a>
+														</div>
+
+													</section>
+
+												</div>
+											</div>
+											<div class="d-flex">
+												<div class="col-12 border-bottom py-2">
+													<section class="d-flex region region-top-header-form">
+														<nav role="navigation"
+															aria-labelledby="block-tu-boleta-theme-menucategorias-menu"
+															id="block-tu-boleta-theme-menucategorias"
+															class="block block-menu navigation menu--categorias">
+
+															<h2 class="visually-hidden"
+																id="block-tu-boleta-theme-menucategorias-menu">Menú
+																Categorías</h2>
+
+
+
+															<ul data-region="top_header_form" class="clearfix nav">
+																<li class="nav-item text-lg-center">
+																	<a href="/es/categorias/conciertos"
+																		title="Conciertos"
+																		class="nav-link nav-link--es-categorias-conciertos"
+																		data-drupal-link-system-path="node/1533">Conciertos</a>
+																</li>
+																<li class="nav-item text-lg-center">
+																	<a href="/es/categorias/teatro"
+																		class="nav-link nav-link--es-categorias-teatro"
+																		data-drupal-link-system-path="node/1530">Teatro</a>
+																</li>
+																<li class="nav-item text-lg-center">
+																	<a href="/es/categorias/deportes" title="Deportes"
+																		class="nav-link nav-link--es-categorias-deportes"
+																		data-drupal-link-system-path="node/1635">Deportes</a>
+																</li>
+																<li class="nav-item text-lg-center">
+																	<a href="https://eventos.tuboleta.com/tuboleta-ventas-a-empresas"
+																		class="nav-link nav-link-https--eventostuboletacom-tuboleta-ventas-a-empresas">Ventas
+																		a empresas</a>
+																</li>
+																<li class="nav-item text-lg-center dropdown">
+																	<a class='nav-link dropdown-toggle '
+																		href='javascript:void(0)' role='button'
+																		data-bs-toggle='dropdown' aria-expanded='false'>
+																		Más
+																	</a>
+																	<ul
+																		class='dropdown-menu dropdown-menu-header bg-primary px-1 mx-0 py-0'>
+																		<li class="px-3 py-1 my-1">
+																			<a href="/es/categorias/familiar"
+																				class="dropdown-item nav-link bg-transparent"
+																				data-drupal-link-system-path="node/3489">Familiar</a>
+																		</li>
+																		<li>
+																			<hr class='dropdown-divider py-0 my-0'>
+																		</li>
+																		<li class="px-3 py-1 my-1">
+																			<a href="/es/categorias/festivales"
+																				class="dropdown-item nav-link bg-transparent"
+																				data-drupal-link-system-path="node/4002">Festivales</a>
+																		</li>
+																		<li>
+																			<hr class='dropdown-divider py-0 my-0'>
+																		</li>
+																		<li class="px-3 py-1 my-1">
+																			<a href="/es/categorias/foros"
+																				class="dropdown-item nav-link bg-transparent"
+																				data-drupal-link-system-path="node/1524">Foros</a>
+																		</li>
+																		<li>
+																			<hr class='dropdown-divider py-0 my-0'>
+																		</li>
+																		<li class="px-3 py-1 my-1">
+																			<a href="/es/categorias/museos"
+																				class="dropdown-item nav-link bg-transparent"
+																				data-drupal-link-system-path="node/3488">Museos</a>
+																		</li>
+																		<li>
+																			<hr class='dropdown-divider py-0 my-0'>
+																		</li>
+																		<li class="px-3 py-1 my-1">
+																			<a href="/es/categorias/experiencias"
+																				class="dropdown-item nav-link bg-transparent"
+																				data-drupal-link-system-path="node/4202">Experiencias</a>
+																		</li>
+																		<li>
+																			<hr class='dropdown-divider py-0 my-0'>
+																		</li>
+																		<li class="px-3 py-1 my-1">
+																			<a href="https://tbpass.tuboleta.com/?utm_source=tuboletapass&amp;utm_medium=banner&amp;utm_campaign=TbPass_Banner_TuboletaPass"
+																				class="dropdown-item nav-link bg-transparent">Reiniciar
+																				sesión Tuboleta pass</a>
+																		</li>
+																		<li>
+																			<hr class='dropdown-divider py-0 my-0'>
+																		</li>
+																	</ul>
+																</li>
+															</ul>
+
+
+
+														</nav>
+
+													</section>
+
+												</div>
+											</div>
+											<div class="d-flex">
+												<div class="col-12 border-bottom py-3">
+													<section class="d-flex region region-top-header-menu">
+														<nav role="navigation"
+															aria-labelledby="block-tu-boleta-theme-menuheadersecond-menu"
+															id="block-tu-boleta-theme-menuheadersecond"
+															class="block block-menu navigation menu--menu-header-second">
+
+															<h2 class="visually-hidden"
+																id="block-tu-boleta-theme-menuheadersecond-menu">Menú de
+																cabecera secundario</h2>
+
+
+
+															<ul data-region="top_header_menu" class="clearfix nav">
+																<li class="nav-item text-lg-center">
+																	<a href="https://tuboleta.com/es/bono-regalo"
+																		class="nav-link nav-link-https--tuboletacom-es-bono-regalo">Bono
+																		Regalo</a>
+																</li>
+																<li class="nav-item text-lg-center">
+																	<a href="https://tuboleta.com/es/pasala"
+																		class="nav-link nav-link-https--tuboletacom-es-pasala">Pásala</a>
+																</li>
+																<li class="nav-item text-lg-center">
+																	<a href="https://web.tuboleta.com/images/Servicio-al-cliente/Home.html"
+																		class="nav-link nav-link-https--webtuboletacom-images-servicio-al-cliente-homehtml">Contáctanos</a>
+																</li>
+															</ul>
+
+
+
+														</nav>
+
+													</section>
+
+												</div>
+											</div>
+											<div class="d-flex">
+												<div class="col-12 py-4">
+													<section class="d-flex region region-header-form">
+														<div id="block-tu-boleta-theme-tubmenulogotipoaladerecha"
+															class="block-content-menu_logo block block-block-content block-block-contentedb3682d-14ca-44a2-aecb-35ac376195d5 block-menu-logo">
+
+
+															<a
+																href="https://web.tuboleta.com/images/Tuboleta_Pass/home.html">
+																<div
+																	class="field field--name-field-menu-logo-image field--type-image field--label-hidden field__item">
+																	<img loading="lazy" src="/sites/default/files/styles/menu_logo/public/2024-07/Logo---Tuboleta-Pass.png?itok=qQSFUSUD" width="85" height="30" alt="Tuboleta Pass" class="image-style-menu-logo" />
+
+
+</div>
+															</a>
+														</div>
+
+													</section>
+
+												</div>
+											</div>
+										</div>
+									</nav>
+								</div>
+							</div>
+							<div class="container top-search">
+								<section class="row region region-top-header-search">
+									<div class="views-exposed-form bef-exposed-form block block-views block-views-exposed-filter-blocksearch-results-page-1"
+										data-drupal-selector="views-exposed-form-search-results-page-1"
+										id="block-tu-boleta-theme-formularioexpuestosearch-resultspage-1">
+
+
+										<div class="content">
+
+											<form action="/es/resultados-de-busqueda" method="get"
+												id="views-exposed-form-search-results-page-1" accept-charset="UTF-8">
+
+												<div
+													class="filters-container col-12 col-xl-11 mx-auto d-none d-lg-block">
+													<div class="filter-inputs-group row">
+														<div
+															class="position-relative col-2 input bg-white input-dropdown input-city d-flex p-0 col-auto h-100 rounded-start border border-grey-light border-top-0 border-bottom-0 border-start-0">
+															<div
+																class="icon-container pe-none h-100 d-flex justify-content-center align-items-center position-absolute ps-4">
+																<i class="icon icon-location fst-normal text-orange fs-icon-city mb-1"></i>
+															</div>
+
+
+
+
+
+
+															<div
+																class="js-form-item js-form-type-select form-type-select js-form-item-ciudades form-item-ciudades mb-3">
+																<label for="edit-ciudades--2">Ciudad</label>
+
+																<select data-drupal-selector="edit-ciudades" id="edit-ciudades--2" name="ciudades" class="form-select select2-widget" data-select2-config="{&quot;multiple&quot;:false,&quot;placeholder&quot;:&quot;Ciudad&quot;,&quot;allowClear&quot;:false,&quot;dir&quot;:&quot;ltr&quot;,&quot;language&quot;:&quot;es&quot;,&quot;tags&quot;:false,&quot;theme&quot;:&quot;tu_boleta_theme&quot;,&quot;maximumSelectionLength&quot;:0,&quot;tokenSeparators&quot;:[],&quot;selectOnClose&quot;:false,&quot;width&quot;:&quot;100%&quot;,&quot;minimumResultsForSearch&quot;:-1}"><option value=""></option><option value="All" selected="selected">Ciudad</option><option value="28756">Armenia</option><option value="12024">Barranquilla</option><option value="12012">Bogotá</option><option value="14233">Bucaramanga</option><option value="14227">Cali</option><option value="22075">Cartagena</option><option value="23191">Chía</option><option value="14299">Cúcuta</option><option value="14305">Ibagué</option><option value="29104">Ipiales</option><option value="14362">Manizales</option><option value="12030">Medellín</option><option value="23179">Neiva</option><option value="18904">Pasto</option><option value="25652">Pereira</option><option value="25701">Popayan</option><option value="32577">Tocancipá</option><option value="26374">Tunja</option><option value="25714">Villavicencio</option></select>
+															</div>
+
+														</div>
+														<div
+															class="position-relative col-2 input bg-white input-dropdown input-category d-flex p-0 col-auto h-100 border border-grey-light border-top-0 border-bottom-0 border-start-0">
+															<div
+																class="icon-container pe-none h-100 d-flex justify-content-center align-items-center position-absolute ps-4">
+																<i class="icon icon-dotted-box fst-normal text-orange fs-4 mb-1"></i>
+															</div>
+
+
+
+
+
+
+															<div
+																class="js-form-item js-form-type-select form-type-select js-form-item-categorias form-item-categorias mb-3">
+																<label for="edit-categorias--2">Categoría</label>
+
+																<select data-drupal-selector="edit-categorias" id="edit-categorias--2" name="categorias" class="form-select select2-widget" data-select2-config="{&quot;multiple&quot;:false,&quot;placeholder&quot;:&quot;Categor\u00eda&quot;,&quot;allowClear&quot;:false,&quot;dir&quot;:&quot;ltr&quot;,&quot;language&quot;:&quot;es&quot;,&quot;tags&quot;:false,&quot;theme&quot;:&quot;tu_boleta_theme&quot;,&quot;maximumSelectionLength&quot;:0,&quot;tokenSeparators&quot;:[],&quot;selectOnClose&quot;:false,&quot;width&quot;:&quot;100%&quot;,&quot;minimumResultsForSearch&quot;:-1}"><option value=""></option><option value="All" selected="selected">Categoría</option><option value="26838">Conciertos</option><option value="28412">Deportes</option><option value="27220">Experiencias</option><option value="27236">Familia</option><option value="27234">Festival</option><option value="27425">Foros, Seminarios y Congresos</option><option value="27801">Museo y Exposiciones</option><option value="27452">Productos</option><option value="26988">Teatro</option></select>
+															</div>
+
+														</div>
+														<div
+															class="position-relative col-2 input bg-white input-dropdown input-date d-flex p-0 col-auto h-100 border border-grey-light border-top-0 border-bottom-0 border-start-0">
+															<div
+																class="icon-container pe-none h-100 d-flex align-items-center ps-4">
+																<i class="icon icon-calendar fst-normal text-orange fs-3 mb-1"></i>
+																<span class="fs-5 lh-1 ms-3 text-grey">Fecha</span>
+																<i class="icon icon-dropdown fst-normal position-absolute"></i>
+															</div>
+															<div class="date-input-container d-none">
+
+
+
+
+
+
+																<div
+																	class="js-form-item js-form-type-textfield form-type-textfield js-form-item-fecha-inicio form-item-fecha-inicio mb-3">
+																	<label for="edit-fecha-inicio--2">Period Start</label>
+																	<input data-drupal-selector="edit-fecha-inicio" type="text" id="edit-fecha-inicio--2" name="fecha_inicio" value="" size="30" maxlength="128" class="form-control" />
+
+                      </div>
+
+
+
+
+
+
+
+																	<div
+																		class="js-form-item js-form-type-textfield form-type-textfield js-form-item-fecha-final form-item-fecha-final mb-3">
+																		<label for="edit-fecha-final--2">Period End</label>
+																		<input data-drupal-selector="edit-fecha-final" type="text" id="edit-fecha-final--2" name="fecha_final" value="" size="30" maxlength="128" class="form-control" />
+
+                      </div>
+
+																	</div>
+																	<div
+																		class="position-absolute my-datepicker my-datepicker-search-form d-none">
+																		<i class="icon icon-arrow-container icon-dropdown fst-normal position-absolute ui-datepicker-icon"></i>
+																	</div>
+																</div>
+																<div
+																	class="position-relative col-5 input bg-white input-s col d-flex p-0 h-100">
+																	<div
+																		class="icon-container pe-none h-100 d-flex justify-content-center align-items-center position-absolute ps-4">
+																		<i class="icon icon-lens fst-normal text-primary fs-3"></i>
+																	</div>
+
+
+
+
+
+
+																	<div
+																		class="js-form-item js-form-type-textfield form-type-textfield js-form-item-s form-item-s mb-3">
+
+																		<input placeholder="Buscar por artista, evento..." data-drupal-selector="edit-s" type="text" id="edit-s--2" name="s" value="fucks news" size="30" maxlength="128" class="form-control" />
+
+                      </div>
+
+																	</div>
+																	<div
+																		class="position-relative col-1 input bg-white input-actions col-auto d-flex justify-content-center rounded-end bg-transparent p-0 h-100">
+																		<div
+																			class="lens-icon-container pe-none position-absolute d-flex align-items-center h-100">
+																			<i class="icon icon-lens fs-2 fst-normal text-center text-white"></i>
+																		</div>
+																		<div data-drupal-selector="edit-actions"
+																			class="form-actions js-form-wrapper form-wrapper mb-3"
+																			id="edit-actions--2"><input data-drupal-selector="edit-submit-search-results-2" type="submit" id="edit-submit-search-results--2" value="Aplicar" class="button js-form-submit form-submit btn btn-primary form-control" />
+</div>
+
+																		</div>
+																	</div>
+																</div>
+
+											</form>
+
+										</div>
+									</div>
+									<div class="views-exposed-form bef-exposed-form block block-views block-views-exposed-filter-blocksearch-results-mobile"
+										data-drupal-selector="views-exposed-form-search-results-mobile"
+										id="block-tu-boleta-theme-formularioexpuestosearch-resultsmobile">
+
+
+										<div class="content">
+
+											<form action="/es/resultados-de-busqueda" method="get"
+												id="views-exposed-form-search-results-mobile" accept-charset="UTF-8">
+
+												<div class="menu-mobile w-100 d-flex justify-content-center d-lg-none">
+													<button class="menu-filter-button px-3 rounded-start bg-white border border-grey-light border-top-0 border-bottom-0 border-start-0">
+    <i class="icon icon-filters fs-md-2 fw-bold fst-normal text-orange"></i>
+  </button>
+
+
+
+
+
+
+													<div
+														class="js-form-item js-form-type-textfield form-type-textfield js-form-item-s form-item-s mb-3">
+
+														<input placeholder="Buscar por artista, evento..." data-drupal-selector="edit-s" type="text" id="edit-s--3" name="s" value="fucks news" size="30" maxlength="128" class="form-control" />
+
+                      </div>
+
+														<button class="button-search-mobile rounded-end">
+    <i class="icon icon-lens fs-md-2 fst-normal text-center text-white"></i>
+  </button>
+													</div>
+
+													<div
+														class="menu-mobile-filter rounded-bottom bg-white border border-grey-light p-4 pt-5 d-lg-none">
+														<div
+															class="input mb-3 bg-white input-dropdown input-city p-0 position-relative">
+															<div
+																class="icon-container pe-none d-flex justify-content-center align-items-center position-absolute ps-3">
+																<i class="icon icon-location fst-normal text-orange fs-md-2"></i>
+															</div>
+
+
+
+
+
+
+															<div
+																class="js-form-item js-form-type-select form-type-select js-form-item-ciudades form-item-ciudades mb-3">
+																<label for="edit-ciudades--3">Ciudad</label>
+
+																<select data-drupal-selector="edit-ciudades" id="edit-ciudades--3" name="ciudades" class="form-select select2-widget" data-select2-config="{&quot;multiple&quot;:false,&quot;placeholder&quot;:&quot;Ciudad&quot;,&quot;allowClear&quot;:false,&quot;dir&quot;:&quot;ltr&quot;,&quot;language&quot;:&quot;es&quot;,&quot;tags&quot;:false,&quot;theme&quot;:&quot;tu_boleta_theme&quot;,&quot;maximumSelectionLength&quot;:0,&quot;tokenSeparators&quot;:[],&quot;selectOnClose&quot;:false,&quot;width&quot;:&quot;100%&quot;,&quot;minimumResultsForSearch&quot;:-1}"><option value=""></option><option value="All" selected="selected">Ciudad</option><option value="28756">Armenia</option><option value="12024">Barranquilla</option><option value="12012">Bogotá</option><option value="14233">Bucaramanga</option><option value="14227">Cali</option><option value="22075">Cartagena</option><option value="23191">Chía</option><option value="14299">Cúcuta</option><option value="14305">Ibagué</option><option value="29104">Ipiales</option><option value="14362">Manizales</option><option value="12030">Medellín</option><option value="23179">Neiva</option><option value="18904">Pasto</option><option value="25652">Pereira</option><option value="25701">Popayan</option><option value="32577">Tocancipá</option><option value="26374">Tunja</option><option value="25714">Villavicencio</option></select>
+															</div>
+
+														</div>
+														<div
+															class="input mb-3 bg-white input-dropdown input-category p-0 position-relative">
+															<div
+																class="icon-container pe-none d-flex justify-content-center align-items-center position-absolute ps-3">
+																<i class="icon icon-dotted-box fst-normal text-orange fs-md-3"></i>
+															</div>
+
+
+
+
+
+
+															<div
+																class="js-form-item js-form-type-select form-type-select js-form-item-categorias form-item-categorias mb-3">
+																<label for="edit-categorias--3">Categoría</label>
+
+																<select data-drupal-selector="edit-categorias" id="edit-categorias--3" name="categorias" class="form-select select2-widget" data-select2-config="{&quot;multiple&quot;:false,&quot;placeholder&quot;:&quot;Categor\u00eda&quot;,&quot;allowClear&quot;:false,&quot;dir&quot;:&quot;ltr&quot;,&quot;language&quot;:&quot;es&quot;,&quot;tags&quot;:false,&quot;theme&quot;:&quot;tu_boleta_theme&quot;,&quot;maximumSelectionLength&quot;:0,&quot;tokenSeparators&quot;:[],&quot;selectOnClose&quot;:false,&quot;width&quot;:&quot;100%&quot;,&quot;minimumResultsForSearch&quot;:-1}"><option value=""></option><option value="All" selected="selected">Categoría</option><option value="26838">Conciertos</option><option value="28412">Deportes</option><option value="27220">Experiencias</option><option value="27236">Familia</option><option value="27234">Festival</option><option value="27425">Foros, Seminarios y Congresos</option><option value="27801">Museo y Exposiciones</option><option value="27452">Productos</option><option value="26988">Teatro</option></select>
+															</div>
+
+														</div>
+														<div
+															class="input border rounded-1 mb-3 bg-white input-date p-0 position-relative">
+															<div
+																class="icon-container pe-none d-flex justify-content-center align-items-center position-absolute ps-3">
+																<i class="icon icon-calendar fst-normal text-orange fs-md-2"></i>
+															</div>
+															<span class="fs-md-4 position-relative p-3 input-date-text d-block text-grey">Fecha
+      <i class="icon icon-dropdown fst-normal position-absolute"></i>
+    </span>
+															<div class="date-input-container d-none">
+
+
+
+
+
+
+																<div
+																	class="js-form-item js-form-type-textfield form-type-textfield js-form-item-fecha-inicio form-item-fecha-inicio mb-3">
+																	<label for="edit-fecha-inicio--3">Period Start</label>
+																	<input data-drupal-selector="edit-fecha-inicio" type="text" id="edit-fecha-inicio--3" name="fecha_inicio" value="" size="30" maxlength="128" class="form-control" />
+
+                      </div>
+
+
+
+
+
+
+
+																	<div
+																		class="js-form-item js-form-type-textfield form-type-textfield js-form-item-fecha-final form-item-fecha-final mb-3">
+																		<label for="edit-fecha-final--3">Period End</label>
+																		<input data-drupal-selector="edit-fecha-final" type="text" id="edit-fecha-final--3" name="fecha_final" value="" size="30" maxlength="128" class="form-control" />
+
+                      </div>
+
+																	</div>
+																	<div
+																		class="my-datepicker my-datepicker-search-form d-none">
+																		<i class="icon icon-arrow-container icon-dropdown fst-normal position-absolute ui-datepicker-icon"></i>
+																	</div>
+																</div>
+															</div>
+
+											</form>
+
+										</div>
+									</div>
+
+								</section>
+
+							</div>
+						</div>
+					</nav>
+				</header>
+				<div class="highlighted">
+					<aside class="section" role="complementary">
+						<section class="region region-highlighted">
+							<div data-drupal-messages-fallback class="hidden"></div>
+
+						</section>
+
+					</aside>
+				</div>
+				<div id="main-wrapper" class="layout-main-wrapper clearfix">
+					<div id="main">
+						<div class="row row-offcanvas row-offcanvas-left clearfix">
+							<main class="main-content col" id="content" role="main">
+								<section class="section">
+									<a id="main-content" tabindex="-1"></a>
+									<section class="region region-content">
+										<div id="block-tu-boleta-theme-content"
+											class="block block-system block-system-main-block">
+
+
+											<div class="content">
+												<div class="views-element-container">
+													<div
+														class="view view-search-results view-id-search_results view-display-id-page_1 js-view-dom-id-b686dfce041d0c6327887143c9d90f31ee136fb40da204c81c568f39d94cc458 container">
+
+
+														<div class="results-page-title mt-3 mt-lg-5">
+															<h1 class="fw-bold text-black m-0">Resultados de búsqueda
+															</h1>
+														</div>
+														<div class="search-results-filter-options">
+															<div class="search-filters-title-container d-flex gap-2">
+																<i class="icon icon-filters text-primary fs-3 fs-md-2 fw-bold fst-normal"></i>
+																<p
+																	class="search-filters-title text-primary fs-4 ms-2 fw-bold">
+																	Filtros</p>
+															</div>
+															<div
+																class="search-filter-tags d-flex justify-content-start flex-row flex-wrap gap-3">
+																<div
+																	class="filter-tag d-flex align-items-center rounded fs-7">
+																	<p class="m-0 fst-normal text-primary fs-7">fucks
+																		news</p>
+																	<div class="remove-filter-btn d-flex justify-content-center align-items-center"
+																		id="s">
+																		<span class="icon icon-cross-filters d-flex justify-content-center text-primary fs-9"></span>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="view-content row">
+
+															<div
+																class="grid grid-cols-12 grid-cols-lg-4 grid-cols-xl-5 gap-3 mt-5">
+																<div class="g-col-6 g-col-lg-1">
+
+
+
+
+
+
+
+																	<article
+																		class="p-3 h-100 bg-grey-light rounded-1 position-relative">
+																		<div
+																			class="clearfix p-0 h-100 fields-container">
+																			<div
+																				class="tags-container position-absolute top-0 mt-4 d-flex gap-1 flex-column">
+																			</div>
+																			<a class="content-link-container text-black text-decoration-none d-flex flex-column h-100"
+																				href="/es/eventos/fucks-news-noticreo-cartagena-0">
+																				<div class="image-container ">
+																					<picture>
+																						<source
+																							srcset="/sites/default/files/styles/event_card_image_530x530/public/2026-07/DETALLE%20EVENTO%20900%20x%20800%20pixeles.jpg?itok=nEOydXOg 1x"
+																							media="(min-width: 768px)"
+																							type="image/jpeg"
+																							width="530" height="530" />
+																						<source
+																							srcset="/sites/default/files/styles/event_card_image_300x300/public/2026-07/DETALLE%20EVENTO%20900%20x%20800%20pixeles.jpg?itok=WiNh67BY 1x"
+																							media="(min-width: 428px) and (max-width: 768px)"
+																							type="image/jpeg"
+																							width="300" height="300" />
+																						<source
+																							srcset="/sites/default/files/styles/event_card_image_300x300/public/2026-07/DETALLE%20EVENTO%20900%20x%20800%20pixeles.jpg?itok=WiNh67BY 1x"
+																							media="(max-width: 428px)"
+																							type="image/jpeg"
+																							width="300" height="300" />
+																						<img loading="eager" width="220" height="196" src="/sites/default/files/styles/media_library/public/2026-07/DETALLE%20EVENTO%20900%20x%20800%20pixeles.jpg?itok=xZHkm_qo" alt="" />
+
+  </picture>
+
+
+																				</div>
+																				<div
+																					class="d-flex justify-content-between flex-column flex-xl-row h-100 pt-3">
+																					<div
+																						class="content-info lh-sm pe-2">
+																						<div
+																							class="fs-8 fs-md-7 text-uppercase fw-bold mb-1">
+																							<span>
+              FUCKS NEWS NOTICREO - CARTAGENA
+            </span>
+																						</div>
+																						<div
+																							class="fs-8 fs-md-7 text-grey">
+																							<span>
+
+            </span>
+																						</div>
+																						<div
+																							class="fs-8 fs-md-7 text-grey">
+																							<span>
+              Cartagena
+            </span>
+																						</div>
+																					</div>
+																					<div
+																						class="dates-container d-flex flex-row gap-2 mt-sm-2 mt-md-0 justify-content-end">
+																						<div
+																							class="content-date lh-sm text-blue text-sm-start text-md-end d-flex flex-column p-0">
+																							<span class="fs-5 fw-bold d-none d-md-block lh-1">21</span>
+																							<span class="fs-8 fw-bold d-none d-md-block">Jul</span>
+																							<span class="fs-8 d-none d-md-block">Mar</span>
+																							<span class="fs-7 fw-bold d-block d-md-none">21 Jul</span>
+																						</div>
+																					</div>
+																				</div>
+																			</a>
+																			<div class="modal fade video-modal"
+																				id="videoModal_11784" tabindex="-1"
+																				aria-labelledby="videoModalLabel"
+																				aria-hidden="true">
+																				<div class="modal-dialog mw-75">
+																					<div class="modal-content">
+																						<div class="modal-header">
+																							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																						</div>
+																						<div class="modal-body">
+
+																							<div
+																								class="d-flex justify-content-between bg-black-transparent text-white p-3">
+																								<div class="lh-sm">
+																									<div
+																										class="fs-7 text-uppercase fw-bold">
+																										FUCKS NEWS
+																										NOTICREO -
+																										CARTAGENA</div>
+																									<br>
+																									<div class="fs-8">
+																										Cartagena</div>
+																								</div>
+																								<div
+																									class="content-date lh-sm text-end text-uppercase d-flex flex-column">
+																									<span class="fs-6 fs-md-5 fw-bold">4</span>
+																									<span class="fs-5 fw-bold">Jul</span>
+																									<span class="fs-6">Sáb</span>
+																								</div>
+																							</div>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</article>
+
+
+																</div>
+															</div>
+
+														</div>
+
+
+
+
+													</div>
+												</div>
+
+											</div>
+										</div>
+
+									</section>
+
+								</section>
+							</main>
+						</div>
+					</div>
+				</div>
+				<footer class="site-footer text-primary-light bg-primary pb-0">
+					<div class="container">
+						<div id="footer-row-1">
+							<div class="row">
+								<div class="col-lg-4">
+									<section class="row region region-footer-first">
+										<a href="/es" title="Inicio" rel="home" class="navbar-brand">
+											<img src="/themes/custom/tu_boleta_theme/logo.png" alt="Inicio" class="img-fluid d-inline-block align-top" />
+
+    </a>
+											<div id="block-tuefootertodoslosderechosreservados"
+												class="block-content-basic block block-block-content block-block-contente47d06c2-4418-4958-b87e-71f2adc6934d">
+
+
+												<div class="content">
+
+													<div
+														class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item">
+														<div class="mt-3">
+															<p>Somos el marketplace de experiencias en vivo líder en
+																Colombia, donde millones de personas descubren, compran
+																y viven los eventos que más les apasionan. Tuboleta te
+																acompaña desde hace más de 26 años.</p>
+															<p>Hacemos parte de <a
+																	style="color:#FFC843;text-decoration:none;"
+																	href="https://beat-hub.com">BeatHub Entertainment
+																</a>, el ecosistema de entretenimiento #1 del
+																país.&nbsp;</p>
+															<p><strong style="color:white !important;">Descarga Tuboleta Pass</strong>
+															</p>
+														</div>
+														<div class="app-logo d-flex mb-5">
+															<div class="img me-2"><a
+																	href="https://apps.apple.com/co/app/tuboleta-pass/id1658358409"><img src="/sites/default/files/inline-images/Group.png" data-entity-uuid="349f268a-ffaf-46a3-a132-906beaad570d" data-entity-type="file" width="175" height="58" loading="lazy"></a>
+															</div>
+															<div class="img me-2"><a
+																	href="https://play.google.com/store/apps/details?id=io.tixngo.app.tuboleta&amp;hl=es_CO&amp;pli=1"><img src="/sites/default/files/inline-images/Group%20%281%29.png" data-entity-uuid="6d432926-d45f-479e-bc55-03218a04f8c7" data-entity-type="file" width="174" height="58" loading="lazy"></a>
+															</div>
+														</div>
+													</div>
+
+												</div>
+											</div>
+
+									</section>
+
+								</div>
+								<div class="col-lg-8">
+									<div class="row">
+										<div class="col-lg-4 item-footer">
+											<section class="row region region-footer-second">
+												<div id="block-tu-boleta-theme-tubredessociales"
+													class="block-content-basic block block-block-content block-block-contentb77f9182-6026-41ad-bbc9-ea8b4eb37be9">
+
+
+													<div class="content">
+
+														<div
+															class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item">
+															<div class="border-start h-100 px-4">
+																<p class="menu-title fs-3 fw-bold text-white">Tuboleta
+																</p>
+																<p class="fs-4">
+																	<em><i class="icon icon-location text-white fst-normal">&nbsp;</i></em><span>Ticket Fast S.A.S</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>Nit 900.569.193-0</p>
+																	<p class="fs-4">
+																		<em><i class="icon icon-headphones text-white fst-normal">&nbsp;</i></em><strong class="text-white">Call Center</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>(60-1)593-6300</p>
+																		<p><a
+																				href="https://www.instagram.com/tuboleta/"><em><i class="icon icon-instagram text-white fs-3 fst-normal">&nbsp;</i></em></a><a
+																				href="https://www.youtube.com/@TuboletaColombia"><em><i class="icon icon-youtube text-white fs-3 fst-normal">&nbsp;</i></em></a><a
+																				href="https://x.com/Tuboletaoficial"><em><i class="icon icon-twitter text-white fs-3 fst-normal">&nbsp;</i></em></a><a
+																				href="https://www.facebook.com/tuboleta"><em>&nbsp;<i class="icon icon-facebook text-white fs-3 fst-normal">&nbsp;</i></em></a>
+																		</p>
+															</div>
+														</div>
+
+													</div>
+												</div>
+
+											</section>
+
+										</div>
+										<div class="col-lg-8">
+											<section class="row region region-footer-third">
+												<nav role="navigation" aria-labelledby="block-footer-menu"
+													id="block-footer" class="block block-menu navigation menu--footer">
+
+													<h2 class="visually-hidden" id="block-footer-menu">Footer</h2>
+
+
+
+													<ul class="clearfix nav navbar-nav">
+														<div class="row">
+															<div class="col-12 col-lg-4 item-footer mb-5">
+																<li
+																	class="nav-item footer-accordion-item menu-item--expanded border-start border-primary-light px-2 px-md-4">
+																	<button
+                type="button"
+                class="nav-link   nav-link-a menu-title text-white fs-4 fs-md-4 fs-xxl-3 fw-bold footer-accordion-toggle"
+                data-bs-toggle="collapse"
+                data-bs-target="#footer-accordion-categorías-0-1"
+                aria-expanded="false"
+                aria-controls="footer-accordion-categorías-0-1"
+              >
+                <span>Categorías</span>
+              </button>
+																	<div id="footer-accordion-categorías-0-1"
+																		class="footer-accordion-panel collapse"
+																		data-bs-parent="#block-footer">
+																		<ul class="menu menu-about p-0">
+																			<div class="row">
+																				<li class="nav-item">
+																					<a href="/es/categorias/conciertos"
+																						class="nav-link nav-link-a-es-categorias-conciertos p-0 fs-3 fs-md-6 fs-xl-5"
+																						data-drupal-link-system-path="node/1533">Conciertos</a>
+																				</li>
+																				<li class="nav-item">
+																					<a href="/es/categorias/teatro"
+																						class="nav-link nav-link-a-es-categorias-teatro p-0 fs-3 fs-md-6 fs-xl-5"
+																						data-drupal-link-system-path="node/1530">Teatro</a>
+																				</li>
+																				<li class="nav-item">
+																					<a href="/es/categorias/deportes"
+																						class="nav-link nav-link-a-es-categorias-deportes p-0 fs-3 fs-md-6 fs-xl-5"
+																						data-drupal-link-system-path="node/1635">Deportes</a>
+																				</li>
+																				<li class="nav-item">
+																					<a href="/es/categorias/festivales"
+																						class="nav-link nav-link-a-es-categorias-festivales p-0 fs-3 fs-md-6 fs-xl-5"
+																						data-drupal-link-system-path="node/4002">Festivales</a>
+																				</li>
+																				<li class="nav-item">
+																					<a href="/es/categorias/familiar"
+																						class="nav-link nav-link-a-es-categorias-familiar p-0 fs-3 fs-md-6 fs-xl-5"
+																						data-drupal-link-system-path="node/3489">Familiar</a>
+																				</li>
+																				<li class="nav-item">
+																					<a href="/es/categorias/foros"
+																						class="nav-link nav-link-a-es-categorias-foros p-0 fs-3 fs-md-6 fs-xl-5"
+																						data-drupal-link-system-path="node/1524">Foros</a>
+																				</li>
+																				<li class="nav-item">
+																					<a href="/es/categorias/experiencias"
+																						class="nav-link nav-link-a-es-categorias-experiencias p-0 fs-3 fs-md-6 fs-xl-5"
+																						data-drupal-link-system-path="node/4202">Experiencias</a>
+																				</li>
+																			</div>
+																		</ul>
+
+																	</div>
+															</div>
+															</li>
+															<div class="col-12 col-lg-4 item-footer mb-5">
+																<li
+																	class="nav-item footer-accordion-item menu-item--expanded border-start border-primary-light px-2 px-md-4">
+																	<button
+                type="button"
+                class="nav-link   nav-link-a menu-title text-white fs-4 fs-md-4 fs-xxl-3 fw-bold footer-accordion-toggle"
+                data-bs-toggle="collapse"
+                data-bs-target="#footer-accordion-ayuda-0-2"
+                aria-expanded="false"
+                aria-controls="footer-accordion-ayuda-0-2"
+              >
+                <span>Ayuda</span>
+              </button>
+																	<div id="footer-accordion-ayuda-0-2"
+																		class="footer-accordion-panel collapse"
+																		data-bs-parent="#block-footer">
+																		<ul class="menu menu-about p-0">
+																			<div class="row">
+																				<li class="nav-item">
+																					<a href="https://web.tuboleta.com/images/Servicio-al-cliente/Home.html"
+																						class="nav-link nav-link-ahttps--webtuboletacom-images-servicio-al-cliente-homehtml p-0 fs-3 fs-md-6 fs-xl-5">Contáctanos
+																						- PQRS</a>
+																				</li>
+																				<li class="nav-item">
+																					<a href="https://web.tuboleta.com/images/Tuboleta_Pass/home.html"
+																						class="nav-link nav-link-ahttps--webtuboletacom-images-tuboleta-pass-homehtml p-0 fs-3 fs-md-6 fs-xl-5">Tuboleta
+																						Pass</a>
+																				</li>
+																				<li class="nav-item">
+																					<a href="https://web.tuboleta.com/images/Puntos-de-venta/index.html"
+																						class="nav-link nav-link-ahttps--webtuboletacom-images-puntos-de-venta-indexhtml p-0 fs-3 fs-md-6 fs-xl-5">Puntos
+																						de venta</a>
+																				</li>
+																				<li class="nav-item">
+																					<a href="https://web.tuboleta.com/images/Tuboleta+Te+Cuenta/Index.html"
+																						class="nav-link nav-link-ahttps--webtuboletacom-images-tuboletatecuenta-indexhtml p-0 fs-3 fs-md-6 fs-xl-5">Tuboleta
+																						Te cuenta</a>
+																				</li>
+																				<li class="nav-item">
+																					<a href="https://web.tuboleta.com/images/SITIOS2020/pagina-comercial/Index.html"
+																						class="nav-link nav-link-ahttps--webtuboletacom-images-sitios2020-pagina-comercial-indexhtml p-0 fs-3 fs-md-6 fs-xl-5">Vende
+																						tu evento con nosotros</a>
+																				</li>
+																			</div>
+																		</ul>
+
+																	</div>
+															</div>
+															</li>
+															<div class="col-12 col-lg-4 item-footer mb-5">
+																<li
+																	class="nav-item footer-accordion-item menu-item--expanded border-start border-primary-light px-2 px-md-4">
+																	<button
+                type="button"
+                class="nav-link   nav-link-a menu-title text-white fs-4 fs-md-4 fs-xxl-3 fw-bold footer-accordion-toggle"
+                data-bs-toggle="collapse"
+                data-bs-target="#footer-accordion-legal-0-3"
+                aria-expanded="false"
+                aria-controls="footer-accordion-legal-0-3"
+              >
+                <span>Legal</span>
+              </button>
+																	<div id="footer-accordion-legal-0-3"
+																		class="footer-accordion-panel collapse"
+																		data-bs-parent="#block-footer">
+																		<ul class="menu menu-about p-0">
+																			<div class="row">
+																				<li class="nav-item">
+																					<a href="https://www.tuboleta.com/es/faq/politica-de-privacidad"
+																						class="nav-link nav-link-ahttps--wwwtuboletacom-es-faq-politica-de-privacidad p-0 fs-3 fs-md-6 fs-xl-5">Política
+																						de privacidad</a>
+																				</li>
+																				<li class="nav-item">
+																					<a href="/es/terminos-de-uso-tuboleta"
+																						class="nav-link nav-link-a-es-terminos-de-uso-tuboleta p-0 fs-3 fs-md-6 fs-xl-5"
+																						data-drupal-link-system-path="node/3283">Terminos
+																						de uso</a>
+																				</li>
+																				<li class="nav-item">
+																					<a href="https://web.tuboleta.com/images/MAILS/sagrilaft.pdf"
+																						class="nav-link nav-link-ahttps--webtuboletacom-images-mails-sagrilaftpdf p-0 fs-3 fs-md-6 fs-xl-5">SAGRILAFT
+																						Y PTEE</a>
+																				</li>
+																				<li class="nav-item">
+																					<a href="https://sedeelectronica.sic.gov.co/atencion-y-servicios-a-la-ciudadania/canales-de-atencion/canal-virtual"
+																						class="nav-link nav-link-ahttps--sedeelectronicasicgovco-atencion-y-servicios-a-la-ciudadania-canales-de-atencion-canal-virtual p-0 fs-3 fs-md-6 fs-xl-5">SIC</a>
+																				</li>
+																			</div>
+																		</ul>
+
+																	</div>
+															</div>
+															</li>
+														</div>
+													</ul>
+
+
+
+												</nav>
+
+											</section>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div id="footer-row-2 row">
+							<div class="col-lg-12 col-12">
+								<section class="row region region-footer-fourth">
+									<div id="block-tu-boleta-theme-tubderechosreservados"
+										class="block-content-basic block block-block-content block-block-contentd59c58bf-6fc4-41c1-87f4-461a388ce87b">
+
+
+										<div class="content">
+
+											<div
+												class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item">
+												<p><small class="text-white fs-5">© 2026 Tuboleta ®. Reservados todos los derechos. Versión 6.0.0</small>
+												</p>
+											</div>
+
+										</div>
+									</div>
+
+								</section>
+							</div>
+							<div>
+							</div>
+				</footer>
+				<section class="row region region-footer-fifth">
+					<div id="block-tu-boleta-theme-tueanunciohorizontalpostpiedepagina"
+						class="block-content-basic block block-block-content block-block-content8d079b08-048e-4de4-b7f3-c0e5a19d0327">
+
+
+						<div class="content">
+
+							<div
+								class="clearfix text-formatted field field--name-body field--type-text-with-summary field--label-hidden field__item">
+								<div>
+									<div class="adsense responsive">
+										<script async
+											src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9387674823726661"
+											crossorigin="anonymous"></script>
+										<!-- responsive -->
+										<ins class="adsbygoogle" style="display:block"
+											data-ad-client="ca-pub-9387674823726661" data-ad-slot="2126155139"
+											data-ad-format="auto" data-full-width-responsive="true"></ins>
+										<script>
+											(adsbygoogle = window.adsbygoogle || []).push({});
+										</script>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				</section>
+			</div>
+		</div>
+
+	</div>
+
+
+	<script src="/themes/custom/tu_boleta_theme/node_modules/bootstrap/dist/js/bootstrap.bundle.js?v=10.6.7"></script>
+	<script src="/core/assets/vendor/jquery/jquery.min.js?v=3.7.1"></script>
+	<script src="/core/assets/vendor/once/once.min.js?v=1.0.1"></script>
+	<script src="/sites/default/files/languages/es_Sya9ecoNy9-bX0nFYiBsyAEoSL4ExUV-8AYgrO7X7YE.js?thlv9z"></script>
+	<script src="/core/misc/drupal.js?v=10.6.7"></script>
+	<script src="/core/misc/drupal.init.js?v=10.6.7"></script>
+	<script src="/core/misc/debounce.js?v=10.6.7"></script>
+	<script src="/core/assets/vendor/jquery.ui/ui/version-min.js?v=10.6.7"></script>
+	<script src="/core/assets/vendor/jquery.ui/ui/data-min.js?v=10.6.7"></script>
+	<script src="/core/assets/vendor/jquery.ui/ui/disable-selection-min.js?v=10.6.7"></script>
+	<script src="/core/assets/vendor/jquery.ui/ui/jquery-patch-min.js?v=10.6.7"></script>
+	<script src="/core/assets/vendor/jquery.ui/ui/scroll-parent-min.js?v=10.6.7"></script>
+	<script src="/core/assets/vendor/jquery.ui/ui/unique-id-min.js?v=10.6.7"></script>
+	<script src="/core/assets/vendor/jquery.ui/ui/focusable-min.js?v=10.6.7"></script>
+	<script src="/core/assets/vendor/jquery.ui/ui/keycode-min.js?v=10.6.7"></script>
+	<script src="/core/assets/vendor/jquery.ui/ui/plugin-min.js?v=10.6.7"></script>
+	<script src="/core/assets/vendor/jquery.ui/ui/widget-min.js?v=10.6.7"></script>
+	<script src="/core/assets/vendor/jquery.ui/ui/labels-min.js?v=10.6.7"></script>
+	<script src="/core/assets/vendor/jquery.ui/ui/widgets/autocomplete-min.js?v=10.6.7"></script>
+	<script src="/core/assets/vendor/jquery.ui/ui/widgets/menu-min.js?v=10.6.7"></script>
+	<script src="/modules/contrib/jquery_ui/assets/vendor/jquery.ui/ui/version-min.js?v=1.13.2"></script>
+	<script src="/modules/contrib/jquery_ui/assets/vendor/jquery.ui/ui/ie-min.js?v=1.13.2"></script>
+	<script src="/modules/contrib/jquery_ui/assets/vendor/jquery.ui/ui/widget-min.js?v=1.13.2"></script>
+	<script src="/modules/contrib/jquery_ui/assets/vendor/jquery.ui/ui/widgets/mouse-min.js?v=1.13.2"></script>
+	<script src="/modules/contrib/jquery_ui/assets/vendor/jquery.ui/ui/data-min.js?v=1.13.2"></script>
+	<script src="/modules/contrib/jquery_ui/assets/vendor/jquery.ui/ui/disable-selection-min.js?v=1.13.2"></script>
+	<script src="/modules/contrib/jquery_ui/assets/vendor/jquery.ui/ui/focusable-min.js?v=1.13.2"></script>
+	<script src="/modules/contrib/jquery_ui/assets/vendor/jquery.ui/ui/form-min.js?v=1.13.2"></script>
+	<script src="/modules/contrib/jquery_ui/assets/vendor/jquery.ui/ui/keycode-min.js?v=1.13.2"></script>
+	<script src="/modules/contrib/jquery_ui/assets/vendor/jquery.ui/ui/labels-min.js?v=1.13.2"></script>
+	<script src="/modules/contrib/jquery_ui/assets/vendor/jquery.ui/ui/plugin-min.js?v=1.13.2"></script>
+	<script src="/modules/contrib/jquery_ui/assets/vendor/jquery.ui/ui/safe-active-element-min.js?v=1.13.2"></script>
+	<script src="/modules/contrib/jquery_ui/assets/vendor/jquery.ui/ui/safe-blur-min.js?v=1.13.2"></script>
+	<script src="/modules/contrib/jquery_ui/assets/vendor/jquery.ui/ui/scroll-parent-min.js?v=1.13.2"></script>
+	<script src="/modules/contrib/jquery_ui/assets/vendor/jquery.ui/ui/tabbable-min.js?v=1.13.2"></script>
+	<script src="/modules/contrib/jquery_ui/assets/vendor/jquery.ui/ui/unique-id-min.js?v=1.13.2"></script>
+	<script src="/modules/contrib/jquery_ui/assets/vendor/jquery.ui/ui/widgets/datepicker-min.js?v=1.13.2"></script>
+	<script src="/modules/contrib/blazy/js/dblazy.min.js?thlv9z"></script>
+	<script src="/modules/contrib/blazy/js/plugin/blazy.once.min.js?thlv9z"></script>
+	<script src="/modules/contrib/blazy/js/plugin/blazy.sanitizer.min.js?thlv9z"></script>
+	<script src="/modules/contrib/blazy/js/plugin/blazy.dom.min.js?thlv9z"></script>
+	<script src="/modules/contrib/blazy/js/base/blazy.base.min.js?thlv9z"></script>
+	<script src="/modules/contrib/blazy/js/plugin/blazy.dataset.min.js?thlv9z"></script>
+	<script src="/modules/contrib/blazy/js/plugin/blazy.viewport.min.js?thlv9z"></script>
+	<script src="/modules/contrib/blazy/js/plugin/blazy.xlazy.min.js?thlv9z"></script>
+	<script src="/modules/contrib/blazy/js/plugin/blazy.observer.min.js?thlv9z"></script>
+	<script src="/modules/contrib/blazy/js/base/io/bio.min.js?thlv9z"></script>
+	<script src="/modules/contrib/blazy/js/base/io/bio.media.min.js?thlv9z"></script>
+	<script src="/modules/contrib/blazy/js/base/blazy.drupal.min.js?thlv9z"></script>
+	<script src="/modules/contrib/blazy/js/blazy.compat.min.js?thlv9z"></script>
+	<script src="/core/assets/vendor/tabbable/index.umd.min.js?v=6.3.0"></script>
+	<script src="/core/misc/autocomplete.js?v=10.6.7"></script>
+	<script src="/modules/contrib/better_exposed_filters/js/better_exposed_filters.js?v=6.x"></script>
+	<script src="/core/misc/progress.js?v=10.6.7"></script>
+	<script src="/core/assets/vendor/loadjs/loadjs.min.js?v=4.3.0"></script>
+	<script src="/core/misc/announce.js?v=10.6.7"></script>
+	<script src="/core/misc/message.js?v=10.6.7"></script>
+	<script src="/themes/contrib/bootstrap_barrio/js/messages.js?thlv9z"></script>
+	<script src="/core/misc/ajax.js?v=10.6.7"></script>
+	<script src="/modules/contrib/blazy/js/base/io/bio.ajax.min.js?thlv9z"></script>
+	<script src="/core/misc/jquery.tabbable.shim.js?v=10.6.7"></script>
+	<script src="/core/misc/position.js?v=10.6.7"></script>
+	<script src="/libraries/dompurify/dist/purify.min.js?thlv9z"></script>
+	<script src="/modules/contrib/search_autocomplete/js/jquery.autocomplete.js?v=10.6.7"></script>
+	<script src="/modules/contrib/google_tag/js/gtag.ajax.js?thlv9z"></script>
+	<script src="/libraries/select2/dist/js/select2.min.js?thlv9z"></script>
+	<script src="/core/assets/vendor/sortable/Sortable.min.js?v=1.15.6"></script>
+	<script src="/modules/contrib/select2/js/select2.js?thlv9z"></script>
+	<script src="/libraries/select2/dist/js/i18n/es.js?thlv9z"></script>
+	<script src="/libraries/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js?v=0"></script>
+	<script src="/themes/custom/tu_boleta_theme/js/advanced-search.js?v=10.6.7"></script>
+	<script src="/themes/custom/tu_boleta_theme/js/custom.js?v=10.6.7"></script>
+	<script src="https://t.seedtag.com/t/8141-1529-01.js" async></script>
+	<script src="/modules/custom/tub_common/js/tub_common.js?v=1.x"></script>
+	<script src="/core/misc/jquery.form.js?v=4.3.0"></script>
+	<script src="/core/modules/views/js/base.js?v=10.6.7"></script>
+	<script src="/core/modules/views/js/ajax_view.js?v=10.6.7"></script>
+
+	<script>
+		(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a163afc1f87627d4',t:'MTc4MzIyNjM3Mw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();
+	</script>
+</body>
+
+</html>
