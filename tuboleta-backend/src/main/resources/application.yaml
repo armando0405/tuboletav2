@@ -6,9 +6,9 @@ spring:
     name: tuboleta-backend
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/tuboleta_db
-    username: tuboleta_user
-    password: tuboleta_pass
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/tuboleta_db}
+    username: ${DB_USERNAME:tuboleta_user}
+    password: ${DB_PASSWORD:tuboleta_pass}
     driver-class-name: org.postgresql.Driver
 
   jpa:
