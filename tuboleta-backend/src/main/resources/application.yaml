@@ -33,3 +33,9 @@ notifications:
     api-key: ${SENDGRID_API_KEY:}
   email:
     from: ${EMAIL_FROM:notificaciones@tuboleta-v2.local}
+
+scheduler:
+  # Mecanismo del monitoreo automático (REQ-DET-005): "la BD es la cola".
+  enabled: ${SCHEDULER_ENABLED:true}
+  tick-ms: ${SCHEDULER_TICK_MS:60000}
+  pool-size: ${SCHEDULER_POOL_SIZE:3}
