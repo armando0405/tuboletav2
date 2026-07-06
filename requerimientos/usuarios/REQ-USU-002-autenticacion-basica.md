@@ -1,9 +1,9 @@
 # REQ-USU-002: Autenticación básica
 
-**Estado:** confirmado
+**Estado:** implementado
 **Tipo:** funcional
 **Módulo:** usuarios
-**Última actualización:** 2026-07-04
+**Última actualización:** 2026-07-06
 **Relacionado con:** REQ-NOT-005
 
 ## Descripción

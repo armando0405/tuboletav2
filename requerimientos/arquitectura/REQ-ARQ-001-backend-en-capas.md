@@ -1,9 +1,9 @@
 # REQ-ARQ-001: Arquitectura del backend en capas
 
-**Estado:** confirmado
+**Estado:** implementado
 **Tipo:** técnico
 **Módulo:** arquitectura
-**Última actualización:** 2026-07-04
+**Última actualización:** 2026-07-06
 **Relacionado con:** REQ-ARQ-002, REQ-ARQ-004
 
 ## Descripción

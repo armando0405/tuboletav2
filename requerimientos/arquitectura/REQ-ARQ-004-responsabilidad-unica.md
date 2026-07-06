@@ -1,9 +1,9 @@
 # REQ-ARQ-004: Separación de responsabilidades por dominio
 
-**Estado:** confirmado
+**Estado:** implementado
 **Tipo:** técnico
 **Módulo:** arquitectura
-**Última actualización:** 2026-07-04
+**Última actualización:** 2026-07-06
 **Requiere:** REQ-ARQ-001
 **Relacionado con:** REQ-DET-004, REQ-NOT-003
 

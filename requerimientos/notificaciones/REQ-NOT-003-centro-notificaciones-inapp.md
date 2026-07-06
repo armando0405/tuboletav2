@@ -1,9 +1,9 @@
 # REQ-NOT-003: Centro de notificaciones in-app (inbox)
 
-**Estado:** confirmado
+**Estado:** implementado
 **Tipo:** funcional
 **Módulo:** notificaciones
-**Última actualización:** 2026-07-04
+**Última actualización:** 2026-07-06
 **Relacionado con:** REQ-FE-003, REQ-FE-004
 **Artefactos relacionados:** artefactos/esquema-bd.md
 

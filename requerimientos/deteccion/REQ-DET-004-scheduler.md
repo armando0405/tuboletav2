@@ -1,9 +1,9 @@
 # REQ-DET-004: Scheduler de monitoreo
 
-**Estado:** confirmado
+**Estado:** implementado
 **Tipo:** técnico
 **Módulo:** deteccion
-**Última actualización:** 2026-07-04
+**Última actualización:** 2026-07-06
 **Requiere:** REQ-BUS-005
 **Relacionado con:** REQ-BUS-001, REQ-BUS-004, REQ-DET-003, REQ-DET-005
 

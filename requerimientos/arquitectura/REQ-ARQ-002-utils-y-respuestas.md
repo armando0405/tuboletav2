@@ -1,9 +1,9 @@
 # REQ-ARQ-002: Convenciones de utils y envelope de respuestas
 
-**Estado:** confirmado
+**Estado:** implementado
 **Tipo:** técnico
 **Módulo:** arquitectura
-**Última actualización:** 2026-07-04
+**Última actualización:** 2026-07-06
 **Requiere:** REQ-ARQ-001
 
 ## Descripción

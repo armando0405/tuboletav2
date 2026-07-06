@@ -1,9 +1,9 @@
 # REQ-DET-005: Mecanismo de ejecución del scheduler — la BD es la cola
 
-**Estado:** confirmado
+**Estado:** implementado
 **Tipo:** técnico
 **Módulo:** deteccion
-**Última actualización:** 2026-07-04
+**Última actualización:** 2026-07-06
 **Requiere:** REQ-BUS-005, REQ-DET-004
 **Relacionado con:** REQ-DET-003, REQ-FUE-001, REQ-ARQ-004
 **Artefactos relacionados:** artefactos/esquema-bd.md

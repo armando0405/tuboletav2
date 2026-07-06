@@ -1,9 +1,9 @@
 # REQ-FUE-002: Estado visible cuando una fuente se deshabilita
 
-**Estado:** confirmado
+**Estado:** implementado
 **Tipo:** funcional
 **Módulo:** fuentes
-**Última actualización:** 2026-07-04
+**Última actualización:** 2026-07-06
 **Requiere:** REQ-NOT-003
 **Relacionado con:** REQ-USU-001, REQ-FE-002
 **Artefactos relacionados:** artefactos/esquema-bd.md

@@ -1,9 +1,9 @@
 # REQ-BUS-004: Ciclo de vida de una búsqueda
 
-**Estado:** confirmado
+**Estado:** implementado
 **Tipo:** funcional
 **Módulo:** busquedas
-**Última actualización:** 2026-07-04
+**Última actualización:** 2026-07-06
 
 ## Descripción
 `searches.status` tiene tres estados: `ACTIVE` (se monitorea), `INACTIVE` (el usuario la pausó; el scheduler la salta) y `DELETED` (eliminación lógica). Nunca se hace `DELETE` físico de una búsqueda: su histórico de eventos y notificaciones se conserva.

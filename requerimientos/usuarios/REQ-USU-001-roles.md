@@ -1,9 +1,9 @@
 # REQ-USU-001: Roles ADMIN y USER
 
-**Estado:** confirmado
+**Estado:** implementado
 **Tipo:** funcional
 **Módulo:** usuarios
-**Última actualización:** 2026-07-04
+**Última actualización:** 2026-07-06
 **Relacionado con:** REQ-FUE-002
 
 ## Descripción

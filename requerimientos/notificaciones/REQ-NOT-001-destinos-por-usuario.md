@@ -1,9 +1,9 @@
 # REQ-NOT-001: Destinos de notificación por usuario (1:N, reutilizables)
 
-**Estado:** confirmado
+**Estado:** implementado
 **Tipo:** funcional
 **Módulo:** notificaciones
-**Última actualización:** 2026-07-04
+**Última actualización:** 2026-07-06
 **Artefactos relacionados:** artefactos/esquema-bd.md
 
 ## Descripción

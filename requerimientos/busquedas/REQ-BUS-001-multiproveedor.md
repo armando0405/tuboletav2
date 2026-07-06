@@ -1,9 +1,9 @@
 # REQ-BUS-001: Búsqueda multi-proveedor (N:M)
 
-**Estado:** confirmado
+**Estado:** implementado
 **Tipo:** funcional
 **Módulo:** busquedas
-**Última actualización:** 2026-07-04
+**Última actualización:** 2026-07-06
 **Requiere:** REQ-FUE-001
 **Relacionado con:** REQ-DET-004
 **Artefactos relacionados:** artefactos/esquema-bd.md

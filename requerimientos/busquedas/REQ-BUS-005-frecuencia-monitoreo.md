@@ -1,9 +1,9 @@
 # REQ-BUS-005: Frecuencia de monitoreo elegida por el usuario
 
-**Estado:** confirmado
+**Estado:** implementado
 **Tipo:** funcional
 **Módulo:** busquedas
-**Última actualización:** 2026-07-04
+**Última actualización:** 2026-07-06
 **Relacionado con:** REQ-DET-003, REQ-DET-004
 **Artefactos relacionados:** artefactos/esquema-bd.md
 
