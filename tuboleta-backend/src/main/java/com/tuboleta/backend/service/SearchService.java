@@ -22,5 +22,13 @@ public interface SearchService {
 
     SearchResponse togglePair(Long userId, Long searchId, Long providerId);
 
+    /**
+     * Pausa/reanuda la búsqueda COMPLETA (todos sus proveedores a la vez),
+     * alternando {@code status} ACTIVE↔INACTIVE (REQ-FE-001). Nunca toca
+     * DELETED: si la búsqueda está eliminada lógicamente se trata como
+     * inexistente.
+     */
+    SearchResponse toggleStatus(Long userId, Long searchId);
+
     void delete(Long userId, Long searchId);
 }

@@ -20,4 +20,10 @@ public interface EventRepository extends JpaRepository<Event, Long> {
      * detalle {@code GET /api/searches/{id}/events}.
      */
     List<Event> findBySearchProviderIdInOrderByLastSeenAtDesc(List<Long> searchProviderIds);
+
+    /**
+     * Conteo de eventos de todos los pares de una búsqueda, para
+     * {@code SearchResponse.eventsCount} sin cargar las filas completas.
+     */
+    long countBySearchProviderIdIn(List<Long> searchProviderIds);
 }

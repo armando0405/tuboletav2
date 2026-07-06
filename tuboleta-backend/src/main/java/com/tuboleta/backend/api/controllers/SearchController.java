@@ -72,6 +72,13 @@ public class SearchController {
                 searchService.togglePair(principal.getId(), id, providerId));
     }
 
+    @PatchMapping("/{id}/toggle")
+    public ObjectResponse<SearchResponse> toggleStatus(@AuthenticationPrincipal AppUserPrincipal principal,
+                                                         @PathVariable Long id) {
+        return new ObjectResponse<>(ErrorCode.SUCCESS, ErrorMessage.SUCCESS,
+                searchService.toggleStatus(principal.getId(), id));
+    }
+
     @DeleteMapping("/{id}")
     public ObjectResponse<Void> delete(@AuthenticationPrincipal AppUserPrincipal principal, @PathVariable Long id) {
         searchService.delete(principal.getId(), id);

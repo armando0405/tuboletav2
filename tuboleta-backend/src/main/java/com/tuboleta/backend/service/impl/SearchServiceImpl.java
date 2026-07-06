@@ -159,6 +159,18 @@ public class SearchServiceImpl implements SearchService {
 
     @Override
     @Transactional
+    public SearchResponse toggleStatus(Long userId, Long searchId) {
+        Search search = ownSearch(userId, searchId);
+        if (search.getStatus() == SearchStatus.DELETED) {
+            throw new NotFoundRegisterException("Busqueda", "id", searchId);
+        }
+        search.setStatus(search.getStatus() == SearchStatus.ACTIVE ? SearchStatus.INACTIVE : SearchStatus.ACTIVE);
+        search = searchRepository.save(search);
+        return toResponse(search);
+    }
+
+    @Override
+    @Transactional
     public void delete(Long userId, Long searchId) {
         Search search = ownSearch(userId, searchId);
         search.setStatus(SearchStatus.DELETED);
@@ -203,16 +215,23 @@ public class SearchServiceImpl implements SearchService {
     }
 
     private SearchResponse toResponse(Search search) {
-        List<SearchProviderInfo> providers = searchProviderRepository.findBySearchId(search.getId()).stream()
+        List<SearchProvider> pairs = searchProviderRepository.findBySearchId(search.getId());
+        List<SearchProviderInfo> providers = pairs.stream()
                 .map(pair -> new SearchProviderInfo(
                         pair.getProvider().getId(),
                         pair.getProvider().getName(),
                         pair.getIsActive(),
                         pair.getProvider().getStatus(),
+                        pair.getProvider().getStatusReason(),
                         pair.getLastRunAt()))
                 .toList();
+        List<Long> destinationIds = searchNotificationRepository.findBySearchIdAndIsActiveTrue(search.getId()).stream()
+                .map(link -> link.getUserNotificationChannel().getId())
+                .toList();
+        List<Long> pairIds = pairs.stream().map(SearchProvider::getId).toList();
+        long eventsCount = pairIds.isEmpty() ? 0L : eventRepository.countBySearchProviderIdIn(pairIds);
         return new SearchResponse(search.getId(), search.getTerm(), search.getCheckFrequencyHours(),
-                search.getStatus(), providers);
+                search.getStatus(), providers, destinationIds, eventsCount);
     }
 
     private static EventResponse toEventResponse(Event event) {

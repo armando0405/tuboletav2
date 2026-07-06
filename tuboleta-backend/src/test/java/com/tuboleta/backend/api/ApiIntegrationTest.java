@@ -6,20 +6,24 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tuboleta.backend.domain.entities.Event;
 import com.tuboleta.backend.domain.entities.Notification;
 import com.tuboleta.backend.domain.entities.Provider;
 import com.tuboleta.backend.domain.entities.Search;
+import com.tuboleta.backend.domain.entities.SearchProvider;
 import com.tuboleta.backend.domain.entities.User;
 import com.tuboleta.backend.domain.enums.NotificationType;
 import com.tuboleta.backend.domain.enums.SearchStatus;
 import com.tuboleta.backend.domain.enums.UserRole;
 import com.tuboleta.backend.domain.enums.UserStatus;
+import com.tuboleta.backend.repository.EventRepository;
 import com.tuboleta.backend.repository.NotificationRepository;
 import com.tuboleta.backend.repository.ProviderRepository;
 import com.tuboleta.backend.repository.SearchNotificationRepository;
@@ -76,6 +80,9 @@ class ApiIntegrationTest {
 
     @Autowired
     private NotificationRepository notificationRepository;
+
+    @Autowired
+    private EventRepository eventRepository;
 
     @MockitoSpyBean
     private NotificationService notificationService;
@@ -384,5 +391,126 @@ class ApiIntegrationTest {
         mockMvc.perform(get("/api/searches").session(session))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.list[?(@.id == " + searchId + ")]").isEmpty());
+    }
+
+    // ---------- 11: toggle de busqueda completa ACTIVE<->INACTIVE + ownership ----------
+
+    @Test
+    void toggleSearchStatus_flipsActiveInactive_andOwnershipIsEnforced() throws Exception {
+        MockHttpSession session = registerAndLogin("mario.cano@example.com", "Mario Cano", "clave12345");
+        Long providerId = tuBoletaProviderId();
+
+        Map<String, Object> body = Map.of(
+                "term", "Aterciopelados",
+                "checkFrequencyHours", 24,
+                "providerIds", java.util.List.of(providerId),
+                "destinationIds", java.util.List.of());
+        MvcResult result = mockMvc.perform(post("/api/searches")
+                        .session(session)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(body)))
+                .andExpect(status().isOk())
+                .andReturn();
+        Long searchId = objectMapper.readTree(result.getResponse().getContentAsString())
+                .get("object").get("id").asLong();
+
+        mockMvc.perform(patch("/api/searches/" + searchId + "/toggle").session(session))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.code").value(0))
+                .andExpect(jsonPath("$.object.status").value("INACTIVE"));
+        assertThat(searchRepository.findById(searchId).orElseThrow().getStatus()).isEqualTo(SearchStatus.INACTIVE);
+
+        mockMvc.perform(patch("/api/searches/" + searchId + "/toggle").session(session))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.object.status").value("ACTIVE"));
+        assertThat(searchRepository.findById(searchId).orElseThrow().getStatus()).isEqualTo(SearchStatus.ACTIVE);
+
+        MockHttpSession intruderSession = registerAndLogin("intruso.b@example.com", "Intruso B", "clave12345");
+        mockMvc.perform(patch("/api/searches/" + searchId + "/toggle").session(intruderSession))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.code").value(-1));
+
+        // La busqueda de Mario sigue intacta (el intento del intruso no la toco).
+        assertThat(searchRepository.findById(searchId).orElseThrow().getStatus()).isEqualTo(SearchStatus.ACTIVE);
+    }
+
+    // ---------- 12: SearchResponse trae destinationIds y eventsCount ----------
+
+    @Test
+    void searchResponse_includesDestinationIdsAndEventsCount() throws Exception {
+        MockHttpSession session = registerAndLogin("nora.diaz@example.com", "Nora Diaz", "clave12345");
+        Long destinationId = createDestination(session, "nora.diaz@example.com");
+        Long providerId = tuBoletaProviderId();
+
+        Map<String, Object> body = Map.of(
+                "term", "Fonseca",
+                "checkFrequencyHours", 24,
+                "providerIds", java.util.List.of(providerId),
+                "destinationIds", java.util.List.of(destinationId));
+        MvcResult createResult = mockMvc.perform(post("/api/searches")
+                        .session(session)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(body)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.object.destinationIds[0]").value(destinationId))
+                .andExpect(jsonPath("$.object.eventsCount").value(0))
+                .andReturn();
+
+        Long searchId = objectMapper.readTree(createResult.getResponse().getContentAsString())
+                .get("object").get("id").asLong();
+
+        SearchProvider pair = searchProviderRepository.findBySearchId(searchId).get(0);
+        eventRepository.save(Event.builder()
+                .searchProvider(pair)
+                .externalId("ext-1")
+                .title("Concierto Fonseca")
+                .build());
+        eventRepository.save(Event.builder()
+                .searchProvider(pair)
+                .externalId("ext-2")
+                .title("Concierto Fonseca 2")
+                .build());
+
+        MvcResult listResult = mockMvc.perform(get("/api/searches").session(session))
+                .andExpect(status().isOk())
+                .andReturn();
+        JsonNode list = objectMapper.readTree(listResult.getResponse().getContentAsString()).get("list");
+        JsonNode found = null;
+        for (JsonNode node : list) {
+            if (node.get("id").asLong() == searchId) {
+                found = node;
+            }
+        }
+        assertThat(found).isNotNull();
+        assertThat(found.get("eventsCount").asLong()).isEqualTo(2L);
+        assertThat(found.get("destinationIds").get(0).asLong()).isEqualTo(destinationId);
+    }
+
+    // ---------- 13: providerStatusReason poblado cuando el proveedor esta DISABLED ----------
+
+    @Test
+    void searchResponse_includesProviderStatusReason_whenProviderDisabled() throws Exception {
+        MockHttpSession adminSession = loginAsAdmin();
+        Long providerId = tuBoletaProviderId();
+        mockMvc.perform(post("/api/admin/providers/" + providerId + "/disable")
+                        .session(adminSession)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(Map.of("reason", "Sitio caido por mantenimiento"))))
+                .andExpect(status().isOk());
+
+        MockHttpSession session = registerAndLogin("silvia.rey@example.com", "Silvia Rey", "clave12345");
+        Map<String, Object> body = Map.of(
+                "term", "Morat",
+                "checkFrequencyHours", 24,
+                "providerIds", java.util.List.of(providerId),
+                "destinationIds", java.util.List.of());
+
+        mockMvc.perform(post("/api/searches")
+                        .session(session)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(body)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.object.providers[0].providerStatus").value("DISABLED"))
+                .andExpect(jsonPath("$.object.providers[0].providerStatusReason").value("Sitio caido por mantenimiento"));
     }
 }
