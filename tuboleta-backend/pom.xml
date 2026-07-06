@@ -112,6 +112,15 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- Spring Boot 4 modularizo RestTemplateBuilder aparte de los
+             starters web (paquete org.springframework.boot.restclient); lo
+             necesita spring-boot-resttestclient para poder construir el bean
+             TestRestTemplate usado por el smoke test E2E (Task 8). -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-restclient</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
