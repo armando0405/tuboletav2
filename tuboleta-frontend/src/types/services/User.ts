@@ -1,21 +1,9 @@
+export type UserRole = 'ADMIN' | 'USER'
+
+// Refleja UserResponse (backend): register/login/me. Nunca trae password.
 export type User = {
-    id: number | string
-    userId: number
-    name: string
-    username: string
+    id: number
     email: string
-    role?: string
-    dependencyId: number
-    active: string
-    positionId: number
-    idCard: number
-    companyId: number
-    domain: string | null
-    usesDomain: string | null
-    image: string | null
-    cellphone: number
-    dynamicKeyActive: string | null
-    dynamicKey: string | null
-    validityDate: string | null
-    dynamicKeyDate: string
+    name: string
+    role: UserRole
 }

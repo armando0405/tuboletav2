@@ -404,7 +404,8 @@ function handleActionRowClick(type: 'edit' | 'delete', item: recordStringUnknown
 }
 
 .row-selected {
-    background-color: rgba(25, 118, 210, 0.15) !important;
+    background-color: rgb(var(--v-theme-surface-elevated)) !important;
+    border-left: 4px solid rgb(var(--v-theme-primary));
 }
 
 :deep(thead th) {
@@ -417,10 +418,10 @@ function handleActionRowClick(type: 'edit' | 'delete', item: recordStringUnknown
 }
 
 :deep(.v-data-table tbody tr td) {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
+    border-bottom: 1px solid rgb(var(--v-theme-borderColor)) !important;
 }
 
 :deep(.v-data-table thead tr th) {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
+    border-bottom: 1px solid rgb(var(--v-theme-borderColor)) !important;
 }
 </style>

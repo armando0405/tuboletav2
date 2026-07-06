@@ -5,7 +5,7 @@ import MainView from './Main.vue'
 
 <template>
     <v-locale-provider>
-        <v-app class="bg-grey-lighten-4">
+        <v-app>
             <main-view />
 
             <v-main>

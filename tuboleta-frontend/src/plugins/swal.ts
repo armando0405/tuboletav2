@@ -1,8 +1,9 @@
-import { BlueTheme } from '@/theme/LightTheme'
+import { TuboletaDarkTheme } from '@/theme/DarkTheme'
 import Swal from 'sweetalert2'
 import type { App } from 'vue'
 
-const { primary, accent } = BlueTheme.colors
+const { primary, accent } = TuboletaDarkTheme.colors
+const { 'surface-elevated': surfaceElevated, 'on-surface': onSurface } = TuboletaDarkTheme.colors
 
 const swalInstance = Swal.mixin({
     confirmButtonColor: primary,
@@ -11,6 +12,8 @@ const swalInstance = Swal.mixin({
     cancelButtonText: 'Cancelar',
     reverseButtons: true,
     buttonsStyling: true,
+    background: surfaceElevated,
+    color: onSurface,
 })
 
 export default {

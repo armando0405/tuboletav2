@@ -3,6 +3,10 @@ export type ThemeTypes = {
     dark: boolean
     variables?: object
     colors: {
+        // Tokens "Dark Operations" (requerimientos/artefactos/diseno-frontend.md)
+        background?: string
+        surface?: string
+        'surface-elevated'?: string
         primary?: string
         secondary?: string
         info?: string
@@ -10,6 +14,11 @@ export type ThemeTypes = {
         accent?: string
         warning?: string
         error?: string
+        'on-surface'?: string
+        'on-surface-variant'?: string
+        outline?: string
+        // Alias heredados de la plantilla (consumidos por scss/ existente):
+        // se mantienen para no romper estilos ya escritos contra estos nombres.
         lightprimary?: string
         lightsecondary?: string
         lightsuccess?: string
@@ -19,11 +28,12 @@ export type ThemeTypes = {
         textPrimary?: string
         textSecondary?: string
         borderColor?: string
+        borderLight?: string
         hoverColor?: string
         inputBorder?: string
         containerBg?: string
-        surface?: string
-        'on-surface-variant'?: string
+        darkText?: string
+        lightText?: string
         grey100?: string
         muted?: string
     }

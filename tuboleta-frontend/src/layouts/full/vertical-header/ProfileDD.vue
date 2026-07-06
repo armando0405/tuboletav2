@@ -41,10 +41,8 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/auth.store'
 import { router } from '@/router'
-import { securityServices } from '@/utils/services/securityServices'
 import { computed } from 'vue'
 
-const { postLogout } = securityServices
 const authStore = useAuthStore()
 
 const initial = computed<string>(() => {
@@ -61,8 +59,7 @@ const initial = computed<string>(() => {
 
 const logout = async (): Promise<void> => {
     try {
-        await postLogout()
-        authStore.clearUser()
+        await authStore.logout()
         router.push({ name: 'login' })
     } catch (error) {
         console.error(error)

@@ -1,1 +1,5 @@
-export * as SECURITY from './securityEndpoints'
+export * as AUTH from './authEndpoints'
+export * as DESTINATIONS from './destinationsEndpoints'
+export * as SEARCHES from './searchesEndpoints'
+export * as NOTIFICATIONS from './notificationsEndpoints'
+export * as ADMIN_PROVIDERS from './adminProvidersEndpoints'

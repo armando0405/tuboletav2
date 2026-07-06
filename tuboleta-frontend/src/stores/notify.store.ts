@@ -1,4 +1,4 @@
-import { BlueTheme } from '@/theme/LightTheme'
+import { TuboletaDarkTheme } from '@/theme/DarkTheme'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
@@ -9,7 +9,7 @@ interface NotifyMessage {
     color: string
 }
 
-const { error, success, info, warning } = BlueTheme.colors
+const { error, success, info, warning } = TuboletaDarkTheme.colors
 
 const colorMap: Record<NotifyType, string> = {
     error: error || '',

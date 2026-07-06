@@ -1,0 +1,39 @@
+import api from '@/plugins/axios'
+import { SEARCHES } from '@/utils/endpoints'
+import type { ObjectListResponse, ObjectResponse } from '@/types/services/Responses'
+import type { Search, SearchCreateRequest, SearchUpdateRequest } from '@/types/services/Search'
+import type { Event } from '@/types/services/Event'
+import type { AxiosResponse } from 'axios'
+
+const postSearch = (payload: SearchCreateRequest): Promise<AxiosResponse<ObjectResponse<Search>>> =>
+    api.post<ObjectResponse<Search>>(SEARCHES.POST_SEARCH, payload)
+
+const getSearches = (): Promise<AxiosResponse<ObjectListResponse<Search>>> =>
+    api.get<ObjectListResponse<Search>>(SEARCHES.GET_SEARCHES)
+
+const getSearchEvents = (id: number): Promise<AxiosResponse<ObjectListResponse<Event>>> =>
+    api.get<ObjectListResponse<Event>>(SEARCHES.GET_SEARCH_EVENTS(id))
+
+const patchSearch = (
+    id: number,
+    payload: SearchUpdateRequest,
+): Promise<AxiosResponse<ObjectResponse<Search>>> =>
+    api.patch<ObjectResponse<Search>>(SEARCHES.PATCH_SEARCH(id), payload)
+
+const patchToggleSearchProvider = (
+    id: number,
+    providerId: number,
+): Promise<AxiosResponse<ObjectResponse<Search>>> =>
+    api.patch<ObjectResponse<Search>>(SEARCHES.PATCH_TOGGLE_SEARCH_PROVIDER(id, providerId))
+
+const deleteSearch = (id: number): Promise<AxiosResponse<ObjectResponse<void>>> =>
+    api.delete<ObjectResponse<void>>(SEARCHES.DELETE_SEARCH(id))
+
+export const searchesService = {
+    postSearch,
+    getSearches,
+    getSearchEvents,
+    patchSearch,
+    patchToggleSearchProvider,
+    deleteSearch,
+}

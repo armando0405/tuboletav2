@@ -9,8 +9,13 @@ $color-pack: false;
 // Global font size and border radius
 $font-size-root: 1rem;
 $border-radius-root: 4px;
-$body-font-family: 'Plus Jakarta Sans', sans-serif !default;
+// Tipografía "Dark Operations" (requerimientos/artefactos/diseno-frontend.md):
+// Inter para toda la UI, JetBrains Mono reservada para datos tabulares
+// (fechas, horas, contadores, frecuencias, IDs) vía la clase utilitaria
+// `.font-mono` (ver scss/layout/_container.scss).
+$body-font-family: 'Inter', sans-serif !default;
 $heading-font-family: $body-font-family !default;
+$mono-font-family: 'JetBrains Mono', monospace !default;
 $btn-font-weight: 400 !default;
 $btn-letter-spacing: 0 !default;
 

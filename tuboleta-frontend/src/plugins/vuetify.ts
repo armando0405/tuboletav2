@@ -1,7 +1,7 @@
 import { createVuetify } from 'vuetify'
 import '@mdi/font/css/materialdesignicons.css'
 import * as directives from 'vuetify/directives'
-import { BlueTheme } from '@/theme/LightTheme'
+import { TuboletaDarkTheme } from '@/theme/DarkTheme'
 import { es } from 'vuetify/locale'
 
 const inputDefaults = {
@@ -17,9 +17,9 @@ export default createVuetify({
         messages: { es },
     },
     theme: {
-        defaultTheme: 'BlueTheme',
+        defaultTheme: 'tuboletaDark',
         themes: {
-            BlueTheme,
+            tuboletaDark: TuboletaDarkTheme,
         },
     },
     defaults: {

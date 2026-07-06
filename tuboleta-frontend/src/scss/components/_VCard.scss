@@ -19,8 +19,10 @@
 .v-card {
     width: 100%;
     overflow: visible;
+    // Dark Operations: elevación por color — la card queda más clara que el
+    // fondo de la app (background -> surface), no por sombra.
     &.withbg {
-        background-color: rgb(var(--v-theme-background));
+        background-color: rgb(var(--v-theme-surface));
     }
     &.w-auto {
         width: auto !important;

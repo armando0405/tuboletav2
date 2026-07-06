@@ -1,14 +1,15 @@
-/* fila seleccionada */
+/* fila seleccionada — superficie elevada + borde izquierdo índigo (el único
+   acento interactivo), sin gradientes decorativos */
 .v-data-table tbody tr.row-selected {
-    background: linear-gradient(90deg, #eef2ff, #e0e7ff);
-    border-left: 4px solid #6366f1;
+    background: rgb(var(--v-theme-surface-elevated));
+    border-left: 4px solid rgb(var(--v-theme-primary));
     font-weight: 500;
     transition: all 0.2s ease;
 }
 
 /* hover */
 .v-data-table tbody tr:hover {
-    background: #f8fafc;
+    background: rgb(var(--v-theme-surface-elevated));
     cursor: pointer;
 }
 
@@ -19,6 +20,7 @@
 .v-table > .v-table__wrapper > table > tfoot > tr > td,
 .v-table > .v-table__wrapper > table > tfoot > tr > th {
     padding: 16px;
+    border-color: rgb(var(--v-theme-borderColor)) !important;
     transition-duration: 0.28s !important;
     transition-property: box-shadow, opacity, background, height;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
