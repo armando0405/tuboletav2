@@ -1,7 +1,8 @@
 import type { RouteRecordRaw } from 'vue-router'
 
-// Rutas del panel autoservicio (REQ-FE-001..005). Por ahora apuntan a vistas
-// placeholder mínimas — las pantallas de negocio se construyen en T9b/T9c.
+// Rutas del panel autoservicio (REQ-FE-001..005). Búsquedas y eventos ya
+// tienen pantalla real (T9b); notificaciones/destinos/admin siguen
+// placeholder mínimo hasta T9c.
 const HomeRoutes: RouteRecordRaw[] = [
     {
         name: 'Dashboard',
@@ -12,6 +13,11 @@ const HomeRoutes: RouteRecordRaw[] = [
         name: 'searches',
         path: '/busquedas',
         component: () => import('@/views/searches/SearchesList.vue'),
+    },
+    {
+        name: 'search-events',
+        path: '/busquedas/:id/eventos',
+        component: () => import('@/views/searches/SearchEvents.vue'),
     },
     {
         name: 'notifications',
