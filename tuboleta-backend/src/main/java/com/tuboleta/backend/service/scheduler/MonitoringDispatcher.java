@@ -67,28 +67,32 @@ public class MonitoringDispatcher {
 
     @Scheduled(fixedDelayString = "${scheduler.tick-ms:60000}")
     public void tick() {
-        List<DueGroup> dueWork = dueWorkSelector.selectDueWork(Instant.now());
-        if (dueWork.isEmpty()) {
-            return;
-        }
-
-        Map<Long, List<DueGroup>> byProvider = dueWork.stream()
-                .collect(Collectors.groupingBy(g -> g.provider().getId(), LinkedHashMap::new, Collectors.toList()));
-
-        for (Map.Entry<Long, List<DueGroup>> entry : byProvider.entrySet()) {
-            Long providerId = entry.getKey();
-            if (!providersInProgress.add(providerId)) {
-                log.debug("Proveedor {} ya tiene un job en curso, se omite este tick para evitar duplicar", providerId);
-                continue;
+        try {
+            List<DueGroup> dueWork = dueWorkSelector.selectDueWork(Instant.now());
+            if (dueWork.isEmpty()) {
+                return;
             }
-            List<DueGroup> groups = entry.getValue();
-            monitoringTaskExecutor.execute(() -> {
-                try {
-                    processProviderGroups(groups);
-                } finally {
-                    providersInProgress.remove(providerId);
+
+            Map<Long, List<DueGroup>> byProvider = dueWork.stream()
+                    .collect(Collectors.groupingBy(g -> g.provider().getId(), LinkedHashMap::new, Collectors.toList()));
+
+            for (Map.Entry<Long, List<DueGroup>> entry : byProvider.entrySet()) {
+                Long providerId = entry.getKey();
+                if (!providersInProgress.add(providerId)) {
+                    log.debug("Proveedor {} ya tiene un job en curso, se omite este tick para evitar duplicar", providerId);
+                    continue;
                 }
-            });
+                List<DueGroup> groups = entry.getValue();
+                monitoringTaskExecutor.execute(() -> {
+                    try {
+                        processProviderGroups(groups);
+                    } finally {
+                        providersInProgress.remove(providerId);
+                    }
+                });
+            }
+        } catch (Exception e) {
+            log.error("Error en el tick del scheduler, se reintentará en el próximo ciclo", e);
         }
     }
 

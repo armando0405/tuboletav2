@@ -1,9 +1,13 @@
 package com.tuboleta.backend.service.scheduler;
 
+import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.tuboleta.backend.domain.entities.Provider;
+import java.time.Instant;
 import java.util.List;
 import java.util.concurrent.Executor;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +21,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
  * proveedor (REQ-DET-005): la pausa configurable ocurre ENTRE grupos, nunca
  * antes del primero. Usa un executor "mismo hilo" para no depender de hilos
  * reales, y un {@link Sleeper} mockeado para no dormir de verdad.
+ *
+ * <p>También cubre el fix de Task 6 (importante #4): un fallo de
+ * {@code selectDueWork} no debe reventar el tick del scheduler.</p>
  */
 @ExtendWith(MockitoExtension.class)
 class MonitoringDispatcherTest {
@@ -49,5 +56,12 @@ class MonitoringDispatcherTest {
         verify(sleeper, times(1)).sleep(1500L);
         verify(monitoringRunService, times(1)).runGroup(group1);
         verify(monitoringRunService, times(1)).runGroup(group2);
+    }
+
+    @Test
+    void selectDueWorkThrows_tickDoesNotPropagate() {
+        when(dueWorkSelector.selectDueWork(any(Instant.class))).thenThrow(new RuntimeException("db down"));
+
+        assertThatCode(() -> dispatcher.tick()).doesNotThrowAnyException();
     }
 }
