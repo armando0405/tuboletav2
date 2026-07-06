@@ -10,8 +10,10 @@ import com.tuboleta.backend.repository.UserRepository;
 import com.tuboleta.backend.service.DestinationService;
 import com.tuboleta.backend.utils.constants.ErrorMessage;
 import com.tuboleta.backend.utils.exception.BusinessException;
+import com.tuboleta.backend.utils.exception.GenericException;
 import com.tuboleta.backend.utils.exception.NotFoundRegisterException;
 import java.util.List;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,11 +52,11 @@ public class DestinationServiceImpl implements DestinationService {
         NotifChannel channel = notifChannelRepository.findByName(EMAIL_CHANNEL)
                 .orElseThrow(() -> new BusinessException(ErrorMessage.CHANNEL_NOT_FOUND, EMAIL_CHANNEL));
         if (!Boolean.TRUE.equals(channel.getIsActive())) {
-            throw new BusinessException(ErrorMessage.CHANNEL_INACTIVE, EMAIL_CHANNEL);
+            throw new GenericException(HttpStatus.CONFLICT, ErrorMessage.CHANNEL_INACTIVE, EMAIL_CHANNEL);
         }
         destinationRepository.findByUserIdAndChannelIdAndDestination(userId, channel.getId(), request.destination())
                 .ifPresent(existing -> {
-                    throw new BusinessException(ErrorMessage.DESTINATION_DUPLICATE, request.destination());
+                    throw new GenericException(HttpStatus.CONFLICT, ErrorMessage.DESTINATION_DUPLICATE, request.destination());
                 });
 
         UserNotificationChannel destination = UserNotificationChannel.builder()

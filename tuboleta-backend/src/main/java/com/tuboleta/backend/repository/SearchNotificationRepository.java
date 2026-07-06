@@ -2,7 +2,6 @@ package com.tuboleta.backend.repository;
 
 import com.tuboleta.backend.domain.entities.SearchNotification;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -20,10 +19,4 @@ public interface SearchNotificationRepository extends JpaRepository<SearchNotifi
      * conjunto de destinos en un PATCH (Task 7).
      */
     List<SearchNotification> findBySearchId(Long searchId);
-
-    /**
-     * Espeja {@code uq_search_notif_destination}: existe ya una fila para
-     * este par (activa o no), para reactivar en vez de duplicar.
-     */
-    Optional<SearchNotification> findBySearchIdAndUserNotificationChannelId(Long searchId, Long userNotificationChannelId);
 }

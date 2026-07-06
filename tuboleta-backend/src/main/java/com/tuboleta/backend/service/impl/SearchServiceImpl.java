@@ -20,12 +20,14 @@ import com.tuboleta.backend.repository.UserNotificationChannelRepository;
 import com.tuboleta.backend.repository.UserRepository;
 import com.tuboleta.backend.service.SearchService;
 import com.tuboleta.backend.utils.constants.ErrorMessage;
-import com.tuboleta.backend.utils.exception.BusinessException;
+import com.tuboleta.backend.utils.exception.GenericException;
 import com.tuboleta.backend.utils.exception.NotFoundRegisterException;
 import com.tuboleta.backend.utils.text.TermNormalizer;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -67,7 +69,7 @@ public class SearchServiceImpl implements SearchService {
         String normalized = TermNormalizer.normalize(request.term());
         searchRepository.findByUserIdAndTermNormalizedAndStatusNot(userId, normalized, SearchStatus.DELETED)
                 .ifPresent(existing -> {
-                    throw new BusinessException(ErrorMessage.SEARCH_DUPLICATE, request.term());
+                    throw new GenericException(HttpStatus.CONFLICT, ErrorMessage.SEARCH_DUPLICATE, request.term());
                 });
 
         Search search = Search.builder()
@@ -79,7 +81,8 @@ public class SearchServiceImpl implements SearchService {
                 .build();
         search = searchRepository.save(search);
 
-        for (Long providerId : request.providerIds()) {
+        Set<Long> providerIds = new LinkedHashSet<>(request.providerIds());
+        for (Long providerId : providerIds) {
             Provider provider = providerRepository.findById(providerId)
                     .orElseThrow(() -> new NotFoundRegisterException("Proveedor", "id", providerId));
             SearchProvider pair = SearchProvider.builder()
@@ -90,7 +93,8 @@ public class SearchServiceImpl implements SearchService {
             searchProviderRepository.save(pair);
         }
 
-        List<Long> destinationIds = request.destinationIds() == null ? List.of() : request.destinationIds();
+        List<Long> requestedDestinationIds = request.destinationIds() == null ? List.of() : request.destinationIds();
+        Set<Long> destinationIds = new LinkedHashSet<>(requestedDestinationIds);
         for (Long destinationId : destinationIds) {
             var destination = destinationRepository.findByIdAndUserId(destinationId, userId)
                     .orElseThrow(() -> new NotFoundRegisterException("Destino", "id", destinationId));

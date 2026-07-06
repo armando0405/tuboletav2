@@ -8,7 +8,8 @@ import com.tuboleta.backend.domain.enums.UserStatus;
 import com.tuboleta.backend.repository.UserRepository;
 import com.tuboleta.backend.service.AuthService;
 import com.tuboleta.backend.utils.constants.ErrorMessage;
-import com.tuboleta.backend.utils.exception.BusinessException;
+import com.tuboleta.backend.utils.exception.GenericException;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +29,7 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     public UserResponse register(RegisterRequest request) {
         userRepository.findByEmail(request.email()).ifPresent(existing -> {
-            throw new BusinessException(ErrorMessage.EMAIL_ALREADY_REGISTERED, request.email());
+            throw new GenericException(HttpStatus.CONFLICT, ErrorMessage.EMAIL_ALREADY_REGISTERED, request.email());
         });
 
         User user = User.builder()

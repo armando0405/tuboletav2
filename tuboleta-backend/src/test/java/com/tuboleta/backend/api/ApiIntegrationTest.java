@@ -174,6 +174,22 @@ class ApiIntegrationTest {
                 .andExpect(jsonPath("$.code").value(-1));
     }
 
+    // ---------- 2b: registro sin password -> 400 (validacion, no 500) ----------
+
+    @Test
+    void register_missingPassword_returns400() throws Exception {
+        Map<String, Object> registerBody = new java.util.HashMap<>();
+        registerBody.put("email", "sin.password@example.com");
+        registerBody.put("name", "Sin Password");
+        registerBody.put("password", null);
+
+        mockMvc.perform(post("/api/auth/register")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(registerBody)))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.code").value(-1));
+    }
+
     // ---------- 3: endpoint protegido sin sesion -> 401 envelope ----------
 
     @Test
@@ -242,7 +258,7 @@ class ApiIntegrationTest {
                         .session(session)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(duplicate)))
-                .andExpect(status().is5xxServerError())
+                .andExpect(status().isConflict())
                 .andExpect(jsonPath("$.code").value(-1));
     }
 
