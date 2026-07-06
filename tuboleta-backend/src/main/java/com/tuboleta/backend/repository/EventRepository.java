@@ -14,4 +14,10 @@ public interface EventRepository extends JpaRepository<Event, Long> {
      * para distinguir ítems nuevos de conocidos.
      */
     List<Event> findBySearchProviderId(Long searchProviderId);
+
+    /**
+     * Eventos de TODOS los pares (proveedores) de una búsqueda, para el
+     * detalle {@code GET /api/searches/{id}/events}.
+     */
+    List<Event> findBySearchProviderIdInOrderByLastSeenAtDesc(List<Long> searchProviderIds);
 }

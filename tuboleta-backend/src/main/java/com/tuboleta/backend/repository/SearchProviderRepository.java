@@ -2,6 +2,7 @@ package com.tuboleta.backend.repository;
 
 import com.tuboleta.backend.domain.entities.SearchProvider;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -14,6 +15,17 @@ public interface SearchProviderRepository extends JpaRepository<SearchProvider, 
      * (REQ-FUE-002) a las búsquedas afectadas.
      */
     List<SearchProvider> findByProviderId(Long providerId);
+
+    /**
+     * Todos los pares (cualquier proveedor) de una búsqueda, para armar el
+     * detalle de {@code SearchResponse} y el listado de eventos.
+     */
+    List<SearchProvider> findBySearchId(Long searchId);
+
+    /**
+     * Par puntual búsqueda↔proveedor, para pausar/reanudar (toggle) uno solo.
+     */
+    Optional<SearchProvider> findBySearchIdAndProviderId(Long searchId, Long providerId);
 
     /**
      * Candidatos crudos para el scheduler (REQ-DET-004/005): par activo +
