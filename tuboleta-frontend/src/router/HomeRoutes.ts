@@ -1,8 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router'
 
-// Rutas del panel autoservicio (REQ-FE-001..005). Búsquedas y eventos ya
-// tienen pantalla real (T9b); notificaciones/destinos/admin siguen
-// placeholder mínimo hasta T9c.
+// Rutas del panel autoservicio (REQ-FE-001..005). Búsquedas/eventos (T9b) y
+// notificaciones/destinos/admin de fuentes (T9c) ya tienen pantalla real.
 const HomeRoutes: RouteRecordRaw[] = [
     {
         name: 'Dashboard',

@@ -51,6 +51,21 @@ defineProps({
                 >
                     {{ item.subCaption }}
                 </v-list-item-subtitle>
+
+                <!-- Badge (p.ej. contador de notificaciones no leídas) -->
+                <template
+                    v-if="item.chip"
+                    #append
+                >
+                    <v-chip
+                        :color="item.chipColor || 'primary'"
+                        size="x-small"
+                        variant="flat"
+                        class="font-mono"
+                    >
+                        {{ item.chip }}
+                    </v-chip>
+                </template>
             </v-list-item>
         </template>
     </v-tooltip>
