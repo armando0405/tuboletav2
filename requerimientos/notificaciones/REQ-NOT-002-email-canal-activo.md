@@ -1,6 +1,6 @@
 # REQ-NOT-002: Email como único canal activo
 
-**Estado:** confirmado
+**Estado:** implementado
 **Tipo:** funcional
 **Módulo:** notificaciones
 **Última actualización:** 2026-07-04

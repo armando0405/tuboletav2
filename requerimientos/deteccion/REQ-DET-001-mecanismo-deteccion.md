@@ -1,6 +1,6 @@
 # REQ-DET-001: Mecanismo de detección de cambios
 
-**Estado:** confirmado
+**Estado:** implementado
 **Tipo:** técnico
 **Módulo:** deteccion
 **Última actualización:** 2026-07-04

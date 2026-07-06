@@ -1,6 +1,6 @@
 # REQ-DET-002: Campos que disparan alerta de "modificado"
 
-**Estado:** confirmado
+**Estado:** implementado
 **Tipo:** funcional
 **Módulo:** deteccion
 **Última actualización:** 2026-07-04

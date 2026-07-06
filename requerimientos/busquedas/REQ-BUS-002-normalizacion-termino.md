@@ -1,6 +1,6 @@
 # REQ-BUS-002: Normalización del término de búsqueda
 
-**Estado:** confirmado
+**Estado:** implementado
 **Tipo:** funcional
 **Módulo:** busquedas
 **Última actualización:** 2026-07-04

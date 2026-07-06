@@ -1,6 +1,6 @@
 # REQ-BUS-003: Coincidencia término ↔ resultados del proveedor
 
-**Estado:** confirmado
+**Estado:** implementado
 **Tipo:** funcional
 **Módulo:** busquedas
 **Última actualización:** 2026-07-04

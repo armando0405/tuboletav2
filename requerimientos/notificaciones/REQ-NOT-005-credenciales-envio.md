@@ -1,6 +1,6 @@
 # REQ-NOT-005: Gestión de credenciales de envío
 
-**Estado:** confirmado
+**Estado:** implementado
 **Tipo:** no-funcional
 **Módulo:** notificaciones
 **Última actualización:** 2026-07-04

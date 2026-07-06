@@ -1,6 +1,6 @@
 # REQ-BD-002: Motor PostgreSQL 16 dockerizado
 
-**Estado:** confirmado
+**Estado:** implementado
 **Tipo:** técnico
 **Módulo:** base-datos
 **Última actualización:** 2026-07-04

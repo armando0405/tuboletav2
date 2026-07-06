@@ -1,6 +1,6 @@
 # REQ-DET-003: Ausencias transitorias y falsos "eliminados"
 
-**Estado:** confirmado
+**Estado:** implementado
 **Tipo:** funcional
 **Módulo:** deteccion
 **Última actualización:** 2026-07-04

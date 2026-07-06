@@ -1,6 +1,6 @@
 # REQ-BD-001: Esquema inicial v2
 
-**Estado:** confirmado
+**Estado:** implementado
 **Tipo:** técnico
 **Módulo:** base-datos
 **Última actualización:** 2026-07-04

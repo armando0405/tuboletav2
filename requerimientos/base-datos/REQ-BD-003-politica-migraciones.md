@@ -1,6 +1,6 @@
 # REQ-BD-003: Política de migraciones
 
-**Estado:** confirmado
+**Estado:** implementado
 **Tipo:** técnico
 **Módulo:** base-datos
 **Última actualización:** 2026-07-04
