@@ -17,10 +17,12 @@
             >
                 <search-card
                     :search="search"
+                    :unread-count="unreadCountFor(search)"
                     @edit="openEditDialog"
                     @delete="deleteSearch"
                     @view-events="goToEvents"
                     @toggle-provider="togglePair"
+                    @toggle-status="toggleStatus"
                 />
             </v-col>
         </v-row>
@@ -63,14 +65,19 @@ const {
     loading,
     searches,
     getSearches,
+    loadUnreadBadges,
+    unreadCountFor,
     openCreateDialog,
     openEditDialog,
     togglePair,
+    toggleStatus,
     deleteSearch,
 } = useSearches()
 
 onMounted(() => {
     getSearches()
+    // Best-effort, no bloquea el listado si falla (ver useSearches.ts).
+    loadUnreadBadges()
 })
 
 function goToEvents(search: Search): void {

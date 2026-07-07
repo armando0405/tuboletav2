@@ -3,6 +3,7 @@ import { isAxiosError } from 'axios'
 import { searchesService } from '@/utils/services/searchesServices'
 import { providersService } from '@/utils/services/providersServices'
 import { destinationsService } from '@/utils/services/destinationsServices'
+import { notificationsService } from '@/utils/services/notificationsServices'
 import { useNotify } from '@/composables/useNotify'
 import type { Search, SearchCreateRequest, SearchUpdateRequest } from '@/types/services/Search'
 import type { Provider } from '@/types/services/Provider'
@@ -28,6 +29,15 @@ const submitting = ref<boolean>(false)
 // formulario (REQ-FE-001).
 const formError = ref<string | null>(null)
 
+// Badge de "novedades" por card (diseno-frontend.md#Dashboard): cuántas
+// notificaciones no leídas hay por cada búsqueda. NotificationResponse no
+// trae searchId, solo searchTerm (texto), así que el cruce es un
+// best-effort por término exacto — el mismo patrón ya usado en
+// useSearchEvents.ts. No hay colisión posible entre búsquedas propias porque
+// term_normalized es único por usuario (excluyendo DELETED), así que dos
+// búsquedas activas/inactivas del mismo usuario nunca comparten term.
+const unreadCountByTerm = ref<Map<string, number>>(new Map())
+
 export const useSearches = () => {
     const { notify } = useNotify()
 
@@ -42,6 +52,25 @@ export const useSearches = () => {
             loading.value = false
         }
     }
+
+    // Carga (una vez por listado) las notificaciones no leídas y las agrupa
+    // por término para derivar el badge de novedades de cada card. Falla en
+    // silencio: sin badge no se rompe el listado de búsquedas.
+    const loadUnreadBadges = async (): Promise<void> => {
+        try {
+            const { data } = await notificationsService.getNotifications(true)
+            const map = new Map<string, number>()
+            for (const n of data?.list || []) {
+                map.set(n.searchTerm, (map.get(n.searchTerm) || 0) + 1)
+            }
+            unreadCountByTerm.value = map
+        } catch (err) {
+            console.error('Error al obtener el badge de novedades', err)
+            unreadCountByTerm.value = new Map()
+        }
+    }
+
+    const unreadCountFor = (search: Search): number => unreadCountByTerm.value.get(search.term) || 0
 
     // Proveedores ACTIVE + destinos propios para los selects del formulario.
     // Se recarga cada vez que se abre el diálogo (dataset pequeño, evita
@@ -142,6 +171,26 @@ export const useSearches = () => {
         }
     }
 
+    // Pausa/reanuda la búsqueda COMPLETA (todos sus proveedores a la vez,
+    // REQ-FE-001). Sin confirmación: es instantáneamente reversible con el
+    // mismo control, igual que togglePair (par por proveedor) — mantener el
+    // mismo nivel de fricción entre ambos toggles.
+    const toggleStatus = async (search: Search): Promise<void> => {
+        try {
+            const { data } = await searchesService.patchToggleSearchStatus(search.id)
+            const updated = data.object
+            if (updated) {
+                searches.value = searches.value.map((s) => (s.id === search.id ? updated : s))
+            }
+            notify(
+                updated?.status === 'INACTIVE' ? 'Búsqueda pausada' : 'Búsqueda reanudada',
+                'success',
+            )
+        } catch (err) {
+            console.error('Error al pausar/reanudar la búsqueda', err)
+        }
+    }
+
     const deleteSearch = async (search: Search): Promise<void> => {
         const result = await window.swal.fire({
             title: `¿Eliminar "${search.term}"?`,
@@ -161,6 +210,23 @@ export const useSearches = () => {
         }
     }
 
+    // Limpia todo el estado module-level (logout, REQ-SEG): sin esto, el
+    // listado/formulario del usuario saliente quedaría visible un instante
+    // para el siguiente que inicie sesión en la misma pestaña.
+    const resetAll = (): void => {
+        loading.value = true
+        searches.value = []
+        unreadCountByTerm.value = new Map()
+        catalogsLoading.value = false
+        providerCatalog.value = []
+        destinationCatalog.value = []
+        showFormDialog.value = false
+        formMode.value = 'create'
+        editingSearch.value = null
+        submitting.value = false
+        formError.value = null
+    }
+
     return {
         loading,
         searches,
@@ -173,12 +239,16 @@ export const useSearches = () => {
         submitting,
         formError,
         getSearches,
+        loadUnreadBadges,
+        unreadCountFor,
         openCreateDialog,
         openEditDialog,
         closeFormDialog,
         createSearch,
         editSearch,
         togglePair,
+        toggleStatus,
         deleteSearch,
+        resetAll,
     }
 }

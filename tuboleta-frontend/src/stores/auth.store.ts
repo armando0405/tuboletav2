@@ -1,6 +1,11 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import { authService } from '@/utils/services/authServices'
+import { useSearches } from '@/composables/searches/useSearches'
+import { useSearchEvents } from '@/composables/searches/useSearchEvents'
+import { useNotifications } from '@/composables/notifications/useNotifications'
+import { useDestinations } from '@/composables/destinations/useDestinations'
+import { useProvidersAdmin } from '@/composables/admin/useProvidersAdmin'
 import type { User } from '@/types/services/User'
 
 export const useAuthStore = defineStore('auth', () => {
@@ -14,8 +19,18 @@ export const useAuthStore = defineStore('auth', () => {
         user.value = userData
     }
 
+    // Se llama tanto en logout explícito como cuando el interceptor de axios
+    // detecta un 401 (sesión expirada) — en ambos casos hay que limpiar
+    // también el estado module-level de los composables de dominio, o el
+    // siguiente usuario que inicie sesión en la misma pestaña vería datos
+    // (búsquedas, notificaciones, destinos, fuentes) de la sesión anterior.
     function clearUser(): void {
         user.value = null
+        useSearches().resetAll()
+        useSearchEvents().resetAll()
+        useNotifications().resetAll()
+        useDestinations().resetAll()
+        useProvidersAdmin().resetAll()
     }
 
     async function login(email: string, password: string): Promise<User> {

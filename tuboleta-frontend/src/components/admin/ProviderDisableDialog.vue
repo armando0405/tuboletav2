@@ -41,7 +41,7 @@
                         rows="3"
                         auto-grow
                         autofocus
-                        hint="Obligatorio: explica el motivo y, si aplica, el matiz temporal/permanente. Los usuarios verán este texto."
+                        hint="Obligatorio: explica el motivo y, si aplica, el matiz temporal/permanente. Los usuarios afectados serán notificados de que esta fuente fue deshabilitada y verán este motivo en el detalle de sus búsquedas."
                         persistent-hint
                     />
                 </v-card-text>
@@ -59,6 +59,7 @@
                         color="error"
                         type="submit"
                         :loading="submitting"
+                        :disabled="submitting"
                     >
                         Deshabilitar fuente
                     </v-btn>
@@ -81,8 +82,7 @@ const formValid = ref(false)
 const reason = ref('')
 
 const rules = {
-    required: (v: string) =>
-        !!v?.trim() || 'La razón es obligatoria: los usuarios verán este texto',
+    required: (v: string) => !!v?.trim() || 'La razón es obligatoria',
 }
 
 watch(showDisableDialog, (open) => {

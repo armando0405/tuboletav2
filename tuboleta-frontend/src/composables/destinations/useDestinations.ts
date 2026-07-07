@@ -85,6 +85,16 @@ export const useDestinations = () => {
         }
     }
 
+    // Limpia el estado module-level (logout): evita fuga de destinos entre
+    // sesiones en la misma pestaña.
+    const resetAll = (): void => {
+        loading.value = true
+        destinations.value = []
+        showFormDialog.value = false
+        submitting.value = false
+        formError.value = null
+    }
+
     return {
         loading,
         destinations,
@@ -96,5 +106,6 @@ export const useDestinations = () => {
         closeFormDialog,
         createDestination,
         toggleDestination,
+        resetAll,
     }
 }

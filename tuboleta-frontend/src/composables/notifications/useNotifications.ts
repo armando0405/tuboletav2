@@ -82,6 +82,17 @@ export const useNotifications = () => {
         }
     }
 
+    // Limpia el estado module-level (logout): evita que el badge de no
+    // leídas o el inbox de un usuario queden visibles para el siguiente que
+    // inicie sesión en la misma pestaña.
+    const resetAll = (): void => {
+        loading.value = true
+        notifications.value = []
+        unreadOnly.value = false
+        unreadCount.value = 0
+        markingAllRead.value = false
+    }
+
     return {
         loading,
         notifications,
@@ -93,5 +104,6 @@ export const useNotifications = () => {
         setUnreadOnly,
         markRead,
         markAllRead,
+        resetAll,
     }
 }

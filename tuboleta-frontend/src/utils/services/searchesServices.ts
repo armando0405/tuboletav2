@@ -26,6 +26,9 @@ const patchToggleSearchProvider = (
 ): Promise<AxiosResponse<ObjectResponse<Search>>> =>
     api.patch<ObjectResponse<Search>>(SEARCHES.PATCH_TOGGLE_SEARCH_PROVIDER(id, providerId))
 
+const patchToggleSearchStatus = (id: number): Promise<AxiosResponse<ObjectResponse<Search>>> =>
+    api.patch<ObjectResponse<Search>>(SEARCHES.PATCH_TOGGLE_SEARCH_STATUS(id))
+
 const deleteSearch = (id: number): Promise<AxiosResponse<ObjectResponse<void>>> =>
     api.delete<ObjectResponse<void>>(SEARCHES.DELETE_SEARCH(id))
 
@@ -35,5 +38,6 @@ export const searchesService = {
     getSearchEvents,
     patchSearch,
     patchToggleSearchProvider,
+    patchToggleSearchStatus,
     deleteSearch,
 }

@@ -72,6 +72,7 @@
                         color="primary"
                         type="submit"
                         :loading="submitting"
+                        :disabled="submitting"
                     >
                         Agregar
                     </v-btn>

@@ -16,6 +16,28 @@
             </v-card-title>
 
             <template #append>
+                <v-tooltip :text="statusToggleTooltip">
+                    <template #activator="{ props: activatorProps }">
+                        <v-btn
+                            v-bind="activatorProps"
+                            icon
+                            size="small"
+                            variant="text"
+                            :aria-label="statusToggleTooltip"
+                            @click="emit('toggle-status', search)"
+                        >
+                            <v-icon
+                                :icon="
+                                    search.status === 'ACTIVE'
+                                        ? 'mdi-pause-circle-outline'
+                                        : 'mdi-play-circle-outline'
+                                "
+                                :color="search.status === 'ACTIVE' ? 'warning' : 'success'"
+                            />
+                        </v-btn>
+                    </template>
+                </v-tooltip>
+
                 <v-tooltip text="Editar frecuencia y destinos">
                     <template #activator="{ props: activatorProps }">
                         <v-btn
@@ -66,13 +88,32 @@
                 </v-chip>
 
                 <v-chip
-                    v-if="search.status !== 'ACTIVE'"
+                    variant="outlined"
+                    size="small"
+                    prepend-icon="mdi-history"
+                    class="font-mono"
+                >
+                    {{ search.eventsCount }} {{ search.eventsCount === 1 ? 'evento' : 'eventos' }}
+                </v-chip>
+
+                <v-chip
+                    v-if="search.status === 'INACTIVE'"
                     variant="tonal"
                     size="small"
                     color="warning"
                     prepend-icon="mdi-pause-circle-outline"
                 >
                     Búsqueda pausada
+                </v-chip>
+
+                <v-chip
+                    v-if="unreadCount > 0"
+                    variant="flat"
+                    size="small"
+                    color="primary"
+                    prepend-icon="mdi-bell-ring-outline"
+                >
+                    {{ unreadCount }} {{ unreadCount === 1 ? 'novedad' : 'novedades' }}
                 </v-chip>
             </div>
 
@@ -114,19 +155,31 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import SearchProviderChip from '@/components/searches/SearchProviderChip.vue'
 import type { Search } from '@/types/services/Search'
 
-defineProps<{
-    search: Search
-}>()
+const props = withDefaults(
+    defineProps<{
+        search: Search
+        // Notificaciones no leídas cruzadas por término (best-effort, ver
+        // useSearches.ts#loadUnreadBadges): 0 cuando no hay novedades.
+        unreadCount?: number
+    }>(),
+    { unreadCount: 0 },
+)
 
 const emit = defineEmits<{
     edit: [search: Search]
     delete: [search: Search]
     'view-events': [search: Search]
     'toggle-provider': [search: Search, providerId: number]
+    'toggle-status': [search: Search]
 }>()
+
+const statusToggleTooltip = computed<string>(() =>
+    props.search.status === 'ACTIVE' ? 'Pausar búsqueda completa' : 'Reanudar búsqueda',
+)
 </script>
 
 <style scoped>

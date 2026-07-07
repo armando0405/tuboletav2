@@ -88,6 +88,17 @@ export const useProvidersAdmin = () => {
         }
     }
 
+    // Limpia el estado module-level (logout): evita que el catálogo de
+    // fuentes de un ADMIN quede cargado para el siguiente usuario de la
+    // misma pestaña.
+    const resetAll = (): void => {
+        loading.value = true
+        providers.value = []
+        showDisableDialog.value = false
+        disablingProvider.value = null
+        submitting.value = false
+    }
+
     return {
         loading,
         providers,
@@ -99,5 +110,6 @@ export const useProvidersAdmin = () => {
         closeDisableDialog,
         disableProvider,
         enableProvider,
+        resetAll,
     }
 }

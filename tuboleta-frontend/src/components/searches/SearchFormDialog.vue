@@ -100,62 +100,32 @@
                             persistent-hint
                             class="mb-5"
                         />
-
-                        <v-select
-                            v-model="form.destinationIds"
-                            :items="destinationItems"
-                            label="Destinos de notificación"
-                            multiple
-                            chips
-                            closable-chips
-                            :loading="catalogsLoading"
-                            hint="Opcional: a quién avisar cuando haya novedades"
-                            persistent-hint
-                        />
-                        <p
-                            v-if="!catalogsLoading && destinationCatalog.length === 0"
-                            class="text-caption text-medium-emphasis mt-2"
-                        >
-                            No tienes destinos configurados todavía.
-                            <router-link
-                                to="/destinos"
-                                class="link"
-                                @click="closeFormDialog"
-                            >
-                                Crear uno
-                            </router-link>
-                        </p>
                     </template>
 
-                    <template v-else>
-                        <v-switch
-                            v-model="updateDestinations"
-                            label="Actualizar destinos de notificación"
-                            color="primary"
-                            density="compact"
-                        />
-                        <v-alert
-                            v-if="updateDestinations"
-                            type="info"
-                            variant="tonal"
-                            density="compact"
-                            class="mb-4"
+                    <v-select
+                        v-model="form.destinationIds"
+                        :items="destinationItems"
+                        label="Destinos de notificación"
+                        multiple
+                        chips
+                        closable-chips
+                        :loading="catalogsLoading"
+                        hint="Opcional: a quién avisar cuando haya novedades"
+                        persistent-hint
+                    />
+                    <p
+                        v-if="!catalogsLoading && destinationCatalog.length === 0"
+                        class="text-caption text-medium-emphasis mt-2"
+                    >
+                        No tienes destinos configurados todavía.
+                        <router-link
+                            to="/destinos"
+                            class="link"
+                            @click="closeFormDialog"
                         >
-                            No podemos mostrar aquí los destinos ya asignados; selecciona todos los
-                            que deben recibir alertas de esta búsqueda de ahora en más (reemplaza el
-                            conjunto actual).
-                        </v-alert>
-                        <v-select
-                            v-if="updateDestinations"
-                            v-model="form.destinationIds"
-                            :items="destinationItems"
-                            label="Destinos de notificación"
-                            multiple
-                            chips
-                            closable-chips
-                            :loading="catalogsLoading"
-                        />
-                    </template>
+                            Crear uno
+                        </router-link>
+                    </p>
                 </v-card-text>
 
                 <v-card-actions class="px-6 pb-5">
@@ -171,6 +141,7 @@
                         color="primary"
                         type="submit"
                         :loading="submitting"
+                        :disabled="submitting"
                     >
                         {{ isEdit ? 'Guardar cambios' : 'Crear búsqueda' }}
                     </v-btn>
@@ -209,7 +180,6 @@ const frequencyOptions: CheckFrequencyHours[] = [6, 12, 24, 48]
 
 const formRef = ref<InstanceType<typeof VForm> | null>(null)
 const formValid = ref(false)
-const updateDestinations = ref(false)
 
 const form = ref<{
     term: string
@@ -241,16 +211,19 @@ const rules = {
 
 // Resetea el formulario cada vez que se abre el diálogo (patrón de estado
 // compartido: SearchesHeader/SearchCard disparan openCreateDialog/openEditDialog
-// sobre el mismo estado de módulo que este diálogo consume).
+// sobre el mismo estado de módulo que este diálogo consume). En edición,
+// precarga destinationIds (SearchResponse.destinationIds) para que el
+// multi-select arranque con la selección real — ya no hace falta el switch
+// "actualizar destinos" que existía porque antes no había forma de saber
+// qué destinos estaban asignados.
 watch(showFormDialog, (open) => {
     if (!open) return
-    updateDestinations.value = false
     if (isEdit.value && editingSearch.value) {
         form.value = {
             term: editingSearch.value.term,
             checkFrequencyHours: editingSearch.value.checkFrequencyHours as CheckFrequencyHours,
             providerIds: [],
-            destinationIds: [],
+            destinationIds: [...editingSearch.value.destinationIds],
         }
     } else {
         form.value = { term: '', checkFrequencyHours: 24, providerIds: [], destinationIds: [] }
@@ -264,7 +237,7 @@ async function submit(): Promise<void> {
     if (isEdit.value && editingSearch.value) {
         const payload: SearchUpdateRequest = {
             checkFrequencyHours: form.value.checkFrequencyHours,
-            destinationIds: updateDestinations.value ? form.value.destinationIds : undefined,
+            destinationIds: form.value.destinationIds,
         }
         await editSearch(editingSearch.value.id, payload)
         return

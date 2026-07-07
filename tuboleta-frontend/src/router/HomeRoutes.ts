@@ -2,12 +2,9 @@ import type { RouteRecordRaw } from 'vue-router'
 
 // Rutas del panel autoservicio (REQ-FE-001..005). Búsquedas/eventos (T9b) y
 // notificaciones/destinos/admin de fuentes (T9c) ya tienen pantalla real.
+// El path '/' ya lo sirve MainRoutes (redirect a '/home', name 'home') con
+// el mismo Index.vue — no duplicar la entrada raíz aquí.
 const HomeRoutes: RouteRecordRaw[] = [
-    {
-        name: 'Dashboard',
-        path: '/',
-        component: () => import('@/views/dashboard/Index.vue'),
-    },
     {
         name: 'searches',
         path: '/busquedas',

@@ -1,15 +1,23 @@
 <template>
     <div class="d-flex align-center ga-1 provider-chip-wrap">
-        <v-chip
-            :color="effective.color"
-            variant="tonal"
-            size="small"
-            :prepend-icon="effective.icon"
-            class="font-weight-medium"
+        <v-tooltip
+            :text="reasonTooltip"
+            :disabled="!reasonTooltip"
         >
-            {{ provider.providerName }}
-            <span class="text-caption ml-1 opacity-80">· {{ effective.label }}</span>
-        </v-chip>
+            <template #activator="{ props: activatorProps }">
+                <v-chip
+                    v-bind="activatorProps"
+                    :color="effective.color"
+                    variant="tonal"
+                    size="small"
+                    :prepend-icon="effective.icon"
+                    class="font-weight-medium"
+                >
+                    {{ provider.providerName }}
+                    <span class="text-caption ml-1 opacity-80">· {{ effective.label }}</span>
+                </v-chip>
+            </template>
+        </v-tooltip>
 
         <v-tooltip :text="toggleTooltip">
             <template #activator="{ props: activatorProps }">
@@ -68,6 +76,16 @@ const toggleTooltip = computed<string>(() => {
         return 'Deshabilitado por el administrador: no se puede pausar/reanudar'
     }
     return props.provider.pairActive ? 'Pausar este proveedor' : 'Reanudar este proveedor'
+})
+
+// Motivo de la deshabilitación (REQ-FUE-002), visible en el detalle de la
+// búsqueda afectada. Vacío (tooltip deshabilitado) cuando la fuente está
+// activa o el ADMIN no dejó un motivo.
+const reasonTooltip = computed<string>(() => {
+    if (props.provider.providerStatus === 'DISABLED' && props.provider.providerStatusReason) {
+        return `Motivo: ${props.provider.providerStatusReason}`
+    }
+    return ''
 })
 </script>
 

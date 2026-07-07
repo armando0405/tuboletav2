@@ -76,6 +76,16 @@ export const useSearchEvents = () => {
 
     const hasHighlights = computed<boolean>(() => highlightByTitle.value.size > 0)
 
+    // Limpia el estado module-level (logout): evita que los eventos/destaque
+    // de una búsqueda queden visibles para el siguiente usuario de la misma
+    // pestaña.
+    const resetAll = (): void => {
+        loading.value = true
+        events.value = []
+        search.value = null
+        highlightByTitle.value = new Map()
+    }
+
     return {
         loading,
         events,
@@ -84,5 +94,6 @@ export const useSearchEvents = () => {
         getEvents,
         highlightFor,
         sourceUrl,
+        resetAll,
     }
 }
