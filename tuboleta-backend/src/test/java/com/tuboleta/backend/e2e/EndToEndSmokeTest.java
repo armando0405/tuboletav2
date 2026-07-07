@@ -59,7 +59,13 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureTestRestTemplate
-@TestPropertySource(properties = "scheduler.enabled=false")
+@TestPropertySource(properties = {
+        "scheduler.enabled=false",
+        // Fuerza LoggingEmailSender (entrega simulada, success=true) sin importar
+        // si el entorno/config tiene una SENDGRID_API_KEY: el test debe ser
+        // hermético y no golpear SendGrid real (ni depender de sus créditos).
+        "notifications.sendgrid.api-key="
+})
 class EndToEndSmokeTest {
 
     @LocalServerPort

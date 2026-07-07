@@ -51,10 +51,13 @@ public class SendGridEmailSender implements ChannelSender {
 
     @Override
     public boolean send(Notification notification, String destination) {
+        String subject = contentBuilder.subject(notification);
         try {
+            log.info("Enviando email a '{}' (asunto: \"{}\") vía SendGrid desde '{}'",
+                    destination, subject, fromAddress);
             Mail mail = new Mail(
                     new Email(fromAddress),
-                    contentBuilder.subject(notification),
+                    subject,
                     new Email(destination),
                     new Content("text/html", contentBuilder.htmlBody(notification)));
 
@@ -65,8 +68,11 @@ public class SendGridEmailSender implements ChannelSender {
 
             Response response = new SendGrid(apiKey).api(request);
             boolean success = response.getStatusCode() >= 200 && response.getStatusCode() < 300;
-            if (!success) {
-                log.warn("SendGrid respondió con estado {} al enviar a {}", response.getStatusCode(), destination);
+            if (success) {
+                log.info("Email enviado a '{}' — SendGrid respondió estado {}", destination, response.getStatusCode());
+            } else {
+                log.warn("SendGrid respondió con estado {} al enviar a '{}' — cuerpo: {}",
+                        response.getStatusCode(), destination, response.getBody());
             }
             return success;
         } catch (IOException e) {

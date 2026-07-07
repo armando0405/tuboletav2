@@ -60,6 +60,9 @@ public class MonitoringRunService {
         Provider provider = group.provider();
         String term = group.termNormalized();
 
+        log.info("Corrida iniciada: proveedor='{}' término='{}' ({} par(es) suscrito(s))",
+                provider.getName(), term, group.pairs().size());
+
         ProviderExtractor extractor = findExtractor(provider);
         if (extractor == null) {
             String msg = MessageFormat.format("No hay extractor para el proveedor {0}", provider.getName());
@@ -76,6 +79,9 @@ public class MonitoringRunService {
             persistence.recordRun(provider, term, false, e.getMessage(), null, 0, startedAt, group.pairs());
             return;
         }
+
+        log.info("Extracción OK: proveedor='{}' término='{}' -> {} ítem(es) extraído(s), {} fallido(s)",
+                provider.getName(), term, extraction.items().size(), extraction.failedItems());
 
         int pairsApplied = 0;
         boolean anyPairFailed = false;
@@ -104,6 +110,9 @@ public class MonitoringRunService {
         }
         persistence.recordRun(provider, term, success, errorMessage, extraction.items().size(), pairsApplied, startedAt,
                 group.pairs());
+        log.info("Corrida finalizada: proveedor='{}' término='{}' success={} pares_aplicados={}/{}{}",
+                provider.getName(), term, success, pairsApplied, group.pairs().size(),
+                errorMessage == null ? "" : " (" + errorMessage + ")");
     }
 
     private ProviderExtractor findExtractor(Provider provider) {

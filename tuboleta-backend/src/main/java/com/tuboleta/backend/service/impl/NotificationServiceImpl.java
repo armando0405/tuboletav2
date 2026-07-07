@@ -73,6 +73,8 @@ public class NotificationServiceImpl implements NotificationService {
                     .createdAt(Instant.now())
                     .build();
             notification = notificationRepository.save(notification);
+            log.info("Notificación {} creada: tipo={} búsqueda='{}' usuario={}",
+                    notification.getId(), change.type(), search.getTermNormalized(), search.getUser().getId());
             fanOut(notification, search);
         }
     }
@@ -140,6 +142,8 @@ public class NotificationServiceImpl implements NotificationService {
                     notification.getId(), channel.getName(), destination, e);
             success = false;
         }
+        log.info("Entrega de notificación {} por canal '{}' a '{}': {}",
+                notification.getId(), channel.getName(), destination, success ? "OK" : "FALLÓ");
         NotificationLog notificationLog = NotificationLog.builder()
                 .notification(notification)
                 .channel(channel)

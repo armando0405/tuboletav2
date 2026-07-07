@@ -70,19 +70,24 @@ public class MonitoringDispatcher {
         try {
             List<DueGroup> dueWork = dueWorkSelector.selectDueWork(Instant.now());
             if (dueWork.isEmpty()) {
+                log.debug("Tick del scheduler: sin trabajo vencido");
                 return;
             }
 
             Map<Long, List<DueGroup>> byProvider = dueWork.stream()
                     .collect(Collectors.groupingBy(g -> g.provider().getId(), LinkedHashMap::new, Collectors.toList()));
 
+            log.info("Tick del scheduler: {} grupo(s) vencido(s) en {} proveedor(es)",
+                    dueWork.size(), byProvider.size());
+
             for (Map.Entry<Long, List<DueGroup>> entry : byProvider.entrySet()) {
                 Long providerId = entry.getKey();
                 if (!providersInProgress.add(providerId)) {
-                    log.debug("Proveedor {} ya tiene un job en curso, se omite este tick para evitar duplicar", providerId);
+                    log.info("Proveedor id={} ya tiene un job en curso, se omite este tick para no duplicar", providerId);
                     continue;
                 }
                 List<DueGroup> groups = entry.getValue();
+                log.info("Despachando proveedor id={} con {} grupo(s) al pool de monitoreo", providerId, groups.size());
                 monitoringTaskExecutor.execute(() -> {
                     try {
                         processProviderGroups(groups);

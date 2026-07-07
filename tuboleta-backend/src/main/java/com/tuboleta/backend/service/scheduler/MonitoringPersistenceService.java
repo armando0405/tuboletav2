@@ -11,6 +11,8 @@ import com.tuboleta.backend.service.detection.DetectedChange;
 import com.tuboleta.backend.service.extraction.ExtractionResult;
 import java.time.Instant;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +30,8 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class MonitoringPersistenceService {
+
+    private static final Logger log = LogManager.getLogger(MonitoringPersistenceService.class);
 
     private final ProviderRunRepository providerRunRepository;
     private final SearchProviderRepository searchProviderRepository;
@@ -59,6 +63,13 @@ public class MonitoringPersistenceService {
     @Transactional
     public void applyPair(SearchProvider pair, ExtractionResult extraction) {
         List<DetectedChange> changes = changeDetectionService.detect(pair, extraction);
+        if (changes.isEmpty()) {
+            log.debug("Par id={} búsqueda='{}': sin cambios que notificar",
+                    pair.getId(), pair.getSearch().getTermNormalized());
+        } else {
+            log.info("Par id={} búsqueda='{}': {} cambio(s) detectado(s) -> generando notificaciones",
+                    pair.getId(), pair.getSearch().getTermNormalized(), changes.size());
+        }
         notificationService.notifyDetectedChanges(pair, changes);
     }
 
