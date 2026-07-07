@@ -33,6 +33,14 @@ utils            → TODO lo reutilizable vive aquí (REQ-ARQ-002)
 
 Separación por dominio (REQ-ARQ-004): scraping, detección de cambios, notificaciones y envío por canal son servicios distintos; los schedulers **solo orquestan** (seleccionan trabajo pendiente e invocan servicios). El envío por canal va detrás de una interfaz: agregar Telegram/WhatsApp = nueva implementación, sin tocar el flujo.
 
+### Mapa de lo implementado (todo construido y con tests)
+
+- **Controllers** (`api/controllers`): `Auth` (register/login/logout/me), `Search` (CRUD + `/{id}/events` + `/{id}/toggle` pausa total + `/{id}/providers/{pid}/toggle` pausa por par), `Provider` (`GET /api/providers`, fuentes ACTIVE para el select de búsquedas), `Destination`, `Notification` (inbox + unread-count + read/read-all), `AdminProvider` (`/api/admin/**`, disable/enable con notificación).
+- **Seguridad** (`config/security`): sesión (cookie) + `BCrypt` + CORS a `:7075` + `AdminBootstrapRunner` (crea el ADMIN inicial si `users` está vacía). 401/403 devuelven el envelope JSON, nunca la página de login.
+- **Scheduler** (`service/scheduler`): `MonitoringDispatcher` (`@Scheduled`), `DueWorkSelector`, `MonitoringRunService` (orquesta, no transaccional), `MonitoringPersistenceService` (parte transaccional). Explicado de punta a punta en **`../requerimientos/artefactos/flujo-scheduler.md`** (léelo antes de tocar el monitoreo).
+- **Detección** (`service/impl/ChangeDetectionServiceImpl`) + **extracción** (`service/extraction/TuBoletaScraperExtractor`, Jsoup; la URL sale de `providers.search_url` con `{term}` URL-encoded) + **notificaciones** (`service/impl/NotificationServiceImpl` + senders `SendGrid`/`Logging` bajo `ChannelSender`).
+- **Logs**: el scheduler y el envío de correo loguean a INFO (cuándo corre, qué extrae, cambios detectados, resultado de cada corrida y de cada envío de email).
+
 ## Convenciones obligatorias
 
 - Todo endpoint devuelve `ObjectResponse<T>` (objeto) u `ObjectListResponse<T>` (lista) de `utils/response`: `code` 0 = éxito / -1 = error + `msg`. Nunca un DTO pelado — el interceptor de axios del frontend depende de este contrato.
@@ -42,4 +50,6 @@ Separación por dominio (REQ-ARQ-004): scraping, detección de cambios, notifica
 
 ## Base de datos
 
-Flyway es el único dueño del esquema (`ddl-auto: validate` — nunca volver a `update`). Migraciones en `src/main/resources/db/migration/`. `V1__init.sql` es editable solo mientras no haya despliegue compartido (editar = recrear BD local con `docker-compose down -v`); después, todo cambio es una migración nueva. Detalle completo de tablas: `CLAUDE.md` de la raíz y `../requerimientos/artefactos/esquema-bd.md`.
+Flyway es el único dueño del esquema (`ddl-auto: validate` — nunca volver a `update`). Migraciones en `src/main/resources/db/migration/`: `V1__init.sql` (esquema + seed) y `V2__fix_tuboleta_search_url.sql` (corrige la URL del proveedor). Regla práctica: si la BD **ya se aplicó y tiene datos que quieres conservar**, NO edites V1 (romperías el checksum de Flyway); agrega una migración `V{n}` nueva (así se hizo con V2). Editar V1 solo es válido pre-despliegue y obliga a recrear la BD (`docker-compose down -v`). Detalle completo de tablas: `CLAUDE.md` de la raíz y `../requerimientos/artefactos/esquema-bd.md`.
+
+Secretos (ej. `SENDGRID_API_KEY`, `EMAIL_FROM`): por variable de entorno, **nunca** como valor real en `application.yaml` versionado (REQ-NOT-005). El envío por email usa `SendGridEmailSender` si hay API key, o `LoggingEmailSender` (simula el envío) si no la hay.

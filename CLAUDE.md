@@ -56,9 +56,9 @@ Note: pgAdmin's default port (`5050`) and the frontend's `npm run preview` port 
 
 ## Backend Architecture
 
-Base package: `com.tuboleta.backend`. The project is early-stage: only the `utils` package is implemented so far. `ESTRUCTURA_PROYECTO.md` documents the intended layered structure (`api/controllers`, `api/dtos`, `domain/entities`, `service/impl`, `repository`, `config/security`, `config/persistence`) — treat that as the target layout when adding new code, not as existing code.
+Base package: `com.tuboleta.backend`. The full layered app is implemented (REQ-ARQ-001): `api/controllers` + `api/dtos` (request/response **records**) → `service` (interfaces) + `service/impl` → `repository` (Spring Data JPA); `domain/entities` + `domain/enums`; `config/security` (session auth + BCrypt + CORS + bootstrap admin). The domain services are split by responsibility (REQ-ARQ-004): `service/extraction` (Jsoup scraper for TuBoleta), `service/detection` + `ChangeDetectionService` (NEW/CHANGED/REMOVED diff), `service/notification` (SendGrid + logging senders behind `ChannelSender`) + `NotificationService` (inbox + fan-out), and `service/scheduler` (the monitoring dispatcher — orchestration only). The controllers implemented: `Auth`, `Search`, `Provider` (list active), `Destination`, `Notification`, `AdminProvider`. Full HTTP contract + entities in `tuboleta-backend/CLAUDE.md`; the scheduler is explained end-to-end in **`requerimientos/artefactos/flujo-scheduler.md`**.
 
-Currently implemented, under `utils/`:
+The reusable core lives under `utils/`:
 
 - `constants/ErrorCode.java`, `constants/ErrorMessage.java` — numeric response codes (`SUCCESS = 0`, `ERROR = -1`) and Spanish, `MessageFormat`-parameterized error messages (`{0}`, `{1}`, ...)
 - `exception/` — `BusinessException`, `GenericException` (carries an HTTP status), `NotFoundRegisterException`, all with a `messageKey` + `args` for i18n-style formatting
@@ -97,15 +97,15 @@ Key tables from `V1__init.sql` and their intent:
 
 Stack: Vue 3.5 + TypeScript, Vuetify 4 (Material Design), Vite, Pinia, Vue Router 5, axios, SweetAlert2 for modals/alerts. No vue-i18n — Spanish-only project, visible text goes directly in components. Path alias `@` → `src/`.
 
-The app is currently a clean skeleton (the old-project features were removed — REQ-ARQ-005): Login, dashboard shell, Error404, layouts (blank/full), plugins, stores (auth/notify), reusable components (`TableDynamic`, `Loading`, `FloatingCard`, `AppSnackbarQueue`) and the security service layer. TuBoleta screens (searches, events, inbox, destinations) are pending, defined by REQ-FE-001..005; visual direction is "Dark Operations" (`requerimientos/artefactos/diseno-frontend.md`).
+The "Dark Operations" theme (dark, indigo accent, Inter + JetBrains Mono — `requerimientos/artefactos/diseno-frontend.md`) is applied and all self-service screens are built (REQ-FE-001..005): a summary **dashboard** (`/home`), **búsquedas** (list + create/edit + pause whole-search or per-provider + logical delete), **eventos por búsqueda**, **notificaciones** (inbox, explicit mark-read), **destinos**, and **admin de fuentes** (ADMIN only). The old-project features were removed first (REQ-ARQ-005); the kept infra is Login, layouts (blank/full), plugins, stores (auth/notify), and reusable components (`TableDynamic`, `Loading`, `FloatingCard`, `AppSnackbarQueue`).
 
-**Request flow:** view → composable → service (typed wrapper) → shared axios instance → backend. The screen-building pattern (Header/Body pair + `use*` composable + endpoints/services entries) is documented with a full example in `requerimientos/artefactos/patron-frontend.md` — read it before building a new screen.
+**Request flow:** view → composable (`use*`, module-level shared state) → service (typed wrapper) → shared axios instance → backend. The screen-building pattern (Header/Body pair + `use*` composable + endpoints/services entries) is documented with a full example in `requerimientos/artefactos/patron-frontend.md` — read it before building a new screen.
 
-- `plugins/axios.ts` — shared axios instance: base URL from `VITE_API_URL`, timeout from `VITE_API_TIMEOUT`, `withCredentials: true`; the response interceptor treats the backend's `code === -1` envelope as an error and redirects to login on 401 (guarded against double-redirect)
+- `plugins/axios.ts` — shared axios instance: base URL from `VITE_API_URL` (= `/api`), `withCredentials: true`; the response interceptor treats the backend's `code === -1` envelope as an error and redirects to login on 401 (guarded against double-redirect). **Dev proxy:** `vite.config.ts` proxies `/api` → `http://localhost:8088`, so the SPA and API are same-origin in dev and the session cookie travels without CORS issues.
 - `types/services/` — DTOs and the response envelope types (`ObjectResponse<T>`, `ObjectListResponse<T>` — mirrors the backend envelope)
-- `stores/auth.store.ts` — current user + `isAuthenticated`; `stores/notify.store.ts` — global snackbar queue via `useNotify()` + `AppSnackbarQueue.vue`
+- `stores/auth.store.ts` — current user + `isAuthenticated` + `isAdmin`; `clearUser()` resets all composable state on logout/401; `stores/notify.store.ts` — global snackbar queue via `useNotify()` + `AppSnackbarQueue.vue`
 
-Routing: `MainRoutes` (requires auth, `FullLayout`) + `AuthRoutes` (no auth, `BlankLayout`) composed in `router/index.ts`. The `beforeEach` auth guard is a stub (auth disabled; intended logic is commented in place) — don't assume route protection is enforced yet. Active/inactive states use real **booleans** (the old `'S'/'N'` convention was removed).
+Routing: `MainRoutes` (requires auth, `FullLayout`) + `AuthRoutes` (no auth, `BlankLayout`) composed in `router/index.ts`. The `beforeEach` guard is **active**: unauthenticated → login, and `/admin/**` (`meta.requiresAdmin`) → home if not ADMIN. Active/inactive states use real **booleans** (the old `'S'/'N'` convention was removed).
 
 See also `tuboleta-backend/CLAUDE.md` and `tuboleta-frontend/CLAUDE.md` for per-project detail.
 
