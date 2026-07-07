@@ -22,6 +22,15 @@ export default defineConfig({
         port: 7075,
         strictPort: true,
         host: true,
+        // El frontend llama a rutas relativas '/api/**' (VITE_API_URL=/api);
+        // en desarrollo se reenvian al backend Spring Boot (:8088), asi todo
+        // queda mismo-origen y la cookie de sesion viaja sin lios de CORS.
+        proxy: {
+            '/api': {
+                target: 'http://localhost:8088',
+                changeOrigin: true,
+            },
+        },
     },
 
     resolve: {
