@@ -57,6 +57,7 @@
                     </v-btn>
                     <v-btn
                         color="error"
+                        variant="flat"
                         type="submit"
                         :loading="submitting"
                         :disabled="submitting"

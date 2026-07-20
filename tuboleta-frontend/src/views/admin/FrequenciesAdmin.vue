@@ -180,6 +180,7 @@
                         </v-btn>
                         <v-btn
                             color="primary"
+                            variant="flat"
                             type="submit"
                             :loading="submitting"
                             :disabled="submitting"

@@ -24,7 +24,10 @@ export default createVuetify({
     },
     defaults: {
         VBtn: {
-            //variant: 'flat',
+            // Relleno sólido para que el CTA primario (índigo) resalte sobre las
+            // superficies oscuras del modal (los botones que deben ser sutiles
+            // fijan variant="text" explícitamente).
+            variant: 'flat',
             color: 'primary',
             rounded: 'lg',
         },
@@ -37,6 +40,9 @@ export default createVuetify({
         },
         VSelect: {
             ...inputDefaults,
+            // Cierra la lista al elegir una opción (incluso en multiple): antes
+            // el usuario tenía que clicar fuera para cerrarla — se sentía roto.
+            menuProps: { closeOnContentClick: true },
         },
         VAutocomplete: {
             ...inputDefaults,
