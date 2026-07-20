@@ -82,9 +82,8 @@
                     variant="outlined"
                     size="small"
                     prepend-icon="mdi-timer-outline"
-                    class="font-mono"
                 >
-                    Cada {{ search.checkFrequencyHours }}h
+                    {{ formatFrequency(search.checkFrequencyMinutes) }}
                 </v-chip>
 
                 <v-chip
@@ -167,6 +166,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import SearchProviderChip from '@/components/searches/SearchProviderChip.vue'
+import { formatFrequency } from '@/utils/text/formatFrequency'
 import type { Search } from '@/types/services/Search'
 
 const props = withDefaults(

@@ -155,7 +155,8 @@
                                     {{ s.term }}
                                 </v-list-item-title>
                                 <v-list-item-subtitle>
-                                    Cada {{ s.checkFrequencyHours }}h · {{ s.eventsCount }} eventos ·
+                                    {{ formatFrequency(s.checkFrequencyMinutes) }} ·
+                                    {{ s.eventsCount }} eventos ·
                                     {{ s.providers.length }} fuentes
                                 </v-list-item-subtitle>
                                 <template #append>
@@ -201,6 +202,7 @@
 <script setup lang="ts">
 import { computed, onMounted } from 'vue'
 import { useSearches } from '@/composables/searches/useSearches'
+import { formatFrequency } from '@/utils/text/formatFrequency'
 import { useNotifications } from '@/composables/notifications/useNotifications'
 import { useDestinations } from '@/composables/destinations/useDestinations'
 import { useAuthStore } from '@/stores/auth.store'

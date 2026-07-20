@@ -22,9 +22,8 @@
             variant="outlined"
             size="small"
             prepend-icon="mdi-timer-outline"
-            class="font-mono"
         >
-            Cada {{ search.checkFrequencyHours }}h
+            {{ formatFrequency(search.checkFrequencyMinutes) }}
         </v-chip>
         <v-chip
             variant="outlined"
@@ -38,6 +37,7 @@
 
 <script setup lang="ts">
 import { useSearchEvents } from '@/composables/searches/useSearchEvents'
+import { formatFrequency } from '@/utils/text/formatFrequency'
 import { router } from '@/router'
 
 const { search, events } = useSearchEvents()

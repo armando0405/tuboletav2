@@ -3,11 +3,13 @@ import { isAxiosError } from 'axios'
 import { searchesService } from '@/utils/services/searchesServices'
 import { providersService } from '@/utils/services/providersServices'
 import { destinationsService } from '@/utils/services/destinationsServices'
+import { frequenciesService } from '@/utils/services/frequenciesServices'
 import { notificationsService } from '@/utils/services/notificationsServices'
 import { useNotify } from '@/composables/useNotify'
 import type { Search, SearchCreateRequest, SearchUpdateRequest } from '@/types/services/Search'
 import type { Provider } from '@/types/services/Provider'
 import type { Destination } from '@/types/services/Destination'
+import type { Frequency } from '@/types/services/Frequency'
 import type { ObjectResponse } from '@/types/services/Responses'
 
 // Estado compartido a nivel de módulo (patrón de patron-frontend.md): la
@@ -19,6 +21,7 @@ const searches = ref<Search[]>([])
 const catalogsLoading = ref<boolean>(false)
 const providerCatalog = ref<Provider[]>([])
 const destinationCatalog = ref<Destination[]>([])
+const frequencyCatalog = ref<Frequency[]>([])
 
 const showFormDialog = ref<boolean>(false)
 const formMode = ref<'create' | 'edit'>('create')
@@ -81,12 +84,14 @@ export const useSearches = () => {
     const loadCatalogs = async (): Promise<void> => {
         try {
             catalogsLoading.value = true
-            const [providersRes, destinationsRes] = await Promise.all([
+            const [providersRes, destinationsRes, frequenciesRes] = await Promise.all([
                 providersService.getProviders(),
                 destinationsService.getDestinations(),
+                frequenciesService.getFrequencies(),
             ])
             providerCatalog.value = providersRes.data?.list || []
             destinationCatalog.value = destinationsRes.data?.list || []
+            frequencyCatalog.value = frequenciesRes.data?.list || []
         } catch (err) {
             console.error('Error al cargar proveedores/destinos', err)
         } finally {
@@ -241,6 +246,7 @@ export const useSearches = () => {
         catalogsLoading.value = false
         providerCatalog.value = []
         destinationCatalog.value = []
+        frequencyCatalog.value = []
         showFormDialog.value = false
         formMode.value = 'create'
         editingSearch.value = null
@@ -255,6 +261,7 @@ export const useSearches = () => {
         catalogsLoading,
         providerCatalog,
         destinationCatalog,
+        frequencyCatalog,
         showFormDialog,
         formMode,
         editingSearch,

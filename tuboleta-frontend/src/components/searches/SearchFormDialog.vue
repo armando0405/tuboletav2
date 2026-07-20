@@ -61,28 +61,15 @@
                         </p>
                     </template>
 
-                    <p
-                        class="text-caption text-uppercase text-medium-emphasis font-weight-medium mb-2"
-                    >
-                        Frecuencia de monitoreo
-                    </p>
-                    <v-btn-toggle
-                        v-model="form.checkFrequencyHours"
-                        mandatory
-                        color="primary"
-                        variant="outlined"
-                        divided
+                    <v-select
+                        v-model="form.checkFrequencyMinutes"
+                        :items="frequencyItems"
+                        label="Frecuencia de monitoreo"
+                        :loading="catalogsLoading"
+                        :rules="[rules.frequencyRequired]"
+                        prepend-inner-icon="mdi-timer-outline"
                         class="mb-5"
-                    >
-                        <v-btn
-                            v-for="option in frequencyOptions"
-                            :key="option"
-                            :value="option"
-                            class="font-mono"
-                        >
-                            {{ option }}h
-                        </v-btn>
-                    </v-btn-toggle>
+                    />
 
                     <template v-if="!isEdit">
                         <v-select
@@ -156,11 +143,7 @@ import { computed, ref, watch } from 'vue'
 import { useSearches } from '@/composables/searches/useSearches'
 import { previewNormalizedTerm } from '@/utils/text/normalizeTerm'
 import type { VForm } from 'vuetify/components'
-import type {
-    CheckFrequencyHours,
-    SearchCreateRequest,
-    SearchUpdateRequest,
-} from '@/types/services/Search'
+import type { SearchCreateRequest, SearchUpdateRequest } from '@/types/services/Search'
 
 const {
     showFormDialog,
@@ -170,28 +153,32 @@ const {
     formError,
     providerCatalog,
     destinationCatalog,
+    frequencyCatalog,
     catalogsLoading,
     closeFormDialog,
     createSearch,
     editSearch,
 } = useSearches()
 
-const frequencyOptions: CheckFrequencyHours[] = [6, 12, 24, 48]
-
 const formRef = ref<InstanceType<typeof VForm> | null>(null)
 const formValid = ref(false)
 
 const form = ref<{
     term: string
-    checkFrequencyHours: CheckFrequencyHours
+    checkFrequencyMinutes: number
     providerIds: number[]
     destinationIds: number[]
 }>({
     term: '',
-    checkFrequencyHours: 24,
+    checkFrequencyMinutes: 1440,
     providerIds: [],
     destinationIds: [],
 })
+
+// Opciones del select desde el catálogo activo (el value es el nº de minutos).
+const frequencyItems = computed(() =>
+    frequencyCatalog.value.map((f) => ({ title: f.label, value: f.minutes })),
+)
 
 const isEdit = computed<boolean>(() => formMode.value === 'edit')
 
@@ -212,6 +199,7 @@ const destinationItems = computed(() =>
 const rules = {
     required: (v: string) => !!v?.trim() || 'El término es obligatorio',
     atLeastOneProvider: (v: number[]) => (v && v.length > 0) || 'Selecciona al menos un proveedor',
+    frequencyRequired: (v: number) => !!v || 'Selecciona una frecuencia',
 }
 
 // Resetea el formulario cada vez que se abre el diálogo (patrón de estado
@@ -226,12 +214,12 @@ watch(showFormDialog, (open) => {
     if (isEdit.value && editingSearch.value) {
         form.value = {
             term: editingSearch.value.term,
-            checkFrequencyHours: editingSearch.value.checkFrequencyHours as CheckFrequencyHours,
+            checkFrequencyMinutes: editingSearch.value.checkFrequencyMinutes,
             providerIds: [],
             destinationIds: [...editingSearch.value.destinationIds],
         }
     } else {
-        form.value = { term: '', checkFrequencyHours: 24, providerIds: [], destinationIds: [] }
+        form.value = { term: '', checkFrequencyMinutes: 1440, providerIds: [], destinationIds: [] }
     }
 })
 
@@ -241,7 +229,7 @@ async function submit(): Promise<void> {
 
     if (isEdit.value && editingSearch.value) {
         const payload: SearchUpdateRequest = {
-            checkFrequencyHours: form.value.checkFrequencyHours,
+            checkFrequencyMinutes: form.value.checkFrequencyMinutes,
             destinationIds: form.value.destinationIds,
         }
         await editSearch(editingSearch.value.id, payload)
@@ -250,7 +238,7 @@ async function submit(): Promise<void> {
 
     const payload: SearchCreateRequest = {
         term: form.value.term.trim(),
-        checkFrequencyHours: form.value.checkFrequencyHours,
+        checkFrequencyMinutes: form.value.checkFrequencyMinutes,
         providerIds: form.value.providerIds,
         destinationIds: form.value.destinationIds,
     }

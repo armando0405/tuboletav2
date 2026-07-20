@@ -2,9 +2,6 @@ import type { ProviderStatus } from './Provider'
 
 export type SearchStatus = 'ACTIVE' | 'INACTIVE' | 'DELETED'
 
-// Frecuencias cerradas admitidas por el backend (SearchCreateRequest/SearchUpdateRequest).
-export type CheckFrequencyHours = 6 | 12 | 24 | 48
-
 // Refleja SearchProviderInfo: par búsqueda<->proveedor. El estado EFECTIVO
 // (pausado por el usuario vs. fuente deshabilitada por ADMIN) lo arma el
 // frontend combinando pairActive + providerStatus (REQ-FE-002) — el backend
@@ -26,7 +23,8 @@ export type SearchProviderInfo = {
 export type Search = {
     id: number
     term: string
-    checkFrequencyHours: number
+    // Cada cuántos MINUTOS se monitorea (elegido del catálogo de frecuencias).
+    checkFrequencyMinutes: number
     status: SearchStatus
     providers: SearchProviderInfo[]
     destinationIds: number[]
@@ -34,10 +32,10 @@ export type Search = {
 }
 
 // Refleja SearchCreateRequest: al menos un providerId es obligatorio,
-// destinationIds no.
+// destinationIds no. La frecuencia va en minutos (valor del catálogo activo).
 export type SearchCreateRequest = {
     term: string
-    checkFrequencyHours: CheckFrequencyHours
+    checkFrequencyMinutes: number
     providerIds: number[]
     destinationIds?: number[]
 }
@@ -45,6 +43,6 @@ export type SearchCreateRequest = {
 // Refleja SearchUpdateRequest: ambos campos opcionales, null/undefined
 // significa "no tocar este campo".
 export type SearchUpdateRequest = {
-    checkFrequencyHours?: CheckFrequencyHours | null
+    checkFrequencyMinutes?: number | null
     destinationIds?: number[] | null
 }
