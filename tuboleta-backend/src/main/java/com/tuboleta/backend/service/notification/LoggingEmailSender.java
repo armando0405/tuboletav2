@@ -19,7 +19,8 @@ import org.springframework.stereotype.Component;
  * expresión simétrica, exactamente uno de los dos se activa siempre.</p>
  */
 @Component
-@ConditionalOnExpression("'${notifications.sendgrid.api-key:}'.isEmpty()")
+@ConditionalOnExpression(
+        "'${notifications.mailgun.api-key:}'.isEmpty() && '${notifications.sendgrid.api-key:}'.isEmpty()")
 public class LoggingEmailSender implements ChannelSender {
 
     private static final Logger log = LogManager.getLogger(LoggingEmailSender.class);

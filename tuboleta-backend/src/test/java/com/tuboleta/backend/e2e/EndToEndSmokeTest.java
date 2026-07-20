@@ -62,8 +62,9 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 @TestPropertySource(properties = {
         "scheduler.enabled=false",
         // Fuerza LoggingEmailSender (entrega simulada, success=true) sin importar
-        // si el entorno/config tiene una SENDGRID_API_KEY: el test debe ser
-        // hermético y no golpear SendGrid real (ni depender de sus créditos).
+        // si el entorno/config tiene keys de Mailgun/SendGrid: el test debe ser
+        // hermético y no golpear un proveedor de correo real.
+        "notifications.mailgun.api-key=",
         "notifications.sendgrid.api-key="
 })
 class EndToEndSmokeTest {

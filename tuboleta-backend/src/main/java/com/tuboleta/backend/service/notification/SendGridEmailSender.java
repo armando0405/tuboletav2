@@ -27,7 +27,8 @@ import org.springframework.stereotype.Component;
  * activaría este bean sin credenciales reales.</p>
  */
 @Component
-@ConditionalOnExpression("!'${notifications.sendgrid.api-key:}'.isEmpty()")
+@ConditionalOnExpression(
+        "'${notifications.mailgun.api-key:}'.isEmpty() && !'${notifications.sendgrid.api-key:}'.isEmpty()")
 public class SendGridEmailSender implements ChannelSender {
 
     private static final Logger log = LogManager.getLogger(SendGridEmailSender.class);
