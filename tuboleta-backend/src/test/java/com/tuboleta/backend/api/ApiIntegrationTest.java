@@ -216,7 +216,7 @@ class ApiIntegrationTest {
 
         Map<String, Object> body = Map.of(
                 "term", "Karol G",
-                "checkFrequencyHours", 24,
+                "checkFrequencyMinutes", 1440,
                 "providerIds", java.util.List.of(providerId),
                 "destinationIds", java.util.List.of(destinationId));
 
@@ -247,7 +247,7 @@ class ApiIntegrationTest {
 
         Map<String, Object> first = Map.of(
                 "term", "Bad Bunny",
-                "checkFrequencyHours", 24,
+                "checkFrequencyMinutes", 1440,
                 "providerIds", java.util.List.of(providerId),
                 "destinationIds", java.util.List.of());
         mockMvc.perform(post("/api/searches")
@@ -258,7 +258,7 @@ class ApiIntegrationTest {
 
         Map<String, Object> duplicate = Map.of(
                 "term", "  BAD   bunny  ",
-                "checkFrequencyHours", 12,
+                "checkFrequencyMinutes", 720,
                 "providerIds", java.util.List.of(providerId),
                 "destinationIds", java.util.List.of());
         mockMvc.perform(post("/api/searches")
@@ -278,7 +278,7 @@ class ApiIntegrationTest {
 
         Map<String, Object> body = Map.of(
                 "term", "Shakira",
-                "checkFrequencyHours", 7,
+                "checkFrequencyMinutes", 7,
                 "providerIds", java.util.List.of(providerId),
                 "destinationIds", java.util.List.of());
 
@@ -306,7 +306,7 @@ class ApiIntegrationTest {
                 .user(userB)
                 .term("Coldplay")
                 .termNormalized("coldplay")
-                .checkFrequencyHours(24)
+                .checkFrequencyMinutes(1440)
                 .status(SearchStatus.ACTIVE)
                 .build());
         Notification notificationB = notificationRepository.save(Notification.builder()
@@ -369,7 +369,7 @@ class ApiIntegrationTest {
 
         Map<String, Object> body = Map.of(
                 "term", "Feid",
-                "checkFrequencyHours", 24,
+                "checkFrequencyMinutes", 1440,
                 "providerIds", java.util.List.of(providerId),
                 "destinationIds", java.util.List.of());
         MvcResult result = mockMvc.perform(post("/api/searches")
@@ -402,7 +402,7 @@ class ApiIntegrationTest {
 
         Map<String, Object> body = Map.of(
                 "term", "Aterciopelados",
-                "checkFrequencyHours", 24,
+                "checkFrequencyMinutes", 1440,
                 "providerIds", java.util.List.of(providerId),
                 "destinationIds", java.util.List.of());
         MvcResult result = mockMvc.perform(post("/api/searches")
@@ -444,7 +444,7 @@ class ApiIntegrationTest {
 
         Map<String, Object> body = Map.of(
                 "term", "Fonseca",
-                "checkFrequencyHours", 24,
+                "checkFrequencyMinutes", 1440,
                 "providerIds", java.util.List.of(providerId),
                 "destinationIds", java.util.List.of(destinationId));
         MvcResult createResult = mockMvc.perform(post("/api/searches")
@@ -501,7 +501,7 @@ class ApiIntegrationTest {
         MockHttpSession session = registerAndLogin("silvia.rey@example.com", "Silvia Rey", "clave12345");
         Map<String, Object> body = Map.of(
                 "term", "Morat",
-                "checkFrequencyHours", 24,
+                "checkFrequencyMinutes", 1440,
                 "providerIds", java.util.List.of(providerId),
                 "destinationIds", java.util.List.of());
 

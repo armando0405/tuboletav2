@@ -51,9 +51,10 @@ public class Search {
     @Column(name = "term_normalized", nullable = false, length = 500)
     private String termNormalized;
 
-    @Column(name = "check_frequency_hours", nullable = false)
+    /** Cada cuántos MINUTOS se monitorea (elegido del catálogo de frecuencias). */
+    @Column(name = "check_frequency_minutes", nullable = false)
     @Builder.Default
-    private Integer checkFrequencyHours = 24;
+    private Integer checkFrequencyMinutes = 1440;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 20)

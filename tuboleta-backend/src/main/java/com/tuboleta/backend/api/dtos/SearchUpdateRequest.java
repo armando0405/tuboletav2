@@ -1,24 +1,16 @@
 package com.tuboleta.backend.api.dtos;
 
-import com.tuboleta.backend.utils.constants.ErrorMessage;
-import jakarta.validation.constraints.AssertTrue;
+import jakarta.validation.constraints.Positive;
 import java.util.List;
-import java.util.Set;
 
 /**
- * Edición parcial de una búsqueda (REQ-BUS-005): ambos campos son
- * opcionales — {@code null} significa "no tocar este campo".
+ * Edición parcial de una búsqueda (REQ-BUS-005): ambos campos son opcionales —
+ * {@code null} significa "no tocar este campo". La frecuencia va en MINUTOS y,
+ * si se envía, debe existir en el catálogo activo (lo valida el servicio).
  * {@code destinationIds} reemplaza el conjunto completo de destinos activos.
  */
 public record SearchUpdateRequest(
-        Integer checkFrequencyHours,
+        @Positive Integer checkFrequencyMinutes,
         List<Long> destinationIds
 ) {
-
-    private static final Set<Integer> VALID_FREQUENCIES = Set.of(6, 12, 24, 48);
-
-    @AssertTrue(message = ErrorMessage.INVALID_FREQUENCY)
-    public boolean isCheckFrequencyValid() {
-        return checkFrequencyHours == null || VALID_FREQUENCIES.contains(checkFrequencyHours);
-    }
 }

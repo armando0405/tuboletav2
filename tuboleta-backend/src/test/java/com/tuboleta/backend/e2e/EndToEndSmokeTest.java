@@ -148,7 +148,7 @@ class EndToEndSmokeTest {
 
         ResponseEntity<String> searchResp = postJson("/api/searches", sessionCookie, Map.of(
                 "term", term,
-                "checkFrequencyHours", 24,
+                "checkFrequencyMinutes", 1440,
                 "providerIds", List.of(providerId),
                 "destinationIds", List.of(destinationId)));
         assertThat(searchResp.getStatusCode().value()).isEqualTo(200);

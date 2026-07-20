@@ -67,7 +67,7 @@ public class DueWorkSelector {
         if (pair.getLastRunAt() == null) {
             return Instant.MIN;
         }
-        return pair.getLastRunAt().plus(pair.getSearch().getCheckFrequencyHours(), ChronoUnit.HOURS);
+        return pair.getLastRunAt().plus(pair.getSearch().getCheckFrequencyMinutes(), ChronoUnit.MINUTES);
     }
 
     private static boolean isDue(SearchProvider pair, Instant now) {

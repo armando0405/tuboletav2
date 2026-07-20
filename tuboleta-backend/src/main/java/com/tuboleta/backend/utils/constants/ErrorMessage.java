@@ -90,8 +90,12 @@ public class ErrorMessage {
      */
     public static final String SEARCH_DUPLICATE = "Ya existe una busqueda equivalente al termino {0}";
     /**
-     * Frecuencia de monitoreo fuera de los presets cerrados (REQ-BUS-005).
+     * Frecuencia de monitoreo que no existe/está activa en el catálogo (REQ-BUS-005).
      */
-    public static final String INVALID_FREQUENCY = "La frecuencia de monitoreo debe ser 6, 12, 24 o 48 horas";
+    public static final String INVALID_FREQUENCY = "La frecuencia de monitoreo elegida no es válida";
+    /**
+     * Alta/edición de una frecuencia del catálogo con un valor en minutos ya existente.
+     */
+    public static final String FREQUENCY_DUPLICATE = "Ya existe una frecuencia de {0} minutos en el catalogo";
 
 }

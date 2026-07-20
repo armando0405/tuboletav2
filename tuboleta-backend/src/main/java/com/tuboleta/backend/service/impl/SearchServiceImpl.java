@@ -12,6 +12,7 @@ import com.tuboleta.backend.domain.entities.SearchNotification;
 import com.tuboleta.backend.domain.entities.SearchProvider;
 import com.tuboleta.backend.domain.enums.SearchStatus;
 import com.tuboleta.backend.repository.EventRepository;
+import com.tuboleta.backend.repository.FrequencyRepository;
 import com.tuboleta.backend.repository.ProviderRepository;
 import com.tuboleta.backend.repository.SearchNotificationRepository;
 import com.tuboleta.backend.repository.SearchProviderRepository;
@@ -52,6 +53,7 @@ public class SearchServiceImpl implements SearchService {
     private final EventRepository eventRepository;
     private final UserRepository userRepository;
     private final MonitoringRunService monitoringRunService;
+    private final FrequencyRepository frequencyRepository;
 
     public SearchServiceImpl(SearchRepository searchRepository,
                               SearchProviderRepository searchProviderRepository,
@@ -60,7 +62,8 @@ public class SearchServiceImpl implements SearchService {
                               UserNotificationChannelRepository destinationRepository,
                               EventRepository eventRepository,
                               UserRepository userRepository,
-                              MonitoringRunService monitoringRunService) {
+                              MonitoringRunService monitoringRunService,
+                              FrequencyRepository frequencyRepository) {
         this.searchRepository = searchRepository;
         this.searchProviderRepository = searchProviderRepository;
         this.searchNotificationRepository = searchNotificationRepository;
@@ -69,11 +72,27 @@ public class SearchServiceImpl implements SearchService {
         this.eventRepository = eventRepository;
         this.userRepository = userRepository;
         this.monitoringRunService = monitoringRunService;
+        this.frequencyRepository = frequencyRepository;
+    }
+
+    /**
+     * Valida que una frecuencia (en minutos) exista y esté activa en el
+     * catálogo {@code frequencies}. Antes eran presets fijos en el DTO; ahora
+     * el catálogo es dinámico (gestionado por el admin), así que la validación
+     * vive aquí donde hay acceso a la BD.
+     */
+    private void validateFrequency(Integer minutes) {
+        if (minutes == null) {
+            return;
+        }
+        frequencyRepository.findByMinutesAndIsActiveTrue(minutes)
+                .orElseThrow(() -> new GenericException(HttpStatus.BAD_REQUEST, ErrorMessage.INVALID_FREQUENCY));
     }
 
     @Override
     @Transactional
     public SearchResponse create(Long userId, SearchCreateRequest request) {
+        validateFrequency(request.checkFrequencyMinutes());
         String normalized = TermNormalizer.normalize(request.term());
         searchRepository.findByUserIdAndTermNormalizedAndStatusNot(userId, normalized, SearchStatus.DELETED)
                 .ifPresent(existing -> {
@@ -84,7 +103,7 @@ public class SearchServiceImpl implements SearchService {
                 .user(userRepository.getReferenceById(userId))
                 .term(request.term())
                 .termNormalized(normalized)
-                .checkFrequencyHours(request.checkFrequencyHours())
+                .checkFrequencyMinutes(request.checkFrequencyMinutes())
                 .status(SearchStatus.ACTIVE)
                 .build();
         search = searchRepository.save(search);
@@ -144,8 +163,9 @@ public class SearchServiceImpl implements SearchService {
     @Transactional
     public SearchResponse update(Long userId, Long searchId, SearchUpdateRequest request) {
         Search search = ownSearch(userId, searchId);
-        if (request.checkFrequencyHours() != null) {
-            search.setCheckFrequencyHours(request.checkFrequencyHours());
+        if (request.checkFrequencyMinutes() != null) {
+            validateFrequency(request.checkFrequencyMinutes());
+            search.setCheckFrequencyMinutes(request.checkFrequencyMinutes());
         }
         if (request.destinationIds() != null) {
             reconcileDestinations(userId, search, request.destinationIds());
@@ -264,7 +284,7 @@ public class SearchServiceImpl implements SearchService {
                 .toList();
         List<Long> pairIds = pairs.stream().map(SearchProvider::getId).toList();
         long eventsCount = pairIds.isEmpty() ? 0L : eventRepository.countBySearchProviderIdIn(pairIds);
-        return new SearchResponse(search.getId(), search.getTerm(), search.getCheckFrequencyHours(),
+        return new SearchResponse(search.getId(), search.getTerm(), search.getCheckFrequencyMinutes(),
                 search.getStatus(), providers, destinationIds, eventsCount);
     }
 

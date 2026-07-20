@@ -40,7 +40,7 @@ class DueWorkSelectorTest {
 
     private SearchProvider pair(long id, Provider provider, String term, int frequencyHours, Instant lastRunAt) {
         Search search = Search.builder().id(id).user(user).term(term).termNormalized(term)
-                .checkFrequencyHours(frequencyHours).build();
+                .checkFrequencyMinutes(frequencyHours * 60).build();
         return SearchProvider.builder().id(id).provider(provider).search(search)
                 .isActive(true).lastRunAt(lastRunAt).build();
     }

@@ -13,7 +13,7 @@ import java.util.List;
 public record SearchResponse(
         Long id,
         String term,
-        Integer checkFrequencyHours,
+        Integer checkFrequencyMinutes,
         SearchStatus status,
         List<SearchProviderInfo> providers,
         List<Long> destinationIds,
