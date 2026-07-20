@@ -57,6 +57,12 @@ const sidebarItem: menu[] = [
                 to: '/admin/fuentes',
                 adminOnly: true,
             },
+            {
+                title: 'Frecuencias',
+                icon: 'mdi-timer-cog-outline',
+                to: '/admin/frecuencias',
+                adminOnly: true,
+            },
         ],
     },
 ]

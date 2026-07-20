@@ -31,6 +31,12 @@ const HomeRoutes: RouteRecordRaw[] = [
         meta: { requiresAdmin: true },
         component: () => import('@/views/admin/ProvidersAdmin.vue'),
     },
+    {
+        name: 'admin-frequencies',
+        path: '/admin/frecuencias',
+        meta: { requiresAdmin: true },
+        component: () => import('@/views/admin/FrequenciesAdmin.vue'),
+    },
 ]
 
 export default HomeRoutes

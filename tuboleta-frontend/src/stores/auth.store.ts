@@ -6,6 +6,7 @@ import { useSearchEvents } from '@/composables/searches/useSearchEvents'
 import { useNotifications } from '@/composables/notifications/useNotifications'
 import { useDestinations } from '@/composables/destinations/useDestinations'
 import { useProvidersAdmin } from '@/composables/admin/useProvidersAdmin'
+import { useFrequenciesAdmin } from '@/composables/admin/useFrequenciesAdmin'
 import type { User } from '@/types/services/User'
 
 export const useAuthStore = defineStore('auth', () => {
@@ -31,6 +32,7 @@ export const useAuthStore = defineStore('auth', () => {
         useNotifications().resetAll()
         useDestinations().resetAll()
         useProvidersAdmin().resetAll()
+        useFrequenciesAdmin().resetAll()
     }
 
     async function login(email: string, password: string): Promise<User> {
