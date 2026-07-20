@@ -29,6 +29,10 @@ const patchToggleSearchProvider = (
 const patchToggleSearchStatus = (id: number): Promise<AxiosResponse<ObjectResponse<Search>>> =>
     api.patch<ObjectResponse<Search>>(SEARCHES.PATCH_TOGGLE_SEARCH_STATUS(id))
 
+// Devuelve el total de eventos de la búsqueda tras la corrida disparada.
+const postRunSearchNow = (id: number): Promise<AxiosResponse<ObjectResponse<number>>> =>
+    api.post<ObjectResponse<number>>(SEARCHES.POST_RUN_SEARCH_NOW(id))
+
 const deleteSearch = (id: number): Promise<AxiosResponse<ObjectResponse<void>>> =>
     api.delete<ObjectResponse<void>>(SEARCHES.DELETE_SEARCH(id))
 
@@ -39,5 +43,6 @@ export const searchesService = {
     patchSearch,
     patchToggleSearchProvider,
     patchToggleSearchStatus,
+    postRunSearchNow,
     deleteSearch,
 }

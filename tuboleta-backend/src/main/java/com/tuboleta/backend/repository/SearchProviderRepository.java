@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -47,4 +48,23 @@ public interface SearchProviderRepository extends JpaRepository<SearchProvider, 
               AND p.status = com.tuboleta.backend.domain.enums.ProviderStatus.ACTIVE
             """)
     List<SearchProvider> findActiveCandidatesForScheduling();
+
+    /**
+     * Pares activos de UNA búsqueda con proveedor ACTIVE, para el disparo
+     * manual "ejecutar ahora" (bypassa el vencimiento del scheduler). JOIN
+     * FETCH de proveedor y búsqueda para poder armar el {@code DueGroup} y
+     * correrlo fuera de transacción sin lazy loading. No filtra por
+     * {@code search.status}: el usuario puede forzar una corrida aunque la
+     * búsqueda esté pausada (la validación de que existe/es suya la hace el
+     * servicio).
+     */
+    @Query("""
+            SELECT sp FROM SearchProvider sp
+            JOIN FETCH sp.provider p
+            JOIN FETCH sp.search s
+            WHERE s.id = :searchId
+              AND sp.isActive = true
+              AND p.status = com.tuboleta.backend.domain.enums.ProviderStatus.ACTIVE
+            """)
+    List<SearchProvider> findActivePairsForRunNow(@Param("searchId") Long searchId);
 }

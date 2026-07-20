@@ -24,6 +24,9 @@ const showFormDialog = ref<boolean>(false)
 const formMode = ref<'create' | 'edit'>('create')
 const editingSearch = ref<Search | null>(null)
 const submitting = ref<boolean>(false)
+// Id de la búsqueda cuya corrida manual ("ejecutar ahora") está en curso, para
+// el spinner por card. null = ninguna corriendo.
+const runningId = ref<number | null>(null)
 // Mensaje inline (además del toast global del interceptor de axios) para el
 // 409 de término duplicado — se muestra bajo el campo término sin romper el
 // formulario (REQ-FE-001).
@@ -191,6 +194,24 @@ export const useSearches = () => {
         }
     }
 
+    // Dispara la corrida de monitoreo AHORA (sin esperar el horario, REQ nuevo):
+    // corre el scraping/detección/notificación en el momento y refresca el
+    // listado (contador de eventos) y el badge de novedades. Da feedback con el
+    // total de eventos encontrados para validar que el servicio funciona.
+    const runNow = async (search: Search): Promise<void> => {
+        try {
+            runningId.value = search.id
+            const { data } = await searchesService.postRunSearchNow(search.id)
+            const total = data.object ?? 0
+            notify(`Corrida ejecutada para "${search.term}": ${total} evento(s) en total`, 'success')
+            await Promise.all([getSearches(), loadUnreadBadges()])
+        } catch (err) {
+            console.error('Error al ejecutar la corrida manual', err)
+        } finally {
+            runningId.value = null
+        }
+    }
+
     const deleteSearch = async (search: Search): Promise<void> => {
         const result = await window.swal.fire({
             title: `¿Eliminar "${search.term}"?`,
@@ -225,6 +246,7 @@ export const useSearches = () => {
         editingSearch.value = null
         submitting.value = false
         formError.value = null
+        runningId.value = null
     }
 
     return {
@@ -238,6 +260,7 @@ export const useSearches = () => {
         editingSearch,
         submitting,
         formError,
+        runningId,
         getSearches,
         loadUnreadBadges,
         unreadCountFor,
@@ -248,6 +271,7 @@ export const useSearches = () => {
         editSearch,
         togglePair,
         toggleStatus,
+        runNow,
         deleteSearch,
         resetAll,
     }

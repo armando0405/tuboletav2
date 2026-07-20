@@ -197,11 +197,16 @@ const isEdit = computed<boolean>(() => formMode.value === 'edit')
 
 const normalizedPreview = computed<string>(() => previewNormalizedTerm(form.value.term))
 
+// Solo los destinos ACTIVOS son elegibles al crear/editar una búsqueda: un
+// destino inactivo no debe poder seleccionarse como receptor de avisos.
+// (La pantalla de Destinos sí muestra activos+inactivos, para gestionarlos.)
 const destinationItems = computed(() =>
-    destinationCatalog.value.map((d) => ({
-        title: d.isActive ? d.destination : `${d.destination} (inactivo)`,
-        value: d.id,
-    })),
+    destinationCatalog.value
+        .filter((d) => d.isActive)
+        .map((d) => ({
+            title: d.destination,
+            value: d.id,
+        })),
 )
 
 const rules = {

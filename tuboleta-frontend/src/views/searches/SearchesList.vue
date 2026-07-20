@@ -18,11 +18,13 @@
                 <search-card
                     :search="search"
                     :unread-count="unreadCountFor(search)"
+                    :running="runningId === search.id"
                     @edit="openEditDialog"
                     @delete="deleteSearch"
                     @view-events="goToEvents"
                     @toggle-provider="togglePair"
                     @toggle-status="toggleStatus"
+                    @run-now="runNow"
                 />
             </v-col>
         </v-row>
@@ -64,6 +66,7 @@ import type { Search } from '@/types/services/Search'
 const {
     loading,
     searches,
+    runningId,
     getSearches,
     loadUnreadBadges,
     unreadCountFor,
@@ -71,6 +74,7 @@ const {
     openEditDialog,
     togglePair,
     toggleStatus,
+    runNow,
     deleteSearch,
 } = useSearches()
 

@@ -30,5 +30,14 @@ public interface SearchService {
      */
     SearchResponse toggleStatus(Long userId, Long searchId);
 
+    /**
+     * Dispara AHORA una corrida de monitoreo de la búsqueda, sin esperar su
+     * ventana de frecuencia (botón "ejecutar ahora"). Corre el mismo camino
+     * que el scheduler (extracción → detección → notificación → registro)
+     * para cada proveedor activo del par y devuelve el total de eventos de la
+     * búsqueda tras la corrida, para dar feedback inmediato al usuario.
+     */
+    long runNow(Long userId, Long searchId);
+
     void delete(Long userId, Long searchId);
 }

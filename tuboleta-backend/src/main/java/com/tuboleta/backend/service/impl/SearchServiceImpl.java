@@ -19,14 +19,19 @@ import com.tuboleta.backend.repository.SearchRepository;
 import com.tuboleta.backend.repository.UserNotificationChannelRepository;
 import com.tuboleta.backend.repository.UserRepository;
 import com.tuboleta.backend.service.SearchService;
+import com.tuboleta.backend.service.scheduler.DueGroup;
+import com.tuboleta.backend.service.scheduler.MonitoringRunService;
 import com.tuboleta.backend.utils.constants.ErrorMessage;
 import com.tuboleta.backend.utils.exception.GenericException;
 import com.tuboleta.backend.utils.exception.NotFoundRegisterException;
 import com.tuboleta.backend.utils.text.TermNormalizer;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,6 +51,7 @@ public class SearchServiceImpl implements SearchService {
     private final UserNotificationChannelRepository destinationRepository;
     private final EventRepository eventRepository;
     private final UserRepository userRepository;
+    private final MonitoringRunService monitoringRunService;
 
     public SearchServiceImpl(SearchRepository searchRepository,
                               SearchProviderRepository searchProviderRepository,
@@ -53,7 +59,8 @@ public class SearchServiceImpl implements SearchService {
                               ProviderRepository providerRepository,
                               UserNotificationChannelRepository destinationRepository,
                               EventRepository eventRepository,
-                              UserRepository userRepository) {
+                              UserRepository userRepository,
+                              MonitoringRunService monitoringRunService) {
         this.searchRepository = searchRepository;
         this.searchProviderRepository = searchProviderRepository;
         this.searchNotificationRepository = searchNotificationRepository;
@@ -61,6 +68,7 @@ public class SearchServiceImpl implements SearchService {
         this.destinationRepository = destinationRepository;
         this.eventRepository = eventRepository;
         this.userRepository = userRepository;
+        this.monitoringRunService = monitoringRunService;
     }
 
     @Override
@@ -167,6 +175,32 @@ public class SearchServiceImpl implements SearchService {
         search.setStatus(search.getStatus() == SearchStatus.ACTIVE ? SearchStatus.INACTIVE : SearchStatus.ACTIVE);
         search = searchRepository.save(search);
         return toResponse(search);
+    }
+
+    /**
+     * NO es {@code @Transactional} a propósito: replica el camino del
+     * scheduler, donde {@link MonitoringRunService#runGroup} hace la
+     * extracción HTTP fuera de transacción y delega la persistencia a sus
+     * propios métodos transaccionales. Envolver esto en una transacción
+     * retendría una conexión JDBC durante el scraping.
+     */
+    @Override
+    public long runNow(Long userId, Long searchId) {
+        Search search = ownSearch(userId, searchId);
+        if (search.getStatus() == SearchStatus.DELETED) {
+            throw new NotFoundRegisterException("Busqueda", "id", searchId);
+        }
+        List<SearchProvider> pairs = searchProviderRepository.findActivePairsForRunNow(searchId);
+        Map<Long, List<SearchProvider>> byProvider = pairs.stream()
+                .collect(Collectors.groupingBy(p -> p.getProvider().getId(), LinkedHashMap::new, Collectors.toList()));
+        for (List<SearchProvider> group : byProvider.values()) {
+            DueGroup dueGroup = new DueGroup(group.get(0).getProvider(), search.getTermNormalized(), group);
+            monitoringRunService.runGroup(dueGroup);
+        }
+        List<Long> pairIds = searchProviderRepository.findBySearchId(searchId).stream()
+                .map(SearchProvider::getId)
+                .toList();
+        return pairIds.isEmpty() ? 0L : eventRepository.countBySearchProviderIdIn(pairIds);
     }
 
     @Override

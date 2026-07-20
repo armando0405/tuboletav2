@@ -79,6 +79,16 @@ public class SearchController {
                 searchService.toggleStatus(principal.getId(), id));
     }
 
+    /**
+     * Dispara la corrida de monitoreo de la búsqueda AHORA (sin esperar su
+     * horario). Devuelve el total de eventos de la búsqueda tras la corrida.
+     */
+    @PostMapping("/{id}/run-now")
+    public ObjectResponse<Long> runNow(@AuthenticationPrincipal AppUserPrincipal principal, @PathVariable Long id) {
+        return new ObjectResponse<>(ErrorCode.SUCCESS, ErrorMessage.SUCCESS,
+                searchService.runNow(principal.getId(), id));
+    }
+
     @DeleteMapping("/{id}")
     public ObjectResponse<Void> delete(@AuthenticationPrincipal AppUserPrincipal principal, @PathVariable Long id) {
         searchService.delete(principal.getId(), id);

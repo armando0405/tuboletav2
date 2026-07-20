@@ -140,12 +140,22 @@
 
         <v-divider />
 
-        <v-card-actions>
+        <v-card-actions class="ga-1">
+            <v-btn
+                variant="text"
+                color="primary"
+                prepend-icon="mdi-play-circle-outline"
+                :loading="running"
+                :disabled="running"
+                @click="emit('run-now', search)"
+            >
+                Ejecutar ahora
+            </v-btn>
+            <v-spacer />
             <v-btn
                 variant="text"
                 color="primary"
                 append-icon="mdi-arrow-right"
-                block
                 @click="emit('view-events', search)"
             >
                 Ver eventos
@@ -165,8 +175,11 @@ const props = withDefaults(
         // Notificaciones no leídas cruzadas por término (best-effort, ver
         // useSearches.ts#loadUnreadBadges): 0 cuando no hay novedades.
         unreadCount?: number
+        // true mientras la corrida manual ("ejecutar ahora") de ESTA búsqueda
+        // está en curso, para el spinner del botón.
+        running?: boolean
     }>(),
-    { unreadCount: 0 },
+    { unreadCount: 0, running: false },
 )
 
 const emit = defineEmits<{
@@ -175,6 +188,7 @@ const emit = defineEmits<{
     'view-events': [search: Search]
     'toggle-provider': [search: Search, providerId: number]
     'toggle-status': [search: Search]
+    'run-now': [search: Search]
 }>()
 
 const statusToggleTooltip = computed<string>(() =>
