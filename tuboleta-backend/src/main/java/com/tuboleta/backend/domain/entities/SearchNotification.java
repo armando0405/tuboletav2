@@ -20,7 +20,7 @@ import lombok.Setter;
  * cada búsqueda. Referencia el destino en vez de duplicarlo.
  */
 @Entity
-@Table(name = "search_notifications")
+@Table(name = "busqueda_destinos")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -33,14 +33,14 @@ public class SearchNotification {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "search_id", nullable = false)
+    @JoinColumn(name = "busqueda_id", nullable = false)
     private Search search;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_notification_channel_id", nullable = false)
+    @JoinColumn(name = "destino_usuario_id", nullable = false)
     private UserNotificationChannel userNotificationChannel;
 
-    @Column(name = "is_active", nullable = false)
+    @Column(name = "activo", nullable = false)
     @Builder.Default
     private Boolean isActive = true;
 }

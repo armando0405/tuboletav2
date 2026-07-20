@@ -25,7 +25,7 @@ import org.hibernate.type.SqlTypes;
  * búsquedas de este proveedor en runtime, sin cascada de borrado.
  */
 @Entity
-@Table(name = "providers")
+@Table(name = "proveedores")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -37,18 +37,18 @@ public class Provider {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false, length = 100)
+    @Column(name = "nombre", nullable = false, length = 100)
     private String name;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "provider_type", nullable = false, length = 20)
+    @Column(name = "tipo_proveedor", nullable = false, length = 20)
     @Builder.Default
     private ProviderType providerType = ProviderType.SCRAPER;
 
-    @Column(name = "base_url", nullable = false, length = 500)
+    @Column(name = "url_base", nullable = false, length = 500)
     private String baseUrl;
 
-    @Column(name = "search_url", length = 500)
+    @Column(name = "url_busqueda", length = 500)
     private String searchUrl;
 
     /**
@@ -59,20 +59,20 @@ public class Provider {
     private String config;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false, length = 20)
+    @Column(name = "estado", nullable = false, length = 20)
     @Builder.Default
     private ProviderStatus status = ProviderStatus.ACTIVE;
 
-    @Column(name = "status_reason", columnDefinition = "TEXT")
+    @Column(name = "motivo_estado", columnDefinition = "TEXT")
     private String statusReason;
 
-    @Column(name = "status_changed_at")
+    @Column(name = "estado_cambiado_en")
     private Instant statusChangedAt;
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "creado_en", nullable = false)
     @Builder.Default
     private Instant createdAt = Instant.now();
 
-    @Column(name = "updated_at")
+    @Column(name = "actualizado_en")
     private Instant updatedAt;
 }

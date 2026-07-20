@@ -21,7 +21,7 @@ import lombok.Setter;
  * forma independiente; last_run_at es la última corrida de ESTE par.
  */
 @Entity
-@Table(name = "search_providers")
+@Table(name = "busqueda_proveedores")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -34,21 +34,21 @@ public class SearchProvider {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "search_id", nullable = false)
+    @JoinColumn(name = "busqueda_id", nullable = false)
     private Search search;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "provider_id", nullable = false)
+    @JoinColumn(name = "proveedor_id", nullable = false)
     private Provider provider;
 
-    @Column(name = "is_active", nullable = false)
+    @Column(name = "activo", nullable = false)
     @Builder.Default
     private Boolean isActive = true;
 
-    @Column(name = "last_run_at")
+    @Column(name = "ultima_corrida_en")
     private Instant lastRunAt;
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "creado_en", nullable = false)
     @Builder.Default
     private Instant createdAt = Instant.now();
 }

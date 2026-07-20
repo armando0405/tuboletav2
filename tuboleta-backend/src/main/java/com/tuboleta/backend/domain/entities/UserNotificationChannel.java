@@ -21,7 +21,7 @@ import lombok.Setter;
  * asociable a varias búsquedas.
  */
 @Entity
-@Table(name = "user_notification_channels")
+@Table(name = "destinos_usuario")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -34,21 +34,21 @@ public class UserNotificationChannel {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "usuario_id", nullable = false)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "channel_id", nullable = false)
+    @JoinColumn(name = "canal_id", nullable = false)
     private NotifChannel channel;
 
-    @Column(name = "destination", nullable = false, length = 255)
+    @Column(name = "destino", nullable = false, length = 255)
     private String destination;
 
-    @Column(name = "is_active", nullable = false)
+    @Column(name = "activo", nullable = false)
     @Builder.Default
     private Boolean isActive = true;
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "creado_en", nullable = false)
     @Builder.Default
     private Instant createdAt = Instant.now();
 }

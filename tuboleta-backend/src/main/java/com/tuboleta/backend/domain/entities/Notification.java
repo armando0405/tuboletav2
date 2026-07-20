@@ -26,7 +26,7 @@ import lombok.Setter;
  * (solo inbox web). event es NULL para type PROVIDER_DISABLED.
  */
 @Entity
-@Table(name = "notifications")
+@Table(name = "notificaciones")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -39,22 +39,22 @@ public class Notification {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "usuario_id", nullable = false)
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "search_id", nullable = false)
+    @JoinColumn(name = "busqueda_id", nullable = false)
     private Search search;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "event_id")
+    @JoinColumn(name = "evento_id")
     private Event event;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "type", nullable = false, length = 20)
+    @Column(name = "tipo", nullable = false, length = 20)
     private NotificationType type;
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "creado_en", nullable = false)
     @Builder.Default
     private Instant createdAt = Instant.now();
 
@@ -62,7 +62,7 @@ public class Notification {
      * Estado leído/no leído del inbox; se marca de forma manual, nunca
      * automáticamente por visitar el inbox.
      */
-    @Column(name = "read_at")
+    @Column(name = "leido_en")
     private Instant readAt;
 
     /**

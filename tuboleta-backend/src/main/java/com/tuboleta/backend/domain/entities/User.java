@@ -22,7 +22,7 @@ import lombok.Setter;
  * status INACTIVE bloquea el login y pausa las búsquedas del usuario.
  */
 @Entity
-@Table(name = "users")
+@Table(name = "usuarios")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -34,26 +34,26 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "email", nullable = false, unique = true, length = 255)
+    @Column(name = "correo", nullable = false, unique = true, length = 255)
     private String email;
 
-    @Column(name = "name", nullable = false, length = 100)
+    @Column(name = "nombre", nullable = false, length = 100)
     private String name;
 
-    @Column(name = "password_hash", nullable = false, length = 255)
+    @Column(name = "clave_hash", nullable = false, length = 255)
     private String passwordHash;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "role", nullable = false, length = 20)
+    @Column(name = "rol", nullable = false, length = 20)
     @Builder.Default
     private UserRole role = UserRole.USER;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false, length = 20)
+    @Column(name = "estado", nullable = false, length = 20)
     @Builder.Default
     private UserStatus status = UserStatus.ACTIVE;
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "creado_en", nullable = false)
     @Builder.Default
     private Instant createdAt = Instant.now();
 }

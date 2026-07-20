@@ -25,7 +25,7 @@ import lombok.Setter;
  * (ver SearchProvider). status DELETED es siempre eliminación lógica.
  */
 @Entity
-@Table(name = "searches")
+@Table(name = "busquedas")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -38,30 +38,30 @@ public class Search {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "usuario_id", nullable = false)
     private User user;
 
-    @Column(name = "term", nullable = false, length = 500)
+    @Column(name = "termino", nullable = false, length = 500)
     private String term;
 
     /**
      * trim + minúsculas + colapso de espacios (REQ-BUS-002); única por
      * usuario excluyendo búsquedas DELETED (índice parcial en BD).
      */
-    @Column(name = "term_normalized", nullable = false, length = 500)
+    @Column(name = "termino_normalizado", nullable = false, length = 500)
     private String termNormalized;
 
     /** Cada cuántos MINUTOS se monitorea (elegido del catálogo de frecuencias). */
-    @Column(name = "check_frequency_minutes", nullable = false)
+    @Column(name = "frecuencia_minutos", nullable = false)
     @Builder.Default
     private Integer checkFrequencyMinutes = 1440;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false, length = 20)
+    @Column(name = "estado", nullable = false, length = 20)
     @Builder.Default
     private SearchStatus status = SearchStatus.ACTIVE;
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "creado_en", nullable = false)
     @Builder.Default
     private Instant createdAt = Instant.now();
 }

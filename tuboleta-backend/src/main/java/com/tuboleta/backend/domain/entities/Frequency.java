@@ -19,7 +19,7 @@ import lombok.Setter;
  * búsqueda; el valor en minutos se copia a {@code searches.check_frequency_minutes}.
  */
 @Entity
-@Table(name = "frequencies")
+@Table(name = "frecuencias")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -31,17 +31,17 @@ public class Frequency {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "label", nullable = false, length = 60)
+    @Column(name = "etiqueta", nullable = false, length = 60)
     private String label;
 
-    @Column(name = "minutes", nullable = false)
+    @Column(name = "minutos", nullable = false)
     private Integer minutes;
 
-    @Column(name = "is_active", nullable = false)
+    @Column(name = "activo", nullable = false)
     @Builder.Default
     private Boolean isActive = true;
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "creado_en", nullable = false)
     @Builder.Default
     private Instant createdAt = Instant.now();
 }

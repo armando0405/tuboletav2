@@ -22,7 +22,7 @@ import lombok.Setter;
  * genera REMOVED (REQ-DET-003), aunque sus eventos sí se procesan.
  */
 @Entity
-@Table(name = "provider_runs")
+@Table(name = "corridas_proveedor")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -35,28 +35,28 @@ public class ProviderRun {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "provider_id", nullable = false)
+    @JoinColumn(name = "proveedor_id", nullable = false)
     private Provider provider;
 
-    @Column(name = "term_normalized", nullable = false, length = 500)
+    @Column(name = "termino_normalizado", nullable = false, length = 500)
     private String termNormalized;
 
-    @Column(name = "started_at", nullable = false)
+    @Column(name = "iniciado_en", nullable = false)
     @Builder.Default
     private Instant startedAt = Instant.now();
 
-    @Column(name = "finished_at")
+    @Column(name = "finalizado_en")
     private Instant finishedAt;
 
-    @Column(name = "success")
+    @Column(name = "exito")
     private Boolean success;
 
-    @Column(name = "error_message", columnDefinition = "TEXT")
+    @Column(name = "mensaje_error", columnDefinition = "TEXT")
     private String errorMessage;
 
-    @Column(name = "events_found")
+    @Column(name = "eventos_encontrados")
     private Integer eventsFound;
 
-    @Column(name = "pairs_applied")
+    @Column(name = "pares_aplicados")
     private Integer pairsApplied;
 }

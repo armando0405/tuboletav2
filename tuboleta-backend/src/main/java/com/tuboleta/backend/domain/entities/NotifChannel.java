@@ -17,7 +17,7 @@ import lombok.Setter;
  * TELEGRAM/WHATSAPP existen inactivos (deuda técnica consciente).
  */
 @Entity
-@Table(name = "notif_channels")
+@Table(name = "canales_notificacion")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -29,10 +29,10 @@ public class NotifChannel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "name", nullable = false, unique = true, length = 50)
+    @Column(name = "nombre", nullable = false, unique = true, length = 50)
     private String name;
 
-    @Column(name = "is_active", nullable = false)
+    @Column(name = "activo", nullable = false)
     @Builder.Default
     private Boolean isActive = false;
 }

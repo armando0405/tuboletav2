@@ -22,7 +22,7 @@ import lombok.Setter;
  * envió realmente aunque el destino original cambie o se elimine.
  */
 @Entity
-@Table(name = "notifications_log")
+@Table(name = "notificaciones_bitacora")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -35,21 +35,21 @@ public class NotificationLog {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "notification_id", nullable = false)
+    @JoinColumn(name = "notificacion_id", nullable = false)
     private Notification notification;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "channel_id", nullable = false)
+    @JoinColumn(name = "canal_id", nullable = false)
     private NotifChannel channel;
 
-    @Column(name = "destination", nullable = false, length = 255)
+    @Column(name = "destino", nullable = false, length = 255)
     private String destination;
 
-    @Column(name = "sent_at", nullable = false)
+    @Column(name = "enviado_en", nullable = false)
     @Builder.Default
     private Instant sentAt = Instant.now();
 
-    @Column(name = "success", nullable = false)
+    @Column(name = "exito", nullable = false)
     @Builder.Default
     private Boolean success = true;
 }

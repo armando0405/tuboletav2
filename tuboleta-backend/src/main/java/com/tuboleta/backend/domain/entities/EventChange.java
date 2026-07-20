@@ -21,7 +21,7 @@ import lombok.Setter;
  * campo extraído que cambió en un evento.
  */
 @Entity
-@Table(name = "event_changes")
+@Table(name = "cambios_evento")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -34,19 +34,19 @@ public class EventChange {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "event_id", nullable = false)
+    @JoinColumn(name = "evento_id", nullable = false)
     private Event event;
 
-    @Column(name = "field_name", nullable = false, length = 100)
+    @Column(name = "campo", nullable = false, length = 100)
     private String fieldName;
 
-    @Column(name = "old_value", columnDefinition = "TEXT")
+    @Column(name = "valor_anterior", columnDefinition = "TEXT")
     private String oldValue;
 
-    @Column(name = "new_value", columnDefinition = "TEXT")
+    @Column(name = "valor_nuevo", columnDefinition = "TEXT")
     private String newValue;
 
-    @Column(name = "detected_at", nullable = false)
+    @Column(name = "detectado_en", nullable = false)
     @Builder.Default
     private Instant detectedAt = Instant.now();
 }
