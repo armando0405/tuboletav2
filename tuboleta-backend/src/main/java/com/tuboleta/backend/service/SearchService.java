@@ -1,5 +1,6 @@
 package com.tuboleta.backend.service;
 
+import com.tuboleta.backend.api.dtos.EventChangeResponse;
 import com.tuboleta.backend.api.dtos.EventResponse;
 import com.tuboleta.backend.api.dtos.SearchCreateRequest;
 import com.tuboleta.backend.api.dtos.SearchResponse;
@@ -17,6 +18,8 @@ public interface SearchService {
     List<SearchResponse> listMine(Long userId);
 
     List<EventResponse> events(Long userId, Long searchId);
+
+    List<EventChangeResponse> eventChanges(Long userId, Long searchId, Long eventId);
 
     SearchResponse update(Long userId, Long searchId, SearchUpdateRequest request);
 

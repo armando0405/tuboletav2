@@ -3,6 +3,7 @@ import { SEARCHES } from '@/utils/endpoints'
 import type { ObjectListResponse, ObjectResponse } from '@/types/services/Responses'
 import type { Search, SearchCreateRequest, SearchUpdateRequest } from '@/types/services/Search'
 import type { Event } from '@/types/services/Event'
+import type { EventChange } from '@/types/services/EventChange'
 import type { AxiosResponse } from 'axios'
 
 const postSearch = (payload: SearchCreateRequest): Promise<AxiosResponse<ObjectResponse<Search>>> =>
@@ -13,6 +14,12 @@ const getSearches = (): Promise<AxiosResponse<ObjectListResponse<Search>>> =>
 
 const getSearchEvents = (id: number): Promise<AxiosResponse<ObjectListResponse<Event>>> =>
     api.get<ObjectListResponse<Event>>(SEARCHES.GET_SEARCH_EVENTS(id))
+
+const getSearchEventChanges = (
+    id: number,
+    eventId: number,
+): Promise<AxiosResponse<ObjectListResponse<EventChange>>> =>
+    api.get<ObjectListResponse<EventChange>>(SEARCHES.GET_SEARCH_EVENT_CHANGES(id, eventId))
 
 const patchSearch = (
     id: number,
@@ -40,6 +47,7 @@ export const searchesService = {
     postSearch,
     getSearches,
     getSearchEvents,
+    getSearchEventChanges,
     patchSearch,
     patchToggleSearchProvider,
     patchToggleSearchStatus,

@@ -19,6 +19,7 @@ public record EventResponse(
         EventStatus status,
         Integer missCount,
         Instant firstSeenAt,
-        Instant lastSeenAt
+        Instant lastSeenAt,
+        long changesCount
 ) {
 }

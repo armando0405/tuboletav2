@@ -14,4 +14,7 @@ export type Event = {
     missCount: number
     firstSeenAt: string
     lastSeenAt: string
+    // Nº de cambios registrados (event_changes): si > 0, el evento tiene
+    // historial y se muestra el botón para verlo (REQ-DET-002).
+    changesCount: number
 }

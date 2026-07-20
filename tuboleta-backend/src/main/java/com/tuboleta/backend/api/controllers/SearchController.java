@@ -1,5 +1,6 @@
 package com.tuboleta.backend.api.controllers;
 
+import com.tuboleta.backend.api.dtos.EventChangeResponse;
 import com.tuboleta.backend.api.dtos.EventResponse;
 import com.tuboleta.backend.api.dtos.SearchCreateRequest;
 import com.tuboleta.backend.api.dtos.SearchResponse;
@@ -54,6 +55,16 @@ public class SearchController {
                                                      @PathVariable Long id) {
         return new ObjectListResponse<>(ErrorCode.SUCCESS, ErrorMessage.SUCCESS,
                 searchService.events(principal.getId(), id));
+    }
+
+    /** Historial de cambios (event_changes) de un evento de la búsqueda. */
+    @GetMapping("/{id}/events/{eventId}/changes")
+    public ObjectListResponse<EventChangeResponse> eventChanges(
+            @AuthenticationPrincipal AppUserPrincipal principal,
+            @PathVariable Long id,
+            @PathVariable Long eventId) {
+        return new ObjectListResponse<>(ErrorCode.SUCCESS, ErrorMessage.SUCCESS,
+                searchService.eventChanges(principal.getId(), id, eventId));
     }
 
     @PatchMapping("/{id}")

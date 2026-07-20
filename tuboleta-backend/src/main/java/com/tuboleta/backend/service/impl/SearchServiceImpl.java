@@ -1,16 +1,19 @@
 package com.tuboleta.backend.service.impl;
 
+import com.tuboleta.backend.api.dtos.EventChangeResponse;
 import com.tuboleta.backend.api.dtos.EventResponse;
 import com.tuboleta.backend.api.dtos.SearchCreateRequest;
 import com.tuboleta.backend.api.dtos.SearchProviderInfo;
 import com.tuboleta.backend.api.dtos.SearchResponse;
 import com.tuboleta.backend.api.dtos.SearchUpdateRequest;
 import com.tuboleta.backend.domain.entities.Event;
+import com.tuboleta.backend.domain.entities.EventChange;
 import com.tuboleta.backend.domain.entities.Provider;
 import com.tuboleta.backend.domain.entities.Search;
 import com.tuboleta.backend.domain.entities.SearchNotification;
 import com.tuboleta.backend.domain.entities.SearchProvider;
 import com.tuboleta.backend.domain.enums.SearchStatus;
+import com.tuboleta.backend.repository.EventChangeRepository;
 import com.tuboleta.backend.repository.EventRepository;
 import com.tuboleta.backend.repository.FrequencyRepository;
 import com.tuboleta.backend.repository.ProviderRepository;
@@ -26,6 +29,7 @@ import com.tuboleta.backend.utils.constants.ErrorMessage;
 import com.tuboleta.backend.utils.exception.GenericException;
 import com.tuboleta.backend.utils.exception.NotFoundRegisterException;
 import com.tuboleta.backend.utils.text.TermNormalizer;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -54,6 +58,7 @@ public class SearchServiceImpl implements SearchService {
     private final UserRepository userRepository;
     private final MonitoringRunService monitoringRunService;
     private final FrequencyRepository frequencyRepository;
+    private final EventChangeRepository eventChangeRepository;
 
     public SearchServiceImpl(SearchRepository searchRepository,
                               SearchProviderRepository searchProviderRepository,
@@ -63,7 +68,8 @@ public class SearchServiceImpl implements SearchService {
                               EventRepository eventRepository,
                               UserRepository userRepository,
                               MonitoringRunService monitoringRunService,
-                              FrequencyRepository frequencyRepository) {
+                              FrequencyRepository frequencyRepository,
+                              EventChangeRepository eventChangeRepository) {
         this.searchRepository = searchRepository;
         this.searchProviderRepository = searchProviderRepository;
         this.searchNotificationRepository = searchNotificationRepository;
@@ -73,6 +79,7 @@ public class SearchServiceImpl implements SearchService {
         this.userRepository = userRepository;
         this.monitoringRunService = monitoringRunService;
         this.frequencyRepository = frequencyRepository;
+        this.eventChangeRepository = eventChangeRepository;
     }
 
     /**
@@ -154,9 +161,37 @@ public class SearchServiceImpl implements SearchService {
         if (pairIds.isEmpty()) {
             return List.of();
         }
-        return eventRepository.findBySearchProviderIdInOrderByLastSeenAtDesc(pairIds).stream()
-                .map(SearchServiceImpl::toEventResponse)
+        List<Event> events = eventRepository.findBySearchProviderIdInOrderByLastSeenAtDesc(pairIds);
+        Map<Long, Long> changeCounts = changeCountsByEvent(events);
+        return events.stream()
+                .map(event -> toEventResponse(event, changeCounts.getOrDefault(event.getId(), 0L)))
                 .toList();
+    }
+
+    /** Cambios (event_changes) de un evento de la búsqueda, más recientes primero (REQ-DET-002). */
+    @Override
+    @Transactional(readOnly = true)
+    public List<EventChangeResponse> eventChanges(Long userId, Long searchId, Long eventId) {
+        ownSearch(userId, searchId);
+        Event event = eventRepository.findById(eventId)
+                .filter(e -> e.getSearchProvider().getSearch().getId().equals(searchId))
+                .orElseThrow(() -> new NotFoundRegisterException("Evento", "id", eventId));
+        return eventChangeRepository.findByEventIdOrderByDetectedAtDesc(event.getId()).stream()
+                .map(SearchServiceImpl::toChangeResponse)
+                .toList();
+    }
+
+    /** Conteo de cambios por evento en una sola consulta (evita N+1). */
+    private Map<Long, Long> changeCountsByEvent(List<Event> events) {
+        List<Long> ids = events.stream().map(Event::getId).toList();
+        if (ids.isEmpty()) {
+            return Map.of();
+        }
+        Map<Long, Long> counts = new HashMap<>();
+        for (Object[] row : eventChangeRepository.countGroupedByEventIds(ids)) {
+            counts.put((Long) row[0], (Long) row[1]);
+        }
+        return counts;
     }
 
     @Override
@@ -288,7 +323,7 @@ public class SearchServiceImpl implements SearchService {
                 search.getStatus(), providers, destinationIds, eventsCount);
     }
 
-    private static EventResponse toEventResponse(Event event) {
+    private static EventResponse toEventResponse(Event event, long changesCount) {
         return new EventResponse(
                 event.getId(),
                 event.getSearchProvider().getProvider().getName(),
@@ -300,6 +335,27 @@ public class SearchServiceImpl implements SearchService {
                 event.getStatus(),
                 event.getMissCount(),
                 event.getFirstSeenAt(),
-                event.getLastSeenAt());
+                event.getLastSeenAt(),
+                changesCount);
+    }
+
+    private static EventChangeResponse toChangeResponse(EventChange change) {
+        return new EventChangeResponse(
+                change.getId(),
+                change.getFieldName(),
+                fieldLabel(change.getFieldName()),
+                change.getOldValue(),
+                change.getNewValue(),
+                change.getDetectedAt());
+    }
+
+    /** Etiqueta en español del campo que cambió (los que diffea la detección, REQ-DET-002). */
+    private static String fieldLabel(String fieldName) {
+        return switch (fieldName == null ? "" : fieldName) {
+            case "title" -> "Título";
+            case "venue" -> "Lugar";
+            case "eventDateRaw" -> "Fecha";
+            default -> fieldName;
+        };
     }
 }
