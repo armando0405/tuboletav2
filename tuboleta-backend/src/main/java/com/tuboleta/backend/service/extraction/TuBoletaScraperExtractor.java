@@ -68,8 +68,12 @@ public class TuBoletaScraperExtractor implements ProviderExtractor {
     @Override
     public ExtractionResult extract(Provider provider, String normalizedTerm) throws ScrapingException {
         String url = buildSearchUrl(provider.getSearchUrl(), normalizedTerm);
+        log.info("Scraping TuBoleta -> GET {}", url);
         Document doc = fetch(url, provider.getConfig());
-        return parse(doc);
+        ExtractionResult result = parse(doc);
+        log.info("Scraping TuBoleta -> {} evento(s) en la página, {} no se pudo(pudieron) parsear",
+                result.items().size(), result.failedItems());
+        return result;
     }
 
     /**

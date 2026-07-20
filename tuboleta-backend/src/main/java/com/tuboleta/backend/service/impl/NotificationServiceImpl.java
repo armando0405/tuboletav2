@@ -115,22 +115,39 @@ public class NotificationServiceImpl implements NotificationService {
     private void fanOut(Notification notification, Search search) {
         List<SearchNotification> destinations = searchNotificationRepository
                 .findBySearchIdAndIsActiveTrue(search.getId());
+        if (destinations.isEmpty()) {
+            log.info("Notificación {} ({}): la búsqueda «{}» no tiene destinos activos -> queda solo en el inbox. "
+                    + "Agrega un destino a la búsqueda para recibir el correo.",
+                    notification.getId(), notification.getType(), search.getTermNormalized());
+            return;
+        }
+        int delivered = 0;
+        int skipped = 0;
         for (SearchNotification searchNotification : destinations) {
             UserNotificationChannel destination = searchNotification.getUserNotificationChannel();
             if (destination == null || !Boolean.TRUE.equals(destination.getIsActive())) {
+                skipped++;
                 continue;
             }
             NotifChannel channel = destination.getChannel();
             if (channel == null || !Boolean.TRUE.equals(channel.getIsActive())) {
+                log.info("Notificación {}: el canal del destino «{}» está inactivo, se omite",
+                        notification.getId(), destination.getDestination());
+                skipped++;
                 continue;
             }
             ChannelSender sender = sendersByChannel.get(channel.getName());
             if (sender == null) {
                 log.warn("No hay ChannelSender registrado para el canal '{}', se omite la entrega", channel.getName());
+                skipped++;
                 continue;
             }
             deliver(notification, channel, destination.getDestination(), sender);
+            delivered++;
         }
+        log.info("Notificación {} ({}) de la búsqueda «{}»: {} destino(s) entregado(s){}",
+                notification.getId(), notification.getType(), search.getTermNormalized(), delivered,
+                skipped > 0 ? " (" + skipped + " omitido(s) por inactivo)" : "");
     }
 
     private void deliver(Notification notification, NotifChannel channel, String destination, ChannelSender sender) {
