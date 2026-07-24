@@ -96,7 +96,15 @@ public class SecurityConfig {
                         .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/api/auth/register", "/api/auth/login").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                        .anyRequest().authenticated());
+                        // El resto de la API sí exige sesión.
+                        .requestMatchers("/api/**").authenticated()
+                        // Todo lo demás (index.html, /assets/**, favicon y las
+                        // rutas del router de Vue reenviadas a index.html por
+                        // SpaWebConfig) es público: la SPA no tiene datos, todo
+                        // dato real vive detrás de /api. Con esto la app se
+                        // sirve desde el mismo origen que la API (despliegue
+                        // "todo en uno") sin líos de CORS ni de cookies.
+                        .anyRequest().permitAll());
         return http.build();
     }
 }

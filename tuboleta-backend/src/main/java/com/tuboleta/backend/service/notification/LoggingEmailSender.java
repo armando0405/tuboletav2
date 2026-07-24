@@ -35,7 +35,8 @@ public class LoggingEmailSender implements ChannelSender {
     @Override
     public boolean send(Notification notification, String destination) {
         String subject = contentBuilder.subject(notification);
-        log.info("[Correo simulado, sin SENDGRID_API_KEY] Para: {} - Asunto: {}", destination, subject);
+        log.info("[Correo SIMULADO - no se envio de verdad. Define MAIL_API_KEY (Mailgun) para "
+                + "enviar correos reales] Para: {} - Asunto: {}", destination, subject);
         return true;
     }
 }
