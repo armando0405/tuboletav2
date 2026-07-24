@@ -68,6 +68,18 @@
                                             Iniciar sesión
                                         </v-btn>
                                     </v-col>
+
+                                    <v-col
+                                        cols="12"
+                                        class="pt-0 text-center"
+                                    >
+                                        <router-link
+                                            :to="{ name: 'forgot-password' }"
+                                            class="text-primary text-decoration-none text-body-2"
+                                        >
+                                            ¿Olvidaste tu contraseña?
+                                        </router-link>
+                                    </v-col>
                                 </v-row>
                             </v-card-item>
                             <v-progress-linear

@@ -26,6 +26,17 @@ const HomeRoutes: RouteRecordRaw[] = [
         component: () => import('@/views/destinations/DestinationsList.vue'),
     },
     {
+        name: 'account',
+        path: '/cuenta',
+        component: () => import('@/views/account/Account.vue'),
+    },
+    {
+        name: 'admin-users',
+        path: '/admin/usuarios',
+        meta: { requiresAdmin: true },
+        component: () => import('@/views/admin/AdminUsers.vue'),
+    },
+    {
         name: 'admin-providers',
         path: '/admin/fuentes',
         meta: { requiresAdmin: true },

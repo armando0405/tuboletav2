@@ -11,3 +11,22 @@ export type RegisterRequest = {
     name: string
     password: string
 }
+
+export type ChangePasswordRequest = {
+    currentPassword: string
+    newPassword: string
+}
+
+export type UpdateProfileRequest = {
+    name: string
+    email: string
+}
+
+export type ForgotPasswordRequest = {
+    email: string
+}
+
+export type ResetPasswordRequest = {
+    token: string
+    newPassword: string
+}

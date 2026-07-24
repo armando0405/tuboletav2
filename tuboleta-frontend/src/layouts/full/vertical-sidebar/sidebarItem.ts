@@ -45,6 +45,11 @@ const sidebarItem: menu[] = [
                 icon: 'mdi-email-outline',
                 to: '/destinos',
             },
+            {
+                title: 'Mi cuenta',
+                icon: 'mdi-account-cog-outline',
+                to: '/cuenta',
+            },
         ],
     },
     {
@@ -61,6 +66,12 @@ const sidebarItem: menu[] = [
                 title: 'Frecuencias',
                 icon: 'mdi-timer-cog-outline',
                 to: '/admin/frecuencias',
+                adminOnly: true,
+            },
+            {
+                title: 'Usuarios',
+                icon: 'mdi-account-group-outline',
+                to: '/admin/usuarios',
                 adminOnly: true,
             },
         ],
