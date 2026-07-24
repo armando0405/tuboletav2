@@ -51,6 +51,11 @@ scheduler:
   tick-ms: ${SCHEDULER_TICK_MS:60000}
   pool-size: ${SCHEDULER_POOL_SIZE:3}
 
+app:
+  # URL pública del frontend, usada para armar enlaces en correos (ej. el de
+  # recuperación de contraseña). En Render: APP_PUBLIC_URL=https://tuboletav2.onrender.com
+  public-url: ${APP_PUBLIC_URL:http://localhost:7075}
+
 keepalive:
   # Auto-ping contra el sleep de Render (plan free). Debe ser la URL PÚBLICA
   # del propio servicio (en Render: KEEPALIVE_URL=https://tuboletav2.onrender.com).

@@ -94,7 +94,8 @@ public class SecurityConfig {
                 .logout(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll()
-                        .requestMatchers("/api/auth/register", "/api/auth/login").permitAll()
+                        .requestMatchers("/api/auth/register", "/api/auth/login",
+                                "/api/auth/password/forgot", "/api/auth/password/reset").permitAll()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         // El resto de la API sí exige sesión.
                         .requestMatchers("/api/**").authenticated()

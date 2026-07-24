@@ -1,10 +1,15 @@
 package com.tuboleta.backend.api.controllers;
 
+import com.tuboleta.backend.api.dtos.ChangePasswordRequest;
+import com.tuboleta.backend.api.dtos.ForgotPasswordRequest;
 import com.tuboleta.backend.api.dtos.LoginRequest;
 import com.tuboleta.backend.api.dtos.RegisterRequest;
+import com.tuboleta.backend.api.dtos.ResetPasswordRequest;
+import com.tuboleta.backend.api.dtos.UpdateProfileRequest;
 import com.tuboleta.backend.api.dtos.UserResponse;
 import com.tuboleta.backend.config.security.AppUserPrincipal;
 import com.tuboleta.backend.service.AuthService;
+import com.tuboleta.backend.service.UserAccountService;
 import com.tuboleta.backend.utils.constants.ErrorCode;
 import com.tuboleta.backend.utils.constants.ErrorMessage;
 import com.tuboleta.backend.utils.exception.GenericException;
@@ -23,6 +28,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,13 +46,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final AuthService authService;
+    private final UserAccountService userAccountService;
     private final AuthenticationManager authenticationManager;
     private final SecurityContextRepository securityContextRepository;
 
     public AuthController(AuthService authService,
+                           UserAccountService userAccountService,
                            AuthenticationManager authenticationManager,
                            SecurityContextRepository securityContextRepository) {
         this.authService = authService;
+        this.userAccountService = userAccountService;
         this.authenticationManager = authenticationManager;
         this.securityContextRepository = securityContextRepository;
     }
@@ -89,6 +98,39 @@ public class AuthController {
     @GetMapping("/me")
     public ObjectResponse<UserResponse> me(@AuthenticationPrincipal AppUserPrincipal principal) {
         return new ObjectResponse<>(ErrorCode.SUCCESS, ErrorMessage.SUCCESS, toResponse(principal));
+    }
+
+    /** Cambiar la propia contraseña (verifica la actual). */
+    @PatchMapping("/password")
+    public ObjectResponse<Void> changePassword(@AuthenticationPrincipal AppUserPrincipal principal,
+                                               @Valid @RequestBody ChangePasswordRequest request) {
+        userAccountService.changePassword(principal.getId(), request);
+        return new ObjectResponse<>(ErrorCode.SUCCESS, ErrorMessage.SUCCESS);
+    }
+
+    /** Editar el propio perfil (nombre y correo). */
+    @PatchMapping("/profile")
+    public ObjectResponse<UserResponse> updateProfile(@AuthenticationPrincipal AppUserPrincipal principal,
+                                                      @Valid @RequestBody UpdateProfileRequest request) {
+        return new ObjectResponse<>(ErrorCode.SUCCESS, ErrorMessage.SUCCESS,
+                userAccountService.updateProfile(principal.getId(), request));
+    }
+
+    /**
+     * Solicitar recuperación de contraseña (PÚBLICO). Responde siempre éxito,
+     * exista o no el correo, para no filtrar qué correos están registrados.
+     */
+    @PostMapping("/password/forgot")
+    public ObjectResponse<Void> forgotPassword(@Valid @RequestBody ForgotPasswordRequest request) {
+        userAccountService.forgotPassword(request);
+        return new ObjectResponse<>(ErrorCode.SUCCESS, ErrorMessage.SUCCESS);
+    }
+
+    /** Restablecer la contraseña con el token del correo (PÚBLICO). */
+    @PostMapping("/password/reset")
+    public ObjectResponse<Void> resetPassword(@Valid @RequestBody ResetPasswordRequest request) {
+        userAccountService.resetPassword(request);
+        return new ObjectResponse<>(ErrorCode.SUCCESS, ErrorMessage.SUCCESS);
     }
 
     private static UserResponse toResponse(AppUserPrincipal principal) {

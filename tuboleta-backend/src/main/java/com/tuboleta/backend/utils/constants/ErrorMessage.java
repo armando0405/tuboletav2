@@ -98,4 +98,20 @@ public class ErrorMessage {
      */
     public static final String FREQUENCY_DUPLICATE = "Ya existe una frecuencia de {0} minutos en el catalogo";
 
+    // ===== Fase 1: cuenta de usuario (cambio/recuperación de contraseña, admin) =====
+
+    /**
+     * Cambio de contraseña con la contraseña actual incorrecta.
+     */
+    public static final String CURRENT_PASSWORD_INVALID = "La contraseña actual no es correcta";
+    /**
+     * Token de recuperación inválido, ya usado o expirado (mensaje genérico
+     * para no filtrar el motivo exacto).
+     */
+    public static final String RESET_LINK_INVALID = "El enlace de recuperación no es válido o ya expiró";
+    /**
+     * Un admin intenta cambiar su propio estado o rol (evita auto-bloqueo).
+     */
+    public static final String CANNOT_MODIFY_SELF = "No puedes cambiar tu propio estado o rol";
+
 }
