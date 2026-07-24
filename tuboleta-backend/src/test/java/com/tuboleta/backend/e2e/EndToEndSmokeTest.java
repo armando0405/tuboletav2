@@ -97,7 +97,11 @@ class EndToEndSmokeTest {
      * (TuBoletaScraperExtractor) por un doble: el {@code List<ProviderExtractor>}
      * inyectado en {@link MonitoringRunService} pasa a contener solo este mock.
      */
-    @MockitoBean
+    // Con varios ProviderExtractor en el contexto (TuBoleta + genérico + API),
+    // se reemplaza por NOMBRE el bean del scraper de TuBoleta (el que atiende al
+    // proveedor sembrado por V1). Los otros dos no soportan a TuBoleta, así que
+    // el mock es el único que findExtractor elige para este par.
+    @MockitoBean(name = "tuBoletaScraperExtractor")
     private ProviderExtractor providerExtractor;
 
     private final ObjectMapper objectMapper = new ObjectMapper();

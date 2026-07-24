@@ -7,6 +7,8 @@ export type ProviderAdmin = {
     name: string
     providerType: ProviderType
     baseUrl: string
+    searchUrl: string | null
+    config: string | null
     status: ProviderStatus
     statusReason: string | null
     statusChangedAt: string | null
@@ -15,4 +17,13 @@ export type ProviderAdmin = {
 // Refleja ProviderDisableRequest.
 export type ProviderDisableRequest = {
     reason: string
+}
+
+// Refleja ProviderCreateRequest / ProviderUpdateRequest (alta/edición).
+export type ProviderSaveRequest = {
+    name: string
+    providerType: ProviderType
+    baseUrl: string
+    searchUrl: string
+    config: string | null
 }

@@ -70,26 +70,36 @@
                     </span>
                 </td>
                 <td class="text-right">
-                    <v-btn
-                        v-if="provider.status === 'ACTIVE'"
-                        size="small"
-                        variant="outlined"
-                        color="error"
-                        prepend-icon="mdi-database-off-outline"
-                        @click="openDisableDialog(provider)"
-                    >
-                        Deshabilitar
-                    </v-btn>
-                    <v-btn
-                        v-else
-                        size="small"
-                        variant="flat"
-                        color="primary"
-                        prepend-icon="mdi-database-check-outline"
-                        @click="enableProvider(provider)"
-                    >
-                        Habilitar
-                    </v-btn>
+                    <div class="d-flex justify-end ga-2 flex-wrap py-1">
+                        <v-btn
+                            size="small"
+                            variant="tonal"
+                            prepend-icon="mdi-pencil-outline"
+                            @click="openEditForm(provider)"
+                        >
+                            Editar
+                        </v-btn>
+                        <v-btn
+                            v-if="provider.status === 'ACTIVE'"
+                            size="small"
+                            variant="outlined"
+                            color="error"
+                            prepend-icon="mdi-database-off-outline"
+                            @click="openDisableDialog(provider)"
+                        >
+                            Deshabilitar
+                        </v-btn>
+                        <v-btn
+                            v-else
+                            size="small"
+                            variant="flat"
+                            color="primary"
+                            prepend-icon="mdi-database-check-outline"
+                            @click="enableProvider(provider)"
+                        >
+                            Habilitar
+                        </v-btn>
+                    </div>
                 </td>
             </tr>
         </tbody>
@@ -112,7 +122,7 @@
 <script setup lang="ts">
 import { useProvidersAdmin } from '@/composables/admin/useProvidersAdmin'
 
-const { loading, providers, openDisableDialog, enableProvider } = useProvidersAdmin()
+const { loading, providers, openDisableDialog, enableProvider, openEditForm } = useProvidersAdmin()
 
 function formatDate(iso: string): string {
     return new Date(iso).toLocaleString('es-CO', {

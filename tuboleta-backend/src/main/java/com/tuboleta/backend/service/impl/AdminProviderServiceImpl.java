@@ -1,6 +1,8 @@
 package com.tuboleta.backend.service.impl;
 
 import com.tuboleta.backend.api.dtos.ProviderAdminResponse;
+import com.tuboleta.backend.api.dtos.ProviderCreateRequest;
+import com.tuboleta.backend.api.dtos.ProviderUpdateRequest;
 import com.tuboleta.backend.domain.entities.Provider;
 import com.tuboleta.backend.domain.enums.ProviderStatus;
 import com.tuboleta.backend.repository.ProviderRepository;
@@ -37,6 +39,33 @@ public class AdminProviderServiceImpl implements AdminProviderService {
 
     @Override
     @Transactional
+    public ProviderAdminResponse create(ProviderCreateRequest request) {
+        Provider provider = Provider.builder()
+                .name(request.name())
+                .providerType(request.providerType())
+                .baseUrl(request.baseUrl())
+                .searchUrl(request.searchUrl())
+                .config(blankToNull(request.config()))
+                .status(ProviderStatus.ACTIVE)
+                .build();
+        return toResponse(providerRepository.save(provider));
+    }
+
+    @Override
+    @Transactional
+    public ProviderAdminResponse update(Long providerId, ProviderUpdateRequest request) {
+        Provider provider = findProvider(providerId);
+        provider.setName(request.name());
+        provider.setProviderType(request.providerType());
+        provider.setBaseUrl(request.baseUrl());
+        provider.setSearchUrl(request.searchUrl());
+        provider.setConfig(blankToNull(request.config()));
+        provider.setUpdatedAt(Instant.now());
+        return toResponse(providerRepository.save(provider));
+    }
+
+    @Override
+    @Transactional
     public ProviderAdminResponse disable(Long providerId, String reason) {
         Provider provider = findProvider(providerId);
         provider.setStatus(ProviderStatus.DISABLED);
@@ -69,8 +98,14 @@ public class AdminProviderServiceImpl implements AdminProviderService {
                 provider.getName(),
                 provider.getProviderType(),
                 provider.getBaseUrl(),
+                provider.getSearchUrl(),
+                provider.getConfig(),
                 provider.getStatus(),
                 provider.getStatusReason(),
                 provider.getStatusChangedAt());
+    }
+
+    private static String blankToNull(String value) {
+        return (value == null || value.isBlank()) ? null : value;
     }
 }

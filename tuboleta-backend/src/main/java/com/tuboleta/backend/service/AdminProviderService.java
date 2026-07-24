@@ -1,6 +1,8 @@
 package com.tuboleta.backend.service;
 
 import com.tuboleta.backend.api.dtos.ProviderAdminResponse;
+import com.tuboleta.backend.api.dtos.ProviderCreateRequest;
+import com.tuboleta.backend.api.dtos.ProviderUpdateRequest;
 import java.util.List;
 
 /**
@@ -10,6 +12,10 @@ import java.util.List;
 public interface AdminProviderService {
 
     List<ProviderAdminResponse> list();
+
+    ProviderAdminResponse create(ProviderCreateRequest request);
+
+    ProviderAdminResponse update(Long providerId, ProviderUpdateRequest request);
 
     ProviderAdminResponse disable(Long providerId, String reason);
 

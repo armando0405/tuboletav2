@@ -15,6 +15,7 @@
         </v-card>
 
         <provider-disable-dialog />
+        <provider-form-dialog />
     </v-col>
 </template>
 
@@ -23,6 +24,7 @@ import { onMounted } from 'vue'
 import ProvidersAdminHeader from '@/components/admin/ProvidersAdminHeader.vue'
 import ProvidersAdminTable from '@/components/admin/ProvidersAdminTable.vue'
 import ProviderDisableDialog from '@/components/admin/ProviderDisableDialog.vue'
+import ProviderFormDialog from '@/components/admin/ProviderFormDialog.vue'
 import { useProvidersAdmin } from '@/composables/admin/useProvidersAdmin'
 
 const { loading, providers, getProviders } = useProvidersAdmin()

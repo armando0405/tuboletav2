@@ -12,6 +12,8 @@ public record ProviderAdminResponse(
         String name,
         ProviderType providerType,
         String baseUrl,
+        String searchUrl,
+        String config,
         ProviderStatus status,
         String statusReason,
         Instant statusChangedAt
