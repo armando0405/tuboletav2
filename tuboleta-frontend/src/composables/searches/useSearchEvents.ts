@@ -18,14 +18,11 @@ const changes = ref<EventChange[]>([])
 const historyLoading = ref<boolean>(false)
 
 // Destaque de "nuevo/cambiado/eliminado" (REQ-FE-003): se apoya en el mismo
-// modelo notifications + read_at (REQ-NOT-003), no se inventa un mecanismo
-// aparte. NotificationResponse no trae eventId/searchId (solo searchTerm y
-// eventTitle como texto), así que el cruce es un best-effort por
-// (searchTerm === término de esta búsqueda) + (eventTitle === título del
-// evento) entre las notificaciones no leídas. Colisiones de título dentro de
-// la misma búsqueda (p.ej. mismo evento en dos proveedores) son un caso
-// límite aceptado dado lo que expone hoy el backend.
-const highlightByTitle = ref<Map<string, NotificationType>>(new Map())
+// modelo notifications + read_at (REQ-NOT-003). El cruce es robusto por
+// IDENTIFICADOR: NotificationResponse ahora trae searchId/eventId, así que se
+// mapea (eventId -> tipo de novedad) entre las notificaciones no leídas de esta
+// búsqueda, sin ambigüedad por texto.
+const highlightByEventId = ref<Map<number, NotificationType>>(new Map())
 
 export const useSearchEvents = () => {
     const { searches, getSearches } = useSearches()
@@ -37,19 +34,19 @@ export const useSearchEvents = () => {
         search.value = searches.value.find((s) => s.id === searchId) || null
     }
 
-    const loadHighlights = async (term: string): Promise<void> => {
+    const loadHighlights = async (searchId: number): Promise<void> => {
         try {
             const { data } = await notificationsService.getNotifications(true)
-            const map = new Map<string, NotificationType>()
+            const map = new Map<number, NotificationType>()
             for (const n of data?.list || []) {
-                if (n.searchTerm === term && n.eventTitle) {
-                    map.set(n.eventTitle, n.type)
+                if (n.searchId === searchId && n.eventId != null) {
+                    map.set(n.eventId, n.type)
                 }
             }
-            highlightByTitle.value = map
+            highlightByEventId.value = map
         } catch (err) {
             console.error('Error al obtener el destaque de novedades', err)
-            highlightByTitle.value = new Map()
+            highlightByEventId.value = new Map()
         }
     }
 
@@ -59,7 +56,7 @@ export const useSearchEvents = () => {
             await resolveSearch(searchId)
             const [{ data }] = await Promise.all([
                 searchesService.getSearchEvents(searchId),
-                search.value ? loadHighlights(search.value.term) : Promise.resolve(),
+                search.value ? loadHighlights(search.value.id) : Promise.resolve(),
             ])
             events.value = data?.list || []
         } catch (err) {
@@ -70,7 +67,7 @@ export const useSearchEvents = () => {
     }
 
     const highlightFor = (event: Event): NotificationType | null =>
-        highlightByTitle.value.get(event.title) || null
+        highlightByEventId.value.get(event.id) || null
 
     // El link "https://www.tuboleta.com{externalId}" solo aplica cuando el
     // externalId es la ruta relativa que devuelve el scraper de TuBoleta
@@ -81,7 +78,7 @@ export const useSearchEvents = () => {
         return `https://www.tuboleta.com${event.externalId}`
     }
 
-    const hasHighlights = computed<boolean>(() => highlightByTitle.value.size > 0)
+    const hasHighlights = computed<boolean>(() => highlightByEventId.value.size > 0)
 
     // Abre el historial de cambios de un evento y lo carga desde el backend.
     const openHistory = async (event: Event): Promise<void> => {
@@ -113,7 +110,7 @@ export const useSearchEvents = () => {
         loading.value = true
         events.value = []
         search.value = null
-        highlightByTitle.value = new Map()
+        highlightByEventId.value = new Map()
         showHistory.value = false
         historyEvent.value = null
         changes.value = []

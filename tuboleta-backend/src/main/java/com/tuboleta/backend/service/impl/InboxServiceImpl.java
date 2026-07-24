@@ -64,7 +64,9 @@ public class InboxServiceImpl implements InboxService {
         return new NotificationResponse(
                 notification.getId(),
                 notification.getType(),
+                notification.getSearch() != null ? notification.getSearch().getId() : null,
                 notification.getSearch() != null ? notification.getSearch().getTerm() : null,
+                notification.getEvent() != null ? notification.getEvent().getId() : null,
                 notification.getEvent() != null ? notification.getEvent().getTitle() : null,
                 notification.getCreatedAt(),
                 notification.getReadAt());

@@ -5,7 +5,9 @@ export type NotificationType = 'NEW' | 'CHANGED' | 'REMOVED' | 'PROVIDER_DISABLE
 export type Notification = {
     id: number
     type: NotificationType
+    searchId: number | null
     searchTerm: string
+    eventId: number | null
     eventTitle: string | null
     createdAt: string
     readAt: string | null
