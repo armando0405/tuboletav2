@@ -72,13 +72,6 @@
             <version>1.22.2</version>
         </dependency>
 
-        <!-- SendGrid (envio de correo, REQ-NOT-002/005) -->
-        <dependency>
-            <groupId>com.sendgrid</groupId>
-            <artifactId>sendgrid-java</artifactId>
-            <version>4.10.3</version>
-        </dependency>
-
         <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>

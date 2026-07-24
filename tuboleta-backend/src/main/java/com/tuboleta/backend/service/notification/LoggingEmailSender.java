@@ -7,11 +7,11 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.stereotype.Component;
 
 /**
- * Envío EMAIL de respaldo (sin API key de SendGrid configurada): no entrega
+ * Envío EMAIL de respaldo (sin API key de Mailgun configurada): no entrega
  * correo real, solo loguea en español lo que se habría enviado. Permite
  * desarrollar y correr {@code contextLoads} sin credenciales (REQ-NOT-005).
  *
- * <p>La condición es el complemento exacto de {@link SendGridEmailSender}
+ * <p>La condición es el complemento exacto de {@link MailgunEmailSender}
  * (misma property, negada) en vez de {@code ConditionalOnMissingBean}: para
  * beans de {@code @Component} escaneados (no {@code @Configuration @Bean})
  * el orden de evaluación de condiciones no está garantizado por nombre de
@@ -19,8 +19,7 @@ import org.springframework.stereotype.Component;
  * expresión simétrica, exactamente uno de los dos se activa siempre.</p>
  */
 @Component
-@ConditionalOnExpression(
-        "'${notifications.mailgun.api-key:}'.isEmpty() && '${notifications.sendgrid.api-key:}'.isEmpty()")
+@ConditionalOnExpression("'${notifications.mailgun.api-key:}'.isEmpty()")
 public class LoggingEmailSender implements ChannelSender {
 
     private static final Logger log = LogManager.getLogger(LoggingEmailSender.class);

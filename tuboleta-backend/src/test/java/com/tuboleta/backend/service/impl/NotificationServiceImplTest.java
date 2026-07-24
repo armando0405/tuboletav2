@@ -157,7 +157,7 @@ class NotificationServiceImplTest {
         when(searchNotificationRepository.findBySearchIdAndIsActiveTrue(10L))
                 .thenReturn(List.of(association(failing), association(ok)));
         when(emailSender.send(any(), org.mockito.ArgumentMatchers.eq("fail@correo.com")))
-                .thenThrow(new RuntimeException("SendGrid caído"));
+                .thenThrow(new RuntimeException("Mailgun caído"));
         when(emailSender.send(any(), org.mockito.ArgumentMatchers.eq("ok@correo.com"))).thenReturn(true);
 
         service.notifyDetectedChanges(pair, List.of(new DetectedChange(NotificationType.NEW, event)));

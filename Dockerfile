@@ -15,12 +15,6 @@ FROM node:22-alpine AS frontend
 WORKDIR /app
 # CI=true: desactiva la apertura del reporte de bundle (visualizer) en headless.
 ENV CI=true
-# Config de build del SPA. Se inyecta AQUÍ (y no vía el .env, que .dockerignore
-# excluye a propósito) para que el bundle siempre apunte a /api del mismo origen:
-# Vite lee las variables VITE_* del entorno del proceso. Sin esto, el baseURL de
-# axios queda vacío y las llamadas irían a /auth/login (sin /api) -> 405.
-ENV VITE_API_URL=/api
-ENV VITE_API_TIMEOUT=100000
 # Primero solo los manifiestos para aprovechar la cache de capas de Docker.
 COPY tuboleta-frontend/package.json tuboleta-frontend/package-lock.json ./
 RUN npm ci

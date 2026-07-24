@@ -35,16 +35,13 @@ springdoc:
     path: /swagger
 
 notifications:
-  # Mailgun tiene PRIORIDAD sobre SendGrid; si no hay key se usa Logging.
-  # El secreto deberia ir por variable de entorno (REQ-NOT-005); aca como
-  # default temporal para pruebas (NO commitear este archivo).
+  # Mailgun es el proveedor de correo. La API key es SECRETA y llega por
+  # variable de entorno (REQ-NOT-005); NUNCA versionada. En local usa el .env
+  # (docker) o exporta MAIL_API_KEY; sin key, se usa el envío simulado (log).
   mailgun:
     api-key: ${MAIL_API_KEY:}
-    sender-url: ${MAIL_SENDER_URL:}
+    sender-url: ${MAIL_SENDER_URL:https://api.mailgun.net/v3/arqbs.com/messages}
     from: ${MAIL_FROM:monitoreo@arqbs.com}
-  sendgrid:
-    # Nunca un valor real aca (REQ-NOT-005): llega por variable de entorno.
-    api-key: ${SENDGRID_API_KEY:}
   email:
     from: ${EMAIL_FROM:notificaciones@tuboleta-v2.local}
 
@@ -53,3 +50,11 @@ scheduler:
   enabled: ${SCHEDULER_ENABLED:true}
   tick-ms: ${SCHEDULER_TICK_MS:60000}
   pool-size: ${SCHEDULER_POOL_SIZE:3}
+
+keepalive:
+  # Auto-ping contra el sleep de Render (plan free). Debe ser la URL PÚBLICA
+  # del propio servicio (en Render: KEEPALIVE_URL=https://tuboletav2.onrender.com).
+  # Vacío = desactivado (local/dev).
+  url: ${KEEPALIVE_URL:}
+  # Intervalo entre pings. 10 min < 15 min (umbral de sleep de Render).
+  interval-ms: ${KEEPALIVE_INTERVAL_MS:600000}

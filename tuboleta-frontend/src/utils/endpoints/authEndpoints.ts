@@ -1,4 +1,4 @@
-// AuthController: /api/auth/** (VITE_API_URL ya incluye /api).
+// AuthController: /api/auth/** (el baseURL '/api' se fija en plugins/axios.ts).
 const BASE_API = '/auth'
 
 const POST_REGISTER = `${BASE_API}/register`

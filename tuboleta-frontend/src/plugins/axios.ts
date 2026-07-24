@@ -4,9 +4,15 @@ import type { ObjectListResponse, ObjectResponse } from '@/types/services/Respon
 import { useNotifyStore } from '@/stores/notify.store'
 import axios from 'axios'
 import type { AxiosResponse, AxiosError, AxiosInstance } from 'axios'
+// Base de la API: mismo origen que el SPA (el backend sirve el front y expone
+// /api/**). Se fija aquí, en la capa de servicios, en vez de depender de una
+// variable de entorno de build. En dev, vite.config proxya /api -> :8088.
+const API_BASE_URL = '/api'
+const API_TIMEOUT_MS = 100_000
+
 const instance: AxiosInstance = axios.create({
-    baseURL: import.meta.env.VITE_API_URL as string,
-    timeout: import.meta.env.VITE_API_TIMEOUT as number,
+    baseURL: API_BASE_URL,
+    timeout: API_TIMEOUT_MS,
     withCredentials: true,
 })
 

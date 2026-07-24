@@ -54,3 +54,8 @@ services:
       # ── Scheduler ────────────────────────────────────────────
       - key: SCHEDULER_ENABLED
         value: "true"
+
+      # ── Keep-alive: evita que el plan free duerma el servicio ─
+      # Debe ser la URL pública de ESTE servicio.
+      - key: KEEPALIVE_URL
+        value: https://tuboletav2.onrender.com

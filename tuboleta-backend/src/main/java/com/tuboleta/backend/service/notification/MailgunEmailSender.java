@@ -17,11 +17,10 @@ import org.springframework.stereotype.Component;
 
 /**
  * Envío EMAIL vía la API de Mailgun (REQ-NOT-002/005). Se activa solo si
- * {@code notifications.mailgun.api-key} llegó no vacío. Tiene PRIORIDAD sobre
- * {@link SendGridEmailSender}: si hay key de Mailgun, este es el sender de
- * EMAIL; si no, se usa SendGrid (si tiene key) o el {@link LoggingEmailSender}.
- * Exactamente uno de los tres se activa (condiciones mutuamente excluyentes),
- * porque solo puede haber un {@link ChannelSender} por canal.
+ * {@code notifications.mailgun.api-key} llegó no vacío; si no hay key, se usa
+ * el {@link LoggingEmailSender} (envío simulado). Exactamente uno de los dos
+ * se activa (condiciones mutuamente excluyentes), porque solo puede haber un
+ * {@link ChannelSender} por canal.
  *
  * <p>Contrato de Mailgun: POST {@code form-urlencoded} a la sender-url con
  * {@code from/to/subject/html}, autenticando con Basic Auth

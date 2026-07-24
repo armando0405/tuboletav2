@@ -62,10 +62,9 @@ import org.springframework.test.context.bean.override.mockito.MockitoBean;
 @TestPropertySource(properties = {
         "scheduler.enabled=false",
         // Fuerza LoggingEmailSender (entrega simulada, success=true) sin importar
-        // si el entorno/config tiene keys de Mailgun/SendGrid: el test debe ser
-        // hermético y no golpear un proveedor de correo real.
-        "notifications.mailgun.api-key=",
-        "notifications.sendgrid.api-key="
+        // si el entorno/config tiene key de Mailgun: el test debe ser hermético
+        // y no golpear un proveedor de correo real.
+        "notifications.mailgun.api-key="
 })
 class EndToEndSmokeTest {
 
@@ -211,7 +210,7 @@ class EndToEndSmokeTest {
         long unreadBefore = objectMapper.readTree(unreadBeforeResp.getBody()).get("object").asLong();
         assertThat(unreadBefore).isEqualTo(2);
 
-        // El correo se "envia" via LoggingEmailSender (sin SENDGRID_API_KEY):
+        // El correo se "envia" via LoggingEmailSender (sin MAIL_API_KEY):
         // no hay entrega real, pero notifications_log queda igual, con
         // success=true (REQ-NOT-005).
         List<NotificationLog> logsForThisEmail = notificationLogRepository.findAll().stream()

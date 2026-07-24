@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * Verifica que exactamente un {@link ChannelSender} EMAIL se active según
- * {@code notifications.sendgrid.api-key}, sin depender de
+ * {@code notifications.mailgun.api-key}, sin depender de
  * {@code ConditionalOnMissingBean} (orden de escaneo no garantizado para
  * {@code @Component}s planos) — ver javadoc de {@link LoggingEmailSender}.
  */
@@ -28,22 +28,24 @@ class ChannelSenderWiringTest {
     @Test
     void withoutApiKey_onlyLoggingEmailSenderIsActive() {
         contextRunner
-                .withPropertyValues("notifications.sendgrid.api-key=", "notifications.email.from=noreply@test.local")
+                .withPropertyValues("notifications.mailgun.api-key=", "notifications.email.from=noreply@test.local")
                 .run(context -> {
                     assertThat(context).hasSingleBean(ChannelSender.class);
                     assertThat(context).hasSingleBean(LoggingEmailSender.class);
-                    assertThat(context).doesNotHaveBean(SendGridEmailSender.class);
+                    assertThat(context).doesNotHaveBean(MailgunEmailSender.class);
                 });
     }
 
     @Test
-    void withApiKey_onlySendGridEmailSenderIsActive() {
+    void withApiKey_onlyMailgunEmailSenderIsActive() {
         contextRunner
-                .withPropertyValues("notifications.sendgrid.api-key=SG.fake-key-for-test",
+                .withPropertyValues("notifications.mailgun.api-key=key-fake-for-test",
+                        "notifications.mailgun.sender-url=https://api.mailgun.net/v3/test.local/messages",
+                        "notifications.mailgun.from=monitoreo@test.local",
                         "notifications.email.from=noreply@test.local")
                 .run(context -> {
                     assertThat(context).hasSingleBean(ChannelSender.class);
-                    assertThat(context).hasSingleBean(SendGridEmailSender.class);
+                    assertThat(context).hasSingleBean(MailgunEmailSender.class);
                     assertThat(context).doesNotHaveBean(LoggingEmailSender.class);
                 });
     }
