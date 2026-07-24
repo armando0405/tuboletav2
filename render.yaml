@@ -1,0 +1,56 @@
+# Blueprint de Render para TuBoleta v2 (despliegue "todo en uno").
+# En Render: New > Blueprint > apuntar a este repo. Crea de una vez el servicio
+# web (imagen Docker con front+back) y la base de datos Postgres.
+#
+# Los valores marcados `sync: false` NO se versionan: se escriben a mano en el
+# panel de Render (son secretos o dependen de la BD creada). Ver DESPLIEGUE.md.
+
+databases:
+  - name: tuboleta-db
+    databaseName: tuboleta_db
+    user: tuboleta_user
+    plan: free
+    postgresMajorVersion: "16"
+
+services:
+  - type: web
+    name: tuboleta
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    region: oregon
+    # Endpoint público del actuator (200 sin sesión) para el health check.
+    healthCheckPath: /actuator/health
+    envVars:
+      # ── Base de datos ────────────────────────────────────────
+      # Usuario y contraseña se cablean solos desde la BD de arriba.
+      - key: DB_USERNAME
+        fromDatabase:
+          name: tuboleta-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: tuboleta-db
+          property: password
+      # La URL JDBC se arma a mano una vez (Render no la da en formato jdbc):
+      #   jdbc:postgresql://<HOST-INTERNO>:5432/tuboleta_db
+      - key: DB_URL
+        sync: false
+
+      # ── Admin inicial (se crea si la tabla users está vacía) ──
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+
+      # ── Correo (Mailgun) — la API key es secreta ─────────────
+      - key: MAIL_API_KEY
+        sync: false
+      - key: MAIL_SENDER_URL
+        value: https://api.mailgun.net/v3/arqbs.com/messages
+      - key: MAIL_FROM
+        value: monitoreo@arqbs.com
+
+      # ── Scheduler ────────────────────────────────────────────
+      - key: SCHEDULER_ENABLED
+        value: "true"

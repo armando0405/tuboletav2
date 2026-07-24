@@ -1,20 +1,29 @@
 server:
-  port: 8088
+  # Render (y otros PaaS) inyectan el puerto por la variable PORT; en local
+  # cae al 8088 de siempre.
+  port: ${PORT:8088}
+  # La app corre detrás del proxy HTTPS de Render: respeta X-Forwarded-* para
+  # que las URLs y cookies se generen como https y no como http interno.
+  forward-headers-strategy: framework
 
 spring:
   application:
     name: tuboleta-backend
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/tuboleta_db
-    username: tuboleta_user
-    password: tuboleta_pass
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/tuboleta_db}
+    username: ${DB_USERNAME:tuboleta_user}
+    password: ${DB_PASSWORD:tuboleta_pass}
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      ddl-auto: update
-    show-sql: true
+      # Flyway es el único dueño del esquema (REQ-BD-003);
+      # Hibernate solo valida que las entidades coincidan.
+      ddl-auto: validate
+    # SQL de Hibernate apagado: ensucia los logs. Para depurar consultas,
+    # ponlo en true temporalmente (o sube a DEBUG el logger org.hibernate.SQL).
+    show-sql: false
     properties:
       hibernate:
         format_sql: true
@@ -24,3 +33,23 @@ springdoc:
     path: /api-docs
   swagger-ui:
     path: /swagger
+
+notifications:
+  # Mailgun tiene PRIORIDAD sobre SendGrid; si no hay key se usa Logging.
+  # El secreto deberia ir por variable de entorno (REQ-NOT-005); aca como
+  # default temporal para pruebas (NO commitear este archivo).
+  mailgun:
+    api-key: ${MAIL_API_KEY:}
+    sender-url: ${MAIL_SENDER_URL:}
+    from: ${MAIL_FROM:monitoreo@arqbs.com}
+  sendgrid:
+    # Nunca un valor real aca (REQ-NOT-005): llega por variable de entorno.
+    api-key: ${SENDGRID_API_KEY:}
+  email:
+    from: ${EMAIL_FROM:notificaciones@tuboleta-v2.local}
+
+scheduler:
+  # Mecanismo del monitoreo automático (REQ-DET-005): "la BD es la cola".
+  enabled: ${SCHEDULER_ENABLED:true}
+  tick-ms: ${SCHEDULER_TICK_MS:60000}
+  pool-size: ${SCHEDULER_POOL_SIZE:3}

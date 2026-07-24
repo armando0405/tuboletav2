@@ -71,7 +71,7 @@ const activeLoading = computed(() => {
 
 <style scoped>
 .loading-primary-overlay :deep(.v-overlay__scrim) {
-    background: rgba(255, 255, 255, 0.35);
+    background: rgba(10, 10, 12, 0.6);
     backdrop-filter: blur(4px);
     opacity: 1;
 }
@@ -170,8 +170,8 @@ const activeLoading = computed(() => {
 .loading-message {
     font-size: 1.6rem;
     font-weight: bold;
-    color: #111;
-    text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.6);
+    color: rgb(var(--v-theme-on-surface));
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
 .loading-primary-overlay :deep(.v-overlay__content) {

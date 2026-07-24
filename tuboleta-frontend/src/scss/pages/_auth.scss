@@ -1,13 +1,15 @@
+// Dark Operations: centro de monitoreo en modo oscuro — degradado radial
+// sutil en tonos índigo/grafito sobre el fondo negro suave, sin negro puro.
 .authentication{
     &::before{
         content: "";
         position: absolute;
         height: 100%;
         width: 100%;
-        opacity: 0.3;
+        opacity: 0.25;
         left: 0;
         top: 0;
         bottom: 0;
-        background: radial-gradient(rgb(210, 241, 223), rgb(211, 215, 250), rgb(186, 216, 244)) 0% 0% / 400% 400%;
+        background: radial-gradient(rgb(94, 106, 210), rgb(26, 30, 47), rgb(10, 10, 12)) 0% 0% / 400% 400%;
     }
 }

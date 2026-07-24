@@ -42,6 +42,12 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
+        <!-- Seguridad: sesión de servidor + BCrypt (REQ-USU-002) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
         <!-- Flyway -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -57,6 +63,20 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
+        </dependency>
+
+        <!-- Jsoup (scraping HTML, REQ-FUE-001) -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.22.2</version>
+        </dependency>
+
+        <!-- SendGrid (envio de correo, REQ-NOT-002/005) -->
+        <dependency>
+            <groupId>com.sendgrid</groupId>
+            <artifactId>sendgrid-java</artifactId>
+            <version>4.10.3</version>
         </dependency>
 
         <!-- Lombok -->
@@ -77,6 +97,28 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- Spring Boot 4 modulariza el slice de MockMvc aparte de
+             starter-test (paquete org.springframework.boot.webmvc.test.autoconfigure);
+             se necesita explícitamente para @AutoConfigureMockMvc. -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webmvc-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!-- Spring Boot 4 modularizo RestTemplateBuilder aparte de los
+             starters web (paquete org.springframework.boot.restclient); lo
+             necesita spring-boot-resttestclient para poder construir el bean
+             TestRestTemplate usado por el smoke test E2E (Task 8). -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-restclient</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>

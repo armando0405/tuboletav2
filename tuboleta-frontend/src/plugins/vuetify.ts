@@ -1,7 +1,7 @@
 import { createVuetify } from 'vuetify'
 import '@mdi/font/css/materialdesignicons.css'
 import * as directives from 'vuetify/directives'
-import { BlueTheme } from '@/theme/LightTheme'
+import { TuboletaDarkTheme } from '@/theme/DarkTheme'
 import { es } from 'vuetify/locale'
 
 const inputDefaults = {
@@ -17,14 +17,17 @@ export default createVuetify({
         messages: { es },
     },
     theme: {
-        defaultTheme: 'BlueTheme',
+        defaultTheme: 'tuboletaDark',
         themes: {
-            BlueTheme,
+            tuboletaDark: TuboletaDarkTheme,
         },
     },
     defaults: {
         VBtn: {
-            //variant: 'flat',
+            // Relleno sólido para que el CTA primario (índigo) resalte sobre las
+            // superficies oscuras del modal (los botones que deben ser sutiles
+            // fijan variant="text" explícitamente).
+            variant: 'flat',
             color: 'primary',
             rounded: 'lg',
         },
@@ -37,6 +40,9 @@ export default createVuetify({
         },
         VSelect: {
             ...inputDefaults,
+            // Cierra la lista al elegir una opción (incluso en multiple): antes
+            // el usuario tenía que clicar fuera para cerrarla — se sentía roto.
+            menuProps: { closeOnContentClick: true },
         },
         VAutocomplete: {
             ...inputDefaults,
@@ -55,8 +61,6 @@ export default createVuetify({
         VSwitch: {
             hideDetails: 'auto',
             color: 'primary',
-            trueValue: 'S',
-            falseValue: 'N',
         },
         VFileInput: {
             ...inputDefaults,

@@ -54,4 +54,48 @@ public class ErrorMessage {
      */
     public static final String SERVICE_OK = "El servicio esta en funcionamiento";
 
+    // ===== Task 7: API REST + seguridad (REQ-USU-001/002, REQ-BUS-002/005, REQ-NOT-001) =====
+
+    /**
+     * Registro con un correo ya existente.
+     */
+    public static final String EMAIL_ALREADY_REGISTERED = "El correo {0} ya esta registrado";
+    /**
+     * Login fallido (credenciales inválidas o usuario inactivo); mensaje
+     * deliberadamente genérico para no filtrar el motivo exacto.
+     */
+    public static final String INVALID_CREDENTIALS = "Credenciales invalidas";
+    /**
+     * Sin sesión autenticada (AuthenticationEntryPoint).
+     */
+    public static final String AUTH_REQUIRED = "Debe iniciar sesion para acceder a este recurso";
+    /**
+     * Autenticado pero sin permisos (AccessDeniedHandler).
+     */
+    public static final String ACCESS_DENIED = "No tiene permisos para acceder a este recurso";
+    /**
+     * Canal de notificación (ej. EMAIL) inactivo a nivel global.
+     */
+    public static final String CHANNEL_INACTIVE = "El canal de notificacion {0} no esta activo";
+    /**
+     * Canal de notificación inexistente en el catálogo (config inconsistente).
+     */
+    public static final String CHANNEL_NOT_FOUND = "El canal de notificacion {0} no existe";
+    /**
+     * Destino duplicado (mismo canal + dirección) para el usuario.
+     */
+    public static final String DESTINATION_DUPLICATE = "El destino {0} ya esta registrado para este usuario";
+    /**
+     * Búsqueda duplicada tras normalizar el término (REQ-BUS-002).
+     */
+    public static final String SEARCH_DUPLICATE = "Ya existe una busqueda equivalente al termino {0}";
+    /**
+     * Frecuencia de monitoreo que no existe/está activa en el catálogo (REQ-BUS-005).
+     */
+    public static final String INVALID_FREQUENCY = "La frecuencia de monitoreo elegida no es válida";
+    /**
+     * Alta/edición de una frecuencia del catálogo con un valor en minutos ya existente.
+     */
+    public static final String FREQUENCY_DUPLICATE = "Ya existe una frecuencia de {0} minutos en el catalogo";
+
 }

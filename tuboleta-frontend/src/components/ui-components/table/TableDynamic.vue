@@ -26,7 +26,7 @@
                     </v-icon>
                     <v-spacer />
                     <slot name="toolbar-actions"></slot>
-                    <v-tooltip :text="t('create')">
+                    <v-tooltip text="Crear">
                         <template #activator="{ props: activatorProps }">
                             <v-btn
                                 v-bind="activatorProps"
@@ -34,7 +34,7 @@
                                 prepend-icon="mdi-plus"
                                 @click="emit('create')"
                             >
-                                {{ t('create') }}
+                                Crear
                             </v-btn>
                         </template>
                     </v-tooltip>
@@ -97,7 +97,7 @@
                 </div>
             </template>
 
-            <!-- COLUMNA STATE: ícono según valor S/N -->
+            <!-- COLUMNA STATE: ícono según valor booleano -->
             <template
                 v-for="colHeader in stateHeaders"
                 :key="`state-${colHeader.key}`"
@@ -106,12 +106,12 @@
                 <div class="d-flex justify-center">
                     <v-icon
                         :color="
-                            (item as Record<string, any>)[colHeader.key] === 'S'
+                            (item as Record<string, any>)[colHeader.key] === true
                                 ? 'success'
                                 : 'error'
                         "
                         :icon="
-                            (item as Record<string, any>)[colHeader.key] === 'S'
+                            (item as Record<string, any>)[colHeader.key] === true
                                 ? 'mdi-check-circle-outline'
                                 : 'mdi-close-circle-outline'
                         "
@@ -122,7 +122,7 @@
             <!-- COLUMNA ACCIONES -->
             <template #[`item.actions`]="{ item }">
                 <div class="d-flex ga-2 justify-center">
-                    <v-tooltip :text="t('edit')">
+                    <v-tooltip text="Editar">
                         <template #activator="{ props: activatorProps }">
                             <v-btn
                                 v-bind="activatorProps"
@@ -140,7 +140,7 @@
                         </template>
                     </v-tooltip>
 
-                    <v-tooltip :text="t('delete')">
+                    <v-tooltip text="Eliminar">
                         <template #activator="{ props: activatorProps }">
                             <v-btn
                                 v-bind="activatorProps"
@@ -177,9 +177,6 @@
 <script setup lang="ts">
 import type { ColumnFilter, DataTableHeader, FilterType, TableHeader } from '@/types'
 import { reactive, computed, useAttrs, ref } from 'vue'
-import { useI18n } from 'vue-i18n'
-
-const { t } = useI18n()
 
 type recordStringUnknown = Record<string, unknown>
 
@@ -219,8 +216,8 @@ const filters = reactive<Record<string, string>>({})
 const allFiltersVisible = ref<boolean>(false)
 
 const DEFAULT_STATE_ITEMS: { title: string; value: string }[] = [
-    { title: t('active'), value: 'S' },
-    { title: t('inactive'), value: 'N' },
+    { title: 'Activo', value: 'true' },
+    { title: 'Inactivo', value: 'false' },
 ]
 
 function getHeaderKey(header: DataTableHeader): string {
@@ -270,7 +267,7 @@ const processedHeaders = computed<TableHeader[]>(() => {
 
     if (props.showEdit || props.showDelete) {
         base.push({
-            title: t('actions'),
+            title: 'Acciones',
             key: 'actions',
             filterConfig: false,
             sortable: false,
@@ -407,7 +404,8 @@ function handleActionRowClick(type: 'edit' | 'delete', item: recordStringUnknown
 }
 
 .row-selected {
-    background-color: rgba(25, 118, 210, 0.15) !important;
+    background-color: rgb(var(--v-theme-surface-elevated)) !important;
+    border-left: 4px solid rgb(var(--v-theme-primary));
 }
 
 :deep(thead th) {
@@ -420,10 +418,10 @@ function handleActionRowClick(type: 'edit' | 'delete', item: recordStringUnknown
 }
 
 :deep(.v-data-table tbody tr td) {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
+    border-bottom: 1px solid rgb(var(--v-theme-borderColor)) !important;
 }
 
 :deep(.v-data-table thead tr th) {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.12) !important;
+    border-bottom: 1px solid rgb(var(--v-theme-borderColor)) !important;
 }
 </style>

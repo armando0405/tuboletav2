@@ -69,6 +69,17 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * Maneja errores técnicos de extracción (scraping) de proveedores.
+     */
+    @ExceptionHandler(ScrapingException.class)
+    public ResponseEntity<ObjectResponse<Void>> handleScraping(ScrapingException ex) {
+        log.error("ScrapingException", ex);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                new ObjectResponse<Void>(ErrorCode.ERROR, ErrorMessage.ERROR)
+        );
+    }
+
+    /**
      * Maneja errores de validación de argumentos en peticiones.
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)

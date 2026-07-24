@@ -1,9 +1,32 @@
 .v-text-field input {
   font-size: 0.875rem;
 }
-.v-field__outline {
-  color: rgb(var(--v-theme-inputBorder),0.5);
+
+// Campos de formulario visibles sobre superficies oscuras (Dark Operations).
+// El borde por defecto era `inputBorder @0.5` (#2A2E3F medio), casi invisible
+// sobre el modal (surface-elevated #1A1E2F): el usuario no distinguía el campo
+// del fondo. Se sube el contraste del borde y se recesa el campo con un fondo
+// más oscuro que la superficie, para separarlo claramente del panel/modal.
+.v-field--variant-outlined {
+  // Fondo recesado (más oscuro que surface y surface-elevated) -> el campo se
+  // "hunde" y se diferencia tanto en la página como dentro de un diálogo.
+  background-color: rgba(var(--v-theme-background), 0.55);
+
+  .v-field__outline {
+    color: rgb(var(--v-theme-on-surface-variant));
+    --v-field-border-opacity: 0.42;
+  }
+
+  // Al enfocar/hover, borde índigo bien visible (feedback de "aquí escribes").
+  &.v-field--focused .v-field__outline {
+    color: rgb(var(--v-theme-primary));
+    --v-field-border-opacity: 1;
+  }
+  &:hover .v-field__outline {
+    --v-field-border-opacity: 0.7;
+  }
 }
+
 .inputWithbg {
   .v-field--variant-outlined {
     background-color: rgba(0, 0, 0, 0.025);

@@ -25,15 +25,16 @@
                                 <h6
                                     class="text-h6 text-muted font-weight-medium d-flex justify-center align-center mt-3"
                                 >
-                                    TASRET
+                                    TuBoleta
                                 </h6>
 
                                 <v-row class="d-flex mb-8">
                                     <v-col cols="12">
                                         <v-text-field
-                                            label="Usuario"
+                                            label="Correo electrónico"
+                                            type="email"
                                             prepend-inner-icon="mdi-account"
-                                            v-model="form.username"
+                                            v-model="form.email"
                                             required
                                             :disabled="loading"
                                         />
@@ -86,23 +87,23 @@
 import Logo from '@/layouts/full/logo/Logo.vue'
 
 import { router } from '@/router'
-import type { LoginDTO } from '@/types'
-import { securityServices } from '@/utils/services/securityServices'
+import { useAuthStore } from '@/stores/auth.store'
+import type { LoginRequest } from '@/types/services/Auth'
 import { ref } from 'vue'
 
-const { postLogin } = securityServices
+const authStore = useAuthStore()
 
 const visible = ref<boolean>(false)
 const loading = ref<boolean>(false)
-const form = ref<LoginDTO>({
-    username: '',
+const form = ref<LoginRequest>({
+    email: '',
     password: '',
 })
 
 const login = async () => {
     try {
         loading.value = true
-        await postLogin(form.value)
+        await authStore.login(form.value.email, form.value.password)
         router.push({ name: 'home' })
     } catch (error) {
         console.error(error)

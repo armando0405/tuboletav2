@@ -1,0 +1,71 @@
+# ─────────────────────────────────────────────────────────────
+# APLICACIÓN COMPLETA en local (imagen "todo en uno" + su BD).
+# Esto es lo que se despliega en Render, corriendo en tu PC.
+#
+#   Levantar:   docker compose -f docker-compose.full.yml up --build -d
+#   Abrir:      http://localhost:8090   (login: admin@tuboleta.local / admin123)
+#   Apagar:     docker compose -f docker-compose.full.yml down
+#
+# NO confundir con docker-compose.yml (ese solo levanta la BD + pgAdmin para
+# desarrollar con mvnw/npm; este levanta la APP empaquetada).
+# ─────────────────────────────────────────────────────────────
+
+# Proyecto propio: aísla este stack del de desarrollo (docker-compose.yml), así
+# no se pisan ni se marcan contenedores como huérfanos entre ellos.
+name: tuboleta-full
+
+services:
+
+  # Base de datos propia de este stack (independiente de la de desarrollo).
+  postgres:
+    image: postgres:16-alpine
+    container_name: tuboleta-db-full
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: tuboleta_db
+      POSTGRES_USER: tuboleta_user
+      POSTGRES_PASSWORD: tuboleta_pass
+    ports:
+      # 5433 en tu PC para NO chocar con el postgres de desarrollo (5432).
+      # Si quieres revisarla con pgAdmin/DBeaver: host localhost, puerto 5433.
+      - "5433:5432"
+    volumes:
+      - tuboleta_full_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tuboleta_user -d tuboleta_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # La aplicación: se CONSTRUYE desde el Dockerfile (front + back en una imagen).
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: tuboleta:local
+    container_name: tuboleta-app
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      # Dentro de la red de compose la BD se llama 'postgres' (no localhost).
+      DB_URL: jdbc:postgresql://postgres:5432/tuboleta_db
+      DB_USERNAME: tuboleta_user
+      DB_PASSWORD: tuboleta_pass
+      # Admin inicial: se crea solo si la tabla users está vacía.
+      ADMIN_EMAIL: admin@tuboleta.local
+      ADMIN_PASSWORD: admin123
+      # Correo (Mailgun). La key se lee del archivo .env de la raíz (ignorado por
+      # git) o de la variable de entorno; si no hay, queda vacío = modo log
+      # simulado. NUNCA escribas la key aquí (este archivo sí se versiona).
+      MAIL_API_KEY: ${MAIL_API_KEY:-}
+      MAIL_SENDER_URL: https://api.mailgun.net/v3/arqbs.com/messages
+      MAIL_FROM: monitoreo@arqbs.com
+      # Monitoreo automático: se puede prender desde el .env; por defecto apagado.
+      SCHEDULER_ENABLED: ${SCHEDULER_ENABLED:-false}
+    ports:
+      - "8090:8088"
+
+volumes:
+  tuboleta_full_pgdata:

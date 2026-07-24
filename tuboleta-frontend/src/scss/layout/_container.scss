@@ -1,5 +1,14 @@
+@use '../variables' as *;
+
 html {
     overflow-y: auto;
+}
+
+// Datos tabulares (fechas, horas, contadores, frecuencias, IDs) en
+// JetBrains Mono con figuras tabulares — Dark Operations.
+.font-mono {
+    font-family: $mono-font-family;
+    font-variant-numeric: tabular-nums;
 }
 
 .v-main {

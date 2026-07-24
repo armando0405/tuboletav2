@@ -1,20 +1,44 @@
 <script setup lang="ts">
-import { onMounted, ref, shallowRef, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { useDisplay } from 'vuetify'
 import sidebarItems from './vertical-sidebar/sidebarItem'
+import type { menu } from './vertical-sidebar/sidebarItem'
 import NavGroup from './vertical-sidebar/NavGroup/index.vue'
 import NavItem from './vertical-sidebar/NavItem/index.vue'
 import Logo from './logo/Logo.vue'
 import ProfileDD from './vertical-header/ProfileDD.vue'
 import NavCollapse from './vertical-sidebar/NavCollapse/NavCollapse.vue'
-const sidebarMenu = shallowRef(sidebarItems)
+import { useAuthStore } from '@/stores/auth.store'
+import { useNotifications } from '@/composables/notifications/useNotifications'
+
+const authStore = useAuthStore()
+const { unreadCount, getUnreadCount } = useNotifications()
+
+// Filtra las entradas `adminOnly` para usuarios no-ADMIN (solo visual — la
+// protección real de la ruta vive en el guard de router/index.ts) e inyecta
+// el badge de no leídas (REQ-FE-004/REQ-NOT-003) en la entrada
+// "Notificaciones" usando los campos `chip*` ya declarados en `menu` (nunca
+// conectados a un render hasta ahora).
+const sidebarMenu = computed<menu[]>(() =>
+    sidebarItems
+        .filter((group) => !group.adminOnly || authStore.isAdmin)
+        .map((group) => ({
+            ...group,
+            children: group.children
+                ?.filter((child) => !child.adminOnly || authStore.isAdmin)
+                .map((child) =>
+                    child.to === '/notificaciones' && unreadCount.value > 0
+                        ? { ...child, chip: String(unreadCount.value), chipColor: 'error' }
+                        : child,
+                ),
+        })),
+)
 
 const { mdAndDown } = useDisplay()
 const sDrawer = ref<boolean>(true)
-// Variable exported to template
-void sidebarMenu.value
 onMounted(() => {
     sDrawer.value = !mdAndDown.value // hide on mobile, show on desktop
+    void getUnreadCount()
 })
 watch(mdAndDown, (val: boolean) => {
     sDrawer.value = !val

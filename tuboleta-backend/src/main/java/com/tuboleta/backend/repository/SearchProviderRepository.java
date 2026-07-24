@@ -1,0 +1,70 @@
+package com.tuboleta.backend.repository;
+
+import com.tuboleta.backend.domain.entities.SearchProvider;
+import java.util.List;
+import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface SearchProviderRepository extends JpaRepository<SearchProvider, Long> {
+
+    /**
+     * Pares que usan un proveedor, para notificar PROVIDER_DISABLED
+     * (REQ-FUE-002) a las búsquedas afectadas.
+     */
+    List<SearchProvider> findByProviderId(Long providerId);
+
+    /**
+     * Todos los pares (cualquier proveedor) de una búsqueda, para armar el
+     * detalle de {@code SearchResponse} y el listado de eventos.
+     */
+    List<SearchProvider> findBySearchId(Long searchId);
+
+    /**
+     * Par puntual búsqueda↔proveedor, para pausar/reanudar (toggle) uno solo.
+     */
+    Optional<SearchProvider> findBySearchIdAndProviderId(Long searchId, Long providerId);
+
+    /**
+     * Candidatos crudos para el scheduler (REQ-DET-004/005): par activo +
+     * búsqueda ACTIVE + usuario ACTIVE + proveedor ACTIVE. El filtro de
+     * "vencido" (contra {@code last_run_at} y {@code check_frequency_hours})
+     * se hace en Java sobre este resultado (volúmenes pequeños,
+     * REQ-DET-005) — este método solo aplica los filtros de actividad y
+     * hace JOIN FETCH para poder cruzar el hilo del executor sin lazy
+     * loading.
+     */
+    @Query("""
+            SELECT sp FROM SearchProvider sp
+            JOIN FETCH sp.search s
+            JOIN FETCH s.user u
+            JOIN FETCH sp.provider p
+            WHERE sp.isActive = true
+              AND s.status = com.tuboleta.backend.domain.enums.SearchStatus.ACTIVE
+              AND u.status = com.tuboleta.backend.domain.enums.UserStatus.ACTIVE
+              AND p.status = com.tuboleta.backend.domain.enums.ProviderStatus.ACTIVE
+            """)
+    List<SearchProvider> findActiveCandidatesForScheduling();
+
+    /**
+     * Pares activos de UNA búsqueda con proveedor ACTIVE, para el disparo
+     * manual "ejecutar ahora" (bypassa el vencimiento del scheduler). JOIN
+     * FETCH de proveedor y búsqueda para poder armar el {@code DueGroup} y
+     * correrlo fuera de transacción sin lazy loading. No filtra por
+     * {@code search.status}: el usuario puede forzar una corrida aunque la
+     * búsqueda esté pausada (la validación de que existe/es suya la hace el
+     * servicio).
+     */
+    @Query("""
+            SELECT sp FROM SearchProvider sp
+            JOIN FETCH sp.provider p
+            JOIN FETCH sp.search s
+            WHERE s.id = :searchId
+              AND sp.isActive = true
+              AND p.status = com.tuboleta.backend.domain.enums.ProviderStatus.ACTIVE
+            """)
+    List<SearchProvider> findActivePairsForRunNow(@Param("searchId") Long searchId);
+}

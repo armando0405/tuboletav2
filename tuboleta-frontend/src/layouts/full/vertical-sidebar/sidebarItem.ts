@@ -3,7 +3,7 @@ import type { Component } from 'vue'
 export interface menu {
     header?: string
     title?: string
-    icon?: Component
+    icon?: Component | string
     to?: string
     chip?: string
     chipColor?: string
@@ -15,103 +15,53 @@ export interface menu {
     type?: string
     subCaption?: string
     external?: boolean
+    // Oculta la entrada para usuarios no-ADMIN. Es solo un filtro visual: la
+    // protección real de la ruta vive en el guard de router/index.ts.
+    adminOnly?: boolean
 }
 
+// Menú de TuBoleta v2 (REQ-FE-001..005, REQ-FUE-001/002).
 const sidebarItem: menu[] = [
     {
-        title: 'GESTIÓN AMBIENTAL',
-        to: '/',
+        title: 'PANEL',
+        children: [
+            {
+                title: 'Dashboard',
+                icon: 'mdi-view-dashboard-outline',
+                to: '/',
+            },
+            {
+                title: 'Mis búsquedas',
+                icon: 'mdi-magnify',
+                to: '/busquedas',
+            },
+            {
+                title: 'Notificaciones',
+                icon: 'mdi-bell-outline',
+                to: '/notificaciones',
+            },
+            {
+                title: 'Destinos',
+                icon: 'mdi-email-outline',
+                to: '/destinos',
+            },
+        ],
     },
-
     {
         title: 'ADMINISTRACIÓN',
+        adminOnly: true,
         children: [
             {
-                title: 'Tipos Fuentes Medición',
-                to: '/admin/measurement-source-type',
+                title: 'Fuentes',
+                icon: 'mdi-database-cog-outline',
+                to: '/admin/fuentes',
+                adminOnly: true,
             },
             {
-                title: 'Tipos Subfuentes',
-                to: '/admin/subsource-types',
-            },
-            {
-                title: 'Tipo Actividad Norma',
-                to: '/admin/norm-activity-types',
-            },
-            {
-                title: 'Tipo Limite',
-                to: '/admin/limit-types',
-            },
-            {
-                title: 'Parametros de la Aplicacion',
-                to: '/admin/parameter-rates',
-            },
-            {
-                title: 'Periodos',
-                to: '/admin/period',
-            },
-            {
-                title: 'Periodos de Declaración',
-                to: '/admin/declaration-period',
-            },
-            {
-                title: 'Parámetros Medición',
-                to: '/admin/measurement-parameters',
-            },
-            {
-                title: 'Formato Declaracion',
-                to: '/admin/declaration-format',
-            },
-            {
-                title: 'Laboratorios',
-                to: '/admin/laboratories',
-            },
-            {
-                title: 'Información Adicional Cliente',
-                to: '/admin/client-extra-info',
-            },
-            {
-                title: 'Información Adicional de Cuentas',
-                to: '/admin/account-extra-info',
-            },
-            {
-                title: 'Parámetros de encabezado',
-                to: '/admin/header-parameters',
-            },
-            {
-                title: 'Sectores Normativos',
-                to: '/admin/norm-sectors',
-            },
-            {
-                title: 'Resolución',
-                to: '/admin/resolutions',
-            },
-        ],
-    },
-    {
-        title: 'AUTODECLARACIÓN',
-        children: [
-            {
-                title: 'Formulario. Autodeclaracion',
-                to: '/autodeclaration/form-autodeclaration',
-            },
-            {
-                title: 'Consulta de Autodeclaraciones',
-                to: '/autodeclaration/query-autodeclaration',
-            },
-        ],
-    },
-
-    {
-        title: 'CARACTERIZACIÓN',
-        children: [
-            {
-                title: 'Regis. Sitios de Muestreo',
-                to: '/characterization/characterizations',
-            },
-            {
-                title: 'Presentación Masiva',
-                to: '/characterization/mass-submission',
+                title: 'Frecuencias',
+                icon: 'mdi-timer-cog-outline',
+                to: '/admin/frecuencias',
+                adminOnly: true,
             },
         ],
     },

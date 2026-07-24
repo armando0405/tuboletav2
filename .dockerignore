@@ -1,0 +1,14 @@
+# No mandar al contexto de build cosas pesadas o generadas: la imagen las
+# reconstruye desde cero (npm ci / mvn package).
+**/node_modules
+**/dist
+**/target
+**/.git
+**/.idea
+**/.vscode
+**/*.log
+.claude
+.agents
+tuboleta-frontend/dist/stats.html
+# El .env con secretos nunca entra a la imagen (van por variables en Render).
+**/.env
