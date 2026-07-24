@@ -18,7 +18,8 @@ dist/
 
 # Package files
 *.jar
-package-*.json
+# package-lock.json SÍ debe versionarse: el build de Docker usa `npm ci`, que
+# lo exige. Antes se ignoraba con `package-*.json` y rompía el build en Render.
 
 # Maven
 target/
